@@ -955,15 +955,21 @@
             const matchingHotels = debugResult.matchingHotels;
             const scoredHotels = debugResult.scoredHotels;
             const fallbackUsed = debugResult.fallbackUsed;
-            if (!hotels[result]) {
+            
+            // Redirect to the unique result page
+            if (hotels[result]) {
+                const safeName = result.replace(/[^a-zA-Z0-9_-]/g, '_');
+                const resultPageUrl = `result_${safeName}.html`;
+                window.location.href = resultPageUrl;
+                return;
+            } else {
                 // Robust fallback: pick the first hotel in matchingHotels that exists in hotels
                 const validHotel = matchingHotels.find(h => hotels[h]);
                 if (validHotel) {
-                    document.getElementById('hotel-name').textContent = validHotel;
-                    document.getElementById('result-img').src = hotels[validHotel].image;
-                    document.getElementById('result-description').textContent = hotels[validHotel].description;
-                    document.getElementById('hotel-link').href = hotels[validHotel].link;
-                    document.getElementById('book-now-link').href = hotels[validHotel].link;
+                    const safeName = validHotel.replace(/[^a-zA-Z0-9_-]/g, '_');
+                    const resultPageUrl = `result_${safeName}.html`;
+                    window.location.href = resultPageUrl;
+                    return;
                 } else {
                     document.getElementById('hotel-name').textContent = 'No hotel match found.';
                     document.getElementById('result-img').src = '';
@@ -971,24 +977,15 @@
                     document.getElementById('hotel-link').href = '#';
                     document.getElementById('book-now-link').href = '#';
                 }
-            } else {
-                // Update the result section
-                document.getElementById('hotel-name').textContent = result;
-                document.getElementById('result-img').src = hotels[result].image;
-                document.getElementById('result-description').textContent = hotels[result].description;
-                document.getElementById('hotel-link').href = hotels[result].link;
-                document.getElementById('book-now-link').href = hotels[result].link;
             }
-            // Show the result section
+            // Show the result section (fallback only)
             document.querySelector('.result').style.display = 'block';
             // Set progress bar to 100%
             document.getElementById('progress').style.width = '100%';
-            // Set up social sharing
-            setupSocialSharing(result);
             console.log('Result section should be visible now');
         }
         
-        // Set up social media sharing links
+        // Set up social media sharing links (this function is now only used for fallback)
         function setupSocialSharing(hotelName) {
             const pageUrl = encodeURIComponent(window.location.href);
             const text = encodeURIComponent(`I got ${hotelName} as my perfect Las Vegas hotel match! Take the quiz to find yours!`);

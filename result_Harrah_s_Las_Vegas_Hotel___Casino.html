@@ -74,6 +74,50 @@
             color: #fff;
             transform: translateY(-2px) scale(1.04);
         }
+        .social-share {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        .social-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            color: white;
+            font-size: 1.5rem;
+            transition: all 0.3s;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            text-decoration: none;
+        }
+        .facebook {
+            background-color: #3b5998;
+        }
+        .twitter {
+            background-color: #1da1f2;
+        }
+        .copy-results {
+            background: #0078ff;
+            color: #fff;
+            border: none;
+            outline: none;
+            transition: background 0.2s, color 0.2s;
+        }
+        .copy-results:active,
+        .copy-results:focus {
+            background: #00c851;
+            color: #fff;
+        }
+        .copy-results i {
+            color: #fff;
+        }
+        .social-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+        }
     </style>
 </head>
 <body>
@@ -82,6 +126,55 @@
         <img class="share-image" src="share_images/share_Harrah_s_Las_Vegas_Hotel___Casino.jpg" alt="My perfect Las Vegas hotel match is Harrah's Las Vegas Hotel & Casino" />
         <div class="hotel-desc">Fun-loving, value-conscious, and looking for a classic Vegas experience - Harrah's is your ideal match! You'll enjoy the lively casino floor, diverse dining options, and the perfect center-Strip location. Harrah's offers that quintessential Vegas experience with comfortable accommodations and entertainment options that won't break the bank!</div>
         <a class="quiz-again-btn" href="index.html">Take the quiz again</a>
+        
+        <div class="social-share">
+            <a href="#" class="social-btn facebook" id="share-facebook" title="Share on Facebook">
+                <i>📘</i>
+            </a>
+            <a href="#" class="social-btn twitter" id="share-twitter" title="Share on Twitter">
+                <i>🐦</i>
+            </a>
+            <button class="social-btn copy-results" id="copy-results" title="Copy to clipboard">
+                <i>📋</i>
+            </button>
+        </div>
     </div>
+    
+    <script>
+        // Set up social sharing for this specific result page
+        const hotelName = "Harrah's Las Vegas Hotel & Casino";
+        const pageUrl = encodeURIComponent(window.location.href);
+        const text = encodeURIComponent(`I got ${hotelName} as my perfect Las Vegas hotel match! Take the quiz to find yours!`);
+        const imageUrl = encodeURIComponent("share_images/share_Harrah_s_Las_Vegas_Hotel___Casino.jpg");
+
+        // Facebook share
+        document.getElementById('share-facebook').onclick = function(e) {
+            e.preventDefault();
+            const fbUrl = `https://www.facebook.com/sharer/sharer.php?u=${pageUrl}&quote=${text}`;
+            window.open(fbUrl, '_blank');
+        };
+        
+        // Twitter share
+        document.getElementById('share-twitter').onclick = function(e) {
+            e.preventDefault();
+            const twitterUrl = `https://twitter.com/intent/tweet?text=${text}&url=${pageUrl}`;
+            window.open(twitterUrl, '_blank');
+        };
+        
+        // Copy results button
+        document.getElementById('copy-results').onclick = function() {
+            const resultText = `My perfect Las Vegas hotel match is ${hotelName}! 🎰✨\n\nTake the quiz to find yours at: ${decodeURIComponent(pageUrl)}\n\n#LasVegas #VegasHotels #TravelQuiz`;
+            navigator.clipboard.writeText(resultText).then(function() {
+                const button = document.getElementById('copy-results');
+                const originalTitle = button.title;
+                button.title = 'Copied!';
+                button.style.backgroundColor = '#00c851';
+                setTimeout(function() {
+                    button.title = originalTitle;
+                    button.style.backgroundColor = '#0078ff';
+                }, 2000);
+            });
+        };
+    </script>
 </body>
 </html> 
