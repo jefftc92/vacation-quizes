@@ -1,0 +1,1209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WHICH LAS VEGAS HOTEL IS RIGHT FOR YOU?</title>
+    <style>
+        /* BuzzFeed-inspired brighter, more playful color scheme */
+        :root {
+            --buzzfeed-pink: #ff1493;
+            --buzzfeed-blue: #00bfff;
+            --buzzfeed-yellow: #ffdd00;
+            --buzzfeed-purple: #b24bf3;
+            --buzzfeed-green: #00ff8c;
+            --buzzfeed-orange: #ff8c00;
+        }
+        
+        html, body {
+            overflow-x: hidden;
+        }
+        body {
+            -webkit-tap-highlight-color: transparent;
+            font-family: 'Montserrat', 'Helvetica Neue', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            color: #333;
+            background-image: linear-gradient(45deg, #f6f6f6 25%, #f0f0f0 25%, #f0f0f0 50%, #f6f6f6 50%, #f6f6f6 75%, #f0f0f0 75%, #f0f0f0 100%);
+            background-size: 40px 40px;
+        }
+        
+        .quiz-container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 25px;
+            background-color: white;
+            box-shadow: 0 0 30px rgba(0,0,0,0.15);
+            border-radius: 20px;
+            border: 3px solid var(--buzzfeed-yellow);
+        }
+        
+        h1 {
+            font-size: clamp(1.3rem, 6vw, 2rem);
+            text-align: center;
+            color: var(--buzzfeed-pink);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            font-weight: 800;
+            letter-spacing: -1px;
+            line-height: 1.1;
+            text-shadow: 2px 2px 0px var(--buzzfeed-yellow);
+        }
+        
+        h2 {
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+        }
+        
+        .intro {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 1.3rem;
+            color: #444;
+        }
+        
+        .question {
+            display: none;
+            margin-bottom: 40px;
+        }
+        
+        .question.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+        
+        .question-text {
+            font-size: clamp(1.1rem, 4vw, 1.4rem);
+            margin-bottom: 18px;
+            text-align: center;
+            font-weight: 700;
+            color: var(--buzzfeed-blue);
+            background-color: #f9f9f9;
+            padding: 14px 8px 18px 8px;
+            border-radius: 15px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+        }
+        
+        .options {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+        
+        .option {
+            width: calc(50% - 20px);
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border: 3px solid transparent;
+        }
+        
+        .option:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+            border-color: var(--buzzfeed-yellow);
+        }
+        
+        .option img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            display: block;
+        }
+        
+        /* Add a dark overlay to all option images */
+        .option::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.45);
+            z-index: 1;
+            pointer-events: none;
+            transition: background 0.3s;
+        }
+        
+        .option:hover::before {
+            background: rgba(0,0,0,0.15);
+        }
+        
+        .option-label {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.92), rgba(0,0,0,0.65), rgba(0,0,0,0.15));
+            color: white;
+            padding: 24px 15px;
+            font-weight: 900;
+            text-align: center;
+            font-size: 1.35rem;
+            text-shadow: 1px 1px 6px rgba(0,0,0,0.9);
+            z-index: 2;
+            transition: all 0.35s;
+        }
+        
+        .option:hover .option-label {
+            top: 12px;
+            left: 12px;
+            right: auto;
+            bottom: auto;
+            background: rgba(0,0,0,0.35);
+            color: #fff;
+            padding: 6px 16px;
+            border-radius: 10px;
+            font-size: 1rem;
+            text-align: left;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
+            opacity: 1;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+        }
+        
+        .progress-container {
+            margin: 30px auto;
+            width: 85%;
+            height: 25px;
+            background-color: #f0f0f0;
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
+            border: 2px solid #ddd;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(to right, var(--buzzfeed-pink), var(--buzzfeed-purple), var(--buzzfeed-blue));
+            transition: width 0.3s ease;
+            border-radius: 30px;
+            background-size: 200% 100%;
+            animation: gradient-shift 3s ease infinite;
+        }
+        
+        @keyframes gradient-shift {
+            0% {background-position: 0% 50%}
+            50% {background-position: 100% 50%}
+            100% {background-position: 0% 50%}
+        }
+        
+        .result {
+            display: none;
+            text-align: center;
+            animation: fadeIn 1s;
+        }
+        
+        .result h2 {
+            color: var(--buzzfeed-pink);
+            font-size: 2.4rem;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 0px var(--buzzfeed-yellow);
+        }
+        
+        .result img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+            border: 4px solid white;
+        }
+        
+        .result-description {
+            font-size: 1.3rem;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+        }
+        
+        .hotel-match {
+            font-size: 2.2rem;
+            font-weight: bold;
+            color: var(--buzzfeed-blue);
+            margin: 20px 0;
+            padding: 20px;
+            background-color: #f0f9ff;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border: 3px solid var(--buzzfeed-blue);
+        }
+        
+        .hotel-match-link {
+            text-decoration: none;
+            display: block;
+            transition: all 0.3s;
+        }
+        
+        .hotel-match-link:hover .hotel-match {
+            background-color: var(--buzzfeed-blue);
+            color: white;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+        
+        .hotel-match-link::after {
+            content: "👆 Click to visit hotel website";
+            display: block;
+            text-align: center;
+            color: var(--buzzfeed-pink);
+            font-weight: bold;
+            margin-top: 5px;
+            font-size: 1rem;
+        }
+        
+        .hotel-link {
+            display: inline-block;
+            margin-top: 15px;
+            background-color: var(--buzzfeed-blue);
+            color: white;
+            text-decoration: none;
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-weight: bold;
+            transition: all 0.3s;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        
+        .hotel-link:hover {
+            background-color: var(--buzzfeed-purple);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.25);
+        }
+        
+        .restart-btn {
+            background-color: var(--buzzfeed-yellow);
+            color: #333;
+            border: none;
+            padding: 15px 35px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+        }
+        
+        .restart-btn:hover {
+            background-color: var(--buzzfeed-green);
+            transform: scale(1.05) translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+        
+        .social-share {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .social-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            color: white;
+            font-size: 1.5rem;
+            transition: all 0.3s;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        .facebook {
+            background-color: #3b5998;
+        }
+        
+        .twitter {
+            background-color: #1da1f2;
+        }
+        
+        .pinterest {
+            background-color: #bd081c;
+        }
+        
+        .social-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.3);
+        }
+        
+        .social-btn.copy-results {
+            background: var(--buzzfeed-blue);
+            color: #fff;
+            border: none;
+            outline: none;
+            transition: background 0.2s, color 0.2s;
+        }
+        .social-btn.copy-results:active,
+        .social-btn.copy-results:focus {
+            background: var(--buzzfeed-green);
+            color: #fff;
+        }
+        .social-btn.copy-results i {
+            color: #fff;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                background: linear-gradient(to bottom, #fff 0%, #f7faff 100%) !important;
+                background-image: none !important;
+            }
+            .quiz-container {
+                width: 100vw;
+                max-width: 100vw;
+                margin: 0;
+                padding: 60px 0 32px 0;
+                border: none;
+                box-shadow: none;
+            }
+            .progress-container {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100vw;
+                z-index: 100;
+                border-radius: 0;
+                margin: 0 0 18px 0;
+            }
+            .question {
+                margin-bottom: 32px;
+            }
+            .options {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 24px;
+                margin-bottom: 24px;
+                margin-top: 18px;
+                padding: 0 8px;
+                width: 100%;
+                box-sizing: border-box;
+            }
+            .option {
+                width: 100%;
+                min-height: 56px;
+                margin: 0;
+                border-radius: 12px;
+                overflow: hidden;
+                box-shadow: none;
+                border: none;
+                padding: 0;
+                background: #fff;
+                display: flex;
+                flex-direction: column;
+                align-items: stretch;
+                transition: transform 0.15s;
+            }
+            .option:active {
+                transform: scale(0.97);
+            }
+            .option img {
+                width: 100%;
+                aspect-ratio: 4/3;
+                height: auto;
+                min-height: 140px;
+                max-height: 220px;
+                border-radius: 12px 12px 0 0;
+                display: block;
+                box-shadow: none;
+            }
+            .option-label {
+                position: static;
+                background: none !important;
+                color: var(--buzzfeed-pink) !important;
+                font-size: 1.1rem !important;
+                font-weight: 800 !important;
+                text-align: center !important;
+                padding: 14px 6px 16px 6px !important;
+                margin: 0 !important;
+                border-radius: 0 0 12px 12px !important;
+                min-height: 0 !important;
+                text-shadow: none !important;
+                box-shadow: none !important;
+                letter-spacing: -0.5px !important;
+                transition: none !important;
+            }
+            .option.selected .option-label,
+            .option:active .option-label {
+                /* Prevent any style change on select/tap */
+                color: var(--buzzfeed-pink) !important;
+                font-size: 1.1rem !important;
+                font-weight: 800 !important;
+                background: none !important;
+                text-align: center !important;
+                box-shadow: none !important;
+                text-shadow: none !important;
+                border-radius: 0 0 12px 12px !important;
+                padding: 14px 6px 16px 6px !important;
+                margin: 0 !important;
+                letter-spacing: -0.5px !important;
+                transition: none !important;
+            }
+            .question-text {
+                font-size: clamp(1.1rem, 4vw, 1.4rem);
+                padding: 14px 8px 18px 8px;
+                margin-bottom: 28px;
+            }
+            h1 {
+                font-size: clamp(1.3rem, 6vw, 2rem);
+                padding: 0 8px;
+                margin-bottom: 10px;
+            }
+            .restart-btn, .hotel-link {
+                font-size: clamp(1.05rem, 4vw, 1.15rem);
+                padding: 18px 0;
+                width: 100%;
+                min-height: 48px;
+                border-radius: 0;
+                margin: 18px 0 0 0;
+            }
+            .result {
+                margin-top: 32px;
+            }
+            .result img {
+                max-width: 100vw;
+                border-radius: 0;
+                height: auto;
+                display: block;
+                margin: 0 auto;
+            }
+            .social-share {
+                gap: 10px;
+            }
+            /* Remove overlay and badge styles for mobile */
+            .option::before,
+            .option-label[style*="position: absolute"] {
+                display: none !important;
+            }
+        }
+    </style>
+    <!-- Font Awesome for social media icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+    <div class="quiz-container">
+        <h1>WHICH LAS VEGAS HOTEL IS RIGHT FOR YOU?</h1>
+        <div class="intro">
+            <p>Take this quiz to discover your PERFECT Las Vegas hotel match! Answer these quick questions and we'll reveal the one hotel that's absolutely made for you!</p>
+            <button class="restart-btn" onclick="startQuiz()">START QUIZ!</button>
+        </div>
+        
+        <div class="progress-container">
+            <div class="progress-bar" id="progress"></div>
+        </div>
+        
+        <!-- Question 1 (Budget) -->
+        <div class="question" id="q1">
+            <div class="question-text">What's your hotel budget style?</div>
+            <div class="options">
+                <div class="option" onclick="selectOption(1, 'A')">
+                    <img src="Budget%20Style/Bargain%20Hunter.png" alt="Bargain Hunter">
+                    <div class="option-label">Bargain Hunter</div>
+                </div>
+                <div class="option" onclick="selectOption(1, 'B')">
+                    <img src="Budget%20Style/Value%20Concious.png" alt="Value Conscious">
+                    <div class="option-label">Value Conscious</div>
+                </div>
+                <div class="option" onclick="selectOption(1, 'C')">
+                    <img src="Budget%20Style/Treat%20Yourself.png" alt="Treat Yourself">
+                    <div class="option-label">Treat Yourself</div>
+                </div>
+                <div class="option" onclick="selectOption(1, 'D')">
+                    <img src="Budget%20Style/skys%20the%20limit.png" alt="Sky's the Limit">
+                    <div class="option-label">Sky's the Limit</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Question 2 (Vibe) -->
+        <div class="question" id="q2">
+            <div class="question-text">What's your ideal Vegas vibe?</div>
+            <div class="options">
+                <div class="option" onclick="selectOption(2, 'A')">
+                    <img src="Vacation%20Vibe/Classy%20and%20Sophistocated.png" alt="Classy">
+                    <div class="option-label">Classy & Sophisticated</div>
+                </div>
+                <div class="option" onclick="selectOption(2, 'B')">
+                    <img src="Vacation%20Vibe/Wild%20and%20Energetic.png" alt="Wild">
+                    <div class="option-label">Wild & Energetic</div>
+                </div>
+                <div class="option" onclick="selectOption(2, 'C')">
+                    <img src="Vacation%20Vibe/Chill%20and%20Relaxed.png" alt="Chill">
+                    <div class="option-label">Chill & Relaxed</div>
+                </div>
+                <div class="option" onclick="selectOption(2, 'D')">
+                    <img src="Vacation%20Vibe/Classic%20Vegas.png" alt="Vegas Explorer">
+                    <div class="option-label">Vegas Explorer</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Question 3 (Travel Group) -->
+        <div class="question" id="q3">
+            <div class="question-text">Who are you traveling with?</div>
+            <div class="options">
+                <div class="option" onclick="selectOption(3, 'A')">
+                    <img src="Who%20are%20you%20traveling%20with%3F/Partner%20romatnic%20getaway.png" alt="Partner">
+                    <div class="option-label">Partner/Romantic Getaway</div>
+                </div>
+                <div class="option" onclick="selectOption(3, 'B')">
+                    <img src="Who%20are%20you%20traveling%20with%3F/Friend%20trip.png" alt="Friends">
+                    <div class="option-label">Friends Trip</div>
+                </div>
+                <div class="option" onclick="selectOption(3, 'C')">
+                    <img src="Who%20are%20you%20traveling%20with%3F/Family%20Vacation.png" alt="Family">
+                    <div class="option-label">Family Vacation</div>
+                </div>
+                <div class="option" onclick="selectOption(3, 'D')">
+                    <img src="Who%20are%20you%20traveling%20with%3F/Solo%20Adventure.png" alt="Solo">
+                    <div class="option-label">Solo Adventure</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Question 4 (Optimized) -->
+        <div class="question" id="q4">
+            <div class="question-text">What's most important for your Vegas stay?</div>
+            <div class="options">
+                <div class="option" onclick="selectOption(4, 'A')">
+                    <img src="Whats%20most%20important%20for%20your%20stay%3F/roulette_table.jpg" alt="Gambling">
+                    <div class="option-label">Gambling</div>
+                </div>
+                <div class="option" onclick="selectOption(4, 'B')">
+                    <img src="Whats%20most%20important%20for%20your%20stay%3F/las_vegas_show.jpg" alt="Shows">
+                    <div class="option-label">Shows</div>
+                </div>
+                <div class="option" onclick="selectOption(4, 'C')">
+                    <img src="Whats%20most%20important%20for%20your%20stay%3F/Pool%20and%20waterpark%20fun.png" alt="Pool or Waterpark">
+                    <div class="option-label">Pool or waterpark fun</div>
+                </div>
+                <div class="option" onclick="selectOption(4, 'D')">
+                    <img src="Whats%20most%20important%20for%20your%20stay%3F/Unique%20theme%20or%20expereince.png" alt="Unique Theme">
+                    <div class="option-label">Unique theme or experience</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Question 5 (Location) -->
+        <div class="question" id="q5">
+            <div class="question-text">Where on the Strip would you prefer to stay?</div>
+            <div class="options">
+                <div class="option" onclick="selectOption(5, 'A')">
+                    <img src="Strip%20Location/Central%20Strip.png" alt="Center Strip">
+                    <div class="option-label">Center Strip</div>
+                </div>
+                <div class="option" onclick="selectOption(5, 'B')">
+                    <img src="Strip%20Location/Northern%20Strip.png" alt="North Strip">
+                    <div class="option-label">North Strip</div>
+                </div>
+                <div class="option" onclick="selectOption(5, 'C')">
+                    <img src="Strip%20Location/Southern%20Strip.png" alt="South Strip">
+                    <div class="option-label">South Strip</div>
+                </div>
+                <div class="option" onclick="selectOption(5, 'D')">
+                    <img src="Strip%20Location/dont%20care.png" alt="Don't Care">
+                    <div class="option-label">Don't Care</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Results -->
+        <div class="result" id="result">
+            <h2>YOUR PERFECT LAS VEGAS HOTEL MATCH IS:</h2>
+            <a href="#" id="hotel-link" target="_blank" class="hotel-match-link">
+                <div class="hotel-match" id="hotel-name">The Bellagio</div>
+            </a>
+            <img id="result-img" src="luxury_pool.png" alt="Hotel Result">
+            <div class="result-description" id="result-description">
+                Loading your perfect match...
+            </div>
+            <a href="#" class="hotel-link" id="book-now-link" target="_blank">Book Your Stay Now!</a>
+            
+            <!-- Social Media Sharing -->
+            <div class="social-share">
+                <a href="#" class="social-btn facebook" id="share-facebook" target="_blank" rel="noopener noreferrer" title="Share on Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social-btn twitter" id="share-twitter" target="_blank" rel="noopener noreferrer" title="Share on Twitter"><i class="fab fa-twitter"></i></a>
+                <button class="social-btn copy-results" id="copy-results" title="Copy results to clipboard"><i class="fas fa-copy"></i></button>
+            </div>
+            
+            <button class="restart-btn" onclick="restartQuiz()">TAKE THE QUIZ AGAIN!</button>
+        </div>
+    </div>
+
+    <script>
+        // Quiz state
+        let currentQuestion = 0;
+        let answers = {};
+        const totalQuestions = 5;
+        
+        // Hotel database with detailed descriptions
+        const hotels = {
+            "Bellagio Resort & Casino": {
+                image: "Hotels/Bellagio.jpg",
+                description: "You're sophisticated, elegant, and appreciate the finer things in life! The Bellagio is your perfect match with its iconic fountains, luxury accommodations, fine dining, and central Strip location. You'll love the upscale pool area, world-class art gallery, and the elegant casino. The Bellagio perfectly balances classic Vegas glamour with modern luxury - just like you!",
+                link: "https://expedia.com/affiliates/las-vegas-hotels-bellagio.3x57zyG"
+            },
+            "Wynn Las Vegas": {
+                image: "Hotels/Wynn Las Vegas.jpg",
+                description: "Modern luxury, world-class dining, and a refined casino experience. Wynn Las Vegas is perfect for those who want the best of everything on the north Strip.",
+                link: "https://expedia.com/affiliates/las-vegas-hotels-wynn-las-vegas"
+            },
+            "The Cosmopolitan of Las Vegas": {
+                image: "Hotels/The Cosmopolitan.jpg",
+                description: "Trendy, stylish, and always in the know - that's you! The Cosmopolitan matches your Instagram-worthy lifestyle with its chic design, stunning terrace rooms, and vibrant atmosphere. You'll love the Marquee dayclub/nightclub, eclectic restaurant collection, and the perfect center-Strip location. The Cosmopolitan attracts a fashionable crowd that appreciates both luxury and a lively social scene - your perfect match!",
+                link: "https://expedia.com/affiliates/las-vegas-hotels-the-cosmopolitan-of-las-vegas.Auc1Nr0"
+            },
+            "ARIA Resort and Casino": {
+                image: "Hotels/Aria.jpg",
+                description: "Modern, sophisticated, and tech-savvy - the ARIA is your ideal Vegas match! You appreciate contemporary luxury with all the latest amenities. ARIA's sleek design, cutting-edge technology, and world-class dining options perfectly complement your refined taste. The stunning pool deck and exclusive nightlife venues will make your stay unforgettable!",
+                link: "https://expedia.com/affiliates/las-vegas-hotels-aria-resort-casino.Uokiz9Q"
+            },
+            "Caesars Palace": {
+                image: "Hotels/Caesars Palace.jpg",
+                description: "You appreciate timeless elegance and iconic Vegas experiences! Caesars Palace matches your taste for the classics with its Roman-inspired luxury, legendary status, and central Strip location. You'll love the Garden of the Gods pool oasis, Forum Shops, and celebrity chef restaurants. Caesars Palace offers that perfect blend of Vegas history and modern indulgence you're looking for!",
+                link: "https://expedia.com/affiliates/las-vegas-hotels-caesars-palace-resort-casino.TSg28OE"
+            },
+            "Flamingo Las Vegas Hotel & Casino": {
+                image: "Hotels/Flamingo.png",
+                description: "Retro-loving, drawn to Vegas history, and looking for a lively atmosphere - the Flamingo is your ideal match! As the oldest resort still operating on the Strip, it offers that classic Vegas vibe with modern amenities. You'll love the lush wildlife habitat, vibrant casino, and the perfect center-Strip location at a value-conscious price point!",
+                link: "https://expedia.com/affiliates/las-vegas-hotels-flamingo-las-vegas-hotel-casino.ItYrKT6"
+            },
+            "Nobu Hotel at Caesars Palace": {
+                image: "Hotels/Nobu Hotel.jpg",
+                description: "Sophisticated, design-conscious, and appreciative of unique experiences - Nobu Hotel is your perfect match! This boutique hotel within Caesars Palace offers an intimate, luxurious atmosphere with world-class dining and service. You'll love the exclusive pool access, celebrity chef restaurants, and the perfect blend of privacy and excitement!",
+                link: "https://expedia.com/affiliates/las-vegas-hotels-nobu-hotel-at-caesars-palace.pCymfNS"
+            },
+            "Paris Las Vegas Hotel & Casino": {
+                image: "Hotels/Paris Hotel Las Vegas.jpg",
+                description: "Romantic, cultured, and drawn to European charm - Paris Las Vegas is your ideal match! You'll be transported to the City of Light with its Eiffel Tower, charming streets, and authentic French cuisine. The romantic atmosphere, diverse dining options, and central Strip location make this the perfect choice for your Vegas adventure!",
+                link: "https://expedia.com/affiliates/las-vegas-hotels-paris-las-vegas-resort-casino.01j1EF3"
+            },
+            "Planet Hollywood Resort & Casino": {
+                image: "Hotels/Planet Hollywood.jpg",
+                description: "Pop-culture enthusiast, trend-conscious, and looking for a high-energy experience - Planet Hollywood is your perfect Vegas match! You'll love the contemporary Hollywood vibe, celebrity-chef restaurants, and vibrant casino floor. With its center-Strip location and connection to the Miracle Mile Shops, this resort offers endless entertainment options for your Vegas adventure!",
+                link: "https://expedia.com/affiliates/las-vegas-hotels-planet-hollywood-resort-casino.1I43suF"
+            },
+            "Waldorf Astoria Las Vegas": {
+                image: "Hotels/Waldorf Astoria.jpg",
+                description: "Refined, sophisticated, and appreciative of understated luxury - the Waldorf Astoria is your perfect match! This non-gaming hotel offers an elegant escape from the typical Vegas experience. You'll love the impeccable service, sophisticated dining options, and the serene atmosphere that lets you enjoy Vegas on your own terms!",
+                link: "https://expedia.com/affiliates/las-vegas-hotels-waldorf-astoria-las-vegas.KtBGh9h"
+            },
+            "The Cromwell Las Vegas": {
+                image: "Hotels/The Cromwell.jpg",
+                description: "Trendy, boutique-loving, and looking for an intimate Vegas experience - The Cromwell is your perfect match! This boutique hotel offers a more personal, sophisticated take on Vegas. You'll love the stylish rooms, celebrity chef restaurants, and the perfect location for exploring the Strip's best attractions!",
+                link: "https://expedia.com/affiliates/las-vegas-hotels-the-cromwell.eIF9i3z"
+            },
+            "Harrah's Las Vegas Hotel & Casino": {
+                image: "Hotels/Harrahs.png",
+                description: "Fun-loving, value-conscious, and looking for a classic Vegas experience - Harrah's is your ideal match! You'll enjoy the lively casino floor, diverse dining options, and the perfect center-Strip location. Harrah's offers that quintessential Vegas experience with comfortable accommodations and entertainment options that won't break the bank!",
+                link: "https://expedia.com/affiliates/las-vegas-hotels-harrahs-hotel-and-casino-las-vegas.pyn3WyV"
+            },
+            "Flamingo, a Hilton Grand Vacations Club": {
+                image: "Hotels/Flamingo a Hilton Grand Vacations Club.png",
+                description: "Family-oriented, comfort-seeking, and looking for a home away from home - Flamingo HGV is your perfect match! These spacious suites offer all the comforts of home with the excitement of Vegas just steps away. You'll love the full kitchens, separate living areas, and access to all the Flamingo's amenities!",
+                link: "https://expedia.com/affiliates/las-vegas-hotels-hilton-grand-vacations-at-the-flamingo.q56tJH0"
+            },
+            "Horseshoe Las Vegas": {
+                image: "Hotels/Horseshoe.png",
+                description: "Gaming enthusiast, value-conscious, and looking for a classic Vegas experience - Horseshoe is your ideal match! Formerly Bally's, this rebranded property offers a fresh take on classic Vegas gaming. You'll love the updated casino floor, diverse dining options, and the perfect center-Strip location!",
+                link: "https://expedia.com/affiliates/las-vegas-hotels-horseshoe-las-vegas.X6VGNld"
+            },
+            "The LINQ Hotel + Experience": {
+                image: "Hotels/The LINQ.png",
+                description: "Social, fun-loving, and looking for a vibrant Vegas experience - The LINQ is your perfect match! You'll love the energetic atmosphere, the famous LINQ Promenade, and the High Roller observation wheel. This hotel offers a modern, social experience perfect for those who want to be in the middle of the action!",
+                link: "https://expedia.com/affiliates/las-vegas-hotels-the-linq-hotel-experience.ONDqGs1"
+            },
+            "The Palazzo at The Venetian Resort Las Vegas": {
+                image: "Hotels/Palazzo.jpg",
+                description: "Spacious, luxurious, and appreciative of Italian elegance - The Palazzo is your ideal match! You'll love the all-suite accommodations, world-class shopping, and sophisticated atmosphere. The Palazzo offers a more refined take on the Venetian experience, perfect for those who appreciate luxury and space!",
+                link: "https://expedia.com/affiliates/las-vegas-hotels-the-palazzo-at-the-venetian.H2cxO6M"
+            },
+            "Treasure Island Hotel and Casino": {
+                image: "Hotels/Treasure Island.jpg",
+                description: "Adventure-seeking, value-conscious, and looking for a unique Vegas experience - Treasure Island is your perfect match! You'll love the pirate-themed atmosphere, diverse dining options, and the perfect location for exploring the Strip. TI offers a fun, themed experience without breaking the bank!",
+                link: "https://expedia.com/affiliates/las-vegas-hotels-ti-treasure-island-hotel-and-casino.2OuNVCg"
+            },
+            "The Venetian Resort Las Vegas": {
+                image: "Hotels/The Venetian Resort Las Vegas.jpg",
+                description: "Romantic, artistic, and drawn to European charm - the Venetian is your ideal Vegas match! You'll be transported to Italy with the Grand Canal Shoppes, gondola rides, and Renaissance-inspired architecture. The all-suite accommodations, world-class spa, and diverse dining options perfectly suit your taste for luxury with a touch of whimsy!",
+                link: "https://expedia.com/affiliates/las-vegas-hotels-the-venetian-resort-las-vegas.NK9yuzb"
+            },
+            "Best Western Plus Casino Royale - Center Strip": {
+                image: "Hotels/Best Western Plus Casino.png",
+                description: "Budget-conscious, location-focused, and looking for a comfortable stay - Casino Royale is your perfect match! You'll appreciate the value-priced rooms, on-site casino, and the perfect center-Strip location. This hotel offers a comfortable, no-frills experience that lets you save money for Vegas adventures!",
+                link: "https://expedia.com/affiliates/las-vegas-hotels-best-western-plus-casino-royale-center-strip.7OVjc4U"
+            },
+            "Encore at Wynn Las Vegas": {
+                image: "Hotels/Encore at Wynn.jpg",
+                description: "Sophisticated, detail-oriented, and appreciative of the finer things - Encore is your perfect match! You'll be enchanted by the elegant design, world-class dining, and exclusive nightlife venues. Encore offers a more intimate, luxurious experience that complements the Wynn's offerings!",
+                link: "https://expedia.com/affiliates/las-vegas-hotels-encore-at-wynn-las-vegas.P350Tha"
+            },
+            "Hilton Grand Vacations Club Paradise Las Vegas": {
+                image: "Hotels/Hilton_Grand_Vacation_Club.jpg",
+                description: "Family-focused, comfort-seeking, and looking for a residential-style stay - HGV Paradise is your ideal match! These spacious suites offer all the comforts of home with the excitement of Vegas nearby. You'll love the full kitchens, separate living areas, and the perfect location for exploring the Strip!",
+                link: "https://expedia.com/affiliates/las-vegas-hotels-hilton-grand-vacations-on-paradise.13Z5yW1"
+            },
+            "Hilton Vacation Club Polo Towers Las Vegas": {
+                image: "Hotels/Hilton Vacation Club Polo Towers Las Vegas.png",
+                description: "Comfort-seeking, value-conscious, and looking for a home-like experience - Polo Towers is your perfect match! These spacious suites offer all the comforts of home with the excitement of Vegas just steps away. You'll love the full kitchens, separate living areas, and the perfect location for exploring the Strip!",
+                link: "https://expedia.com/affiliates/las-vegas-hotels-polo-towers.rKodcUQ"
+            },
+            "MGM Grand Hotel & Casino": {
+                image: "Hotels/MGM Grand.jpg",
+                description: "Energetic, fun-loving, and ready for anything - the MGM Grand is your perfect Vegas match! You'll love the massive casino, incredible entertainment options, and the famous Wet Republic Ultra Pool. With its central location and endless dining and nightlife options, the MGM Grand offers the high-energy Vegas experience you're looking for!",
+                link: "https://expedia.com/affiliates/las-vegas-hotels-mgm-grand-hotel-casino.Nq7doFx"
+            },
+            "New York-New York Hotel and Casino": {
+                image: "Hotels/New York New York.jpg",
+                description: "Fun-loving, drawn to iconic themes, and looking for a lively atmosphere - New York-New York is your perfect Vegas match! You'll love the Big Apple skyline, roller coaster, and energetic casino floor. With diverse dining options, live entertainment, and a central Strip location, this resort captures the excitement of both NYC and Vegas in one unforgettable experience!",
+                link: "https://expedia.com/affiliates/las-vegas-hotels-new-york-new-york-hotel-casino.2nWbiVn"
+            },
+            "NoMad Las Vegas": {
+                image: "Hotels/NoMad Las Vegas.png",
+                description: "Sophisticated, design-conscious, and looking for a unique experience - NoMad is your perfect match! This boutique hotel within Park MGM offers an intimate, luxurious atmosphere with world-class dining and service. You'll love the exclusive pool access, celebrity chef restaurants, and the perfect blend of privacy and excitement!",
+                link: "https://expedia.com/affiliates/las-vegas-hotels-nomad-las-vegas.AICGyYI"
+            },
+            "Park MGM Las Vegas": {
+                image: "Hotels/Park MGM Las Vegas.jpg",
+                description: "Cultured, design-conscious, and appreciative of boutique experiences - Park MGM is your perfect Vegas match! You'll love the sophisticated yet approachable atmosphere, curated art collection, and intimate venues. The stunning pool, Eataly food hall, and proximity to T-Mobile Arena make this the ideal home base for your Vegas adventure!",
+                link: "https://expedia.com/affiliates/las-vegas-hotels-park-mgm-las-vegas.UKcRlqb"
+            },
+            "W Las Vegas": {
+                image: "Hotels/The W Las Vegas.png",
+                description: "Trendy, stylish, and looking for a unique Vegas experience - W Las Vegas is your perfect match! This boutique hotel offers a more personal, sophisticated take on Vegas. You'll love the stylish rooms, celebrity chef restaurants, and the perfect location for exploring the Strip's best attractions!",
+                link: "https://expedia.com/affiliates/las-vegas-hotels-delano-las-vegas-at-mandalay-bay.rqdedQU"
+            },
+            "Excalibur Hotel and Casino": {
+                image: "Hotels/EXCALIBUR_HOTEL.jpg",
+                description: "Family-oriented, budget-conscious, and looking for classic Vegas fun - the Excalibur is your ideal match! You'll enjoy the medieval castle theme, family-friendly atmosphere, and affordable dining options. The Excalibur offers that quintessential Vegas experience with comfortable accommodations and entertainment options that won't break the bank!",
+                link: "https://expedia.com/affiliates/las-vegas-hotels-excalibur-hotel-casino.PwrARmh"
+            },
+            "Fontainebleau Las Vegas": {
+                image: "Hotels/Fontainebleau.png",
+                description: "Sophisticated, design-conscious, and looking for the newest luxury experience - Fontainebleau is your perfect match! This brand-new resort offers cutting-edge design, world-class dining, and exclusive nightlife venues. You'll love the stunning architecture, luxurious accommodations, and the perfect location for exploring the Strip!",
+                link: "https://expedia.com/affiliates/las-vegas-hotels-fontainebleau-las-vegas.3P4kVL4"
+            },
+            "Four Seasons Hotel Las Vegas": {
+                image: "Hotels/Four Seasons Hotel Las Vegas.png",
+                description: "Refined, sophisticated, and appreciative of understated luxury - the Four Seasons is your perfect match! This non-gaming hotel offers an elegant escape from the typical Vegas experience. You'll love the impeccable service, sophisticated dining options, and the serene atmosphere that lets you enjoy Vegas on your own terms!",
+                link: "https://expedia.com/affiliates/las-vegas-hotels-four-seasons-hotel-las-vegas.pH28KRm"
+            },
+            "Resorts World Las Vegas": {
+                image: "Hotels/ResortWorld Las Vegas.jpg",
+                description: "Cutting-edge, trendsetting, and drawn to the newest experiences - Resorts World is your ideal Vegas match! As the newest resort on the Strip, it offers state-of-the-art technology, modern design, and fresh entertainment concepts. You'll love discovering the diverse dining collection, multiple pool experiences, and next-generation casino gaming!",
+                link: "https://www.rwlasvegas.com/"
+            },
+            "Luxor Las Vegas": {
+                image: "Hotels/Luxor Las Vegas.png",
+                description: "Value-conscious, drawn to unique architecture, and looking for a classic Vegas experience - the Luxor is your perfect match! You'll be impressed by the iconic pyramid design, massive atrium, and diverse entertainment options. The Luxor offers that quintessential Vegas experience with comfortable accommodations at a price point that keeps your budget happy!",
+                link: "https://expedia.com/affiliates/las-vegas-hotels-luxor-hotel-and-casino.zUzJxI2"
+            },
+            "Mandalay Bay Resort and Casino": {
+                image: "Hotels/Mandalay Bay.jpg",
+                description: "Beach-loving, relaxation-focused, and drawn to tropical vibes - Mandalay Bay is your ideal Vegas match! You'll be amazed by the 11-acre beach complex with real sand, wave pool, and lazy river. The aquarium, diverse dining options, and spacious rooms with spectacular views perfectly complement your laid-back yet luxurious vacation style!",
+                link: "https://expedia.com/affiliates/las-vegas-hotels-mandalay-bay-resort-and-casino.pAZqzIe"
+            },
+            "Nirvana Hotel": {
+                image: "Hotels/Nirvana Hotel.jpg",
+                description: "Budget-conscious, location-focused, and looking for a comfortable stay - Nirvana Hotel is your perfect match! You'll appreciate the value-priced rooms and the perfect center-Strip location. This hotel offers a comfortable, no-frills experience that lets you save money for Vegas adventures!",
+                link: "https://expedia.com/affiliates/las-vegas-hotels-nirvana-hotel.CG25A5n"
+            },
+            "Circus Circus Las Vegas": {
+                image: "Hotels/Circus Circus.jpg",
+                description: "Family-oriented, budget-conscious, and looking for classic Vegas fun - Circus Circus is your ideal match! You'll enjoy the circus acts, family-friendly atmosphere, and affordable dining options. The Adventuredome theme park, comfortable accommodations, and entertainment options make this the perfect choice for family vacations!",
+                link: "https://expedia.com/affiliates/las-vegas-hotels-circus-circus-hotel.khABrrs"
+            },
+            "SAHARA Las Vegas": {
+                image: "Hotels/Sahara Las Vegas.jpg",
+                description: "Style-conscious, appreciative of reinvention, and looking for a boutique experience - SAHARA Las Vegas is your ideal match! Recently reimagined with a sleek, modern design, this historic property offers an intimate yet luxurious atmosphere. You'll love the sophisticated rooms, curated dining options, and the more relaxed north Strip location!",
+                link: "https://expedia.com/affiliates/las-vegas-hotels-sahara-las-vegas.cXegFrm"
+            },
+            "The STRAT Hotel, Casino & Tower": {
+                image: "Hotels/Stratosphere.jpg",
+                description: "Thrill-seeking, view-loving, and looking for unique experiences - The STRAT is your perfect Vegas match! You'll be amazed by the iconic tower with its observation deck and heart-pounding thrill rides. The STRAT offers comfortable accommodations at a great value, plus that one-of-a-kind Vegas skyline experience you won't find anywhere else!",
+                link: "https://expedia.com/affiliates/las-vegas-hotels-the-strat-hotel.gIsoxPI"
+            }
+        };
+        
+        // Start the quiz
+        function startQuiz() {
+            document.querySelector('.intro').style.display = 'none';
+            currentQuestion = 1;
+            showQuestion(currentQuestion);
+            updateProgressBar();
+        }
+        
+        // Show a specific question
+        function showQuestion(questionNumber) {
+            console.log('Showing question:', questionNumber);
+            // Hide all questions
+            document.querySelectorAll('.question').forEach(q => {
+                q.classList.remove('active');
+            });
+            // Show the current question
+            const qElem = document.getElementById('q' + questionNumber);
+            if (qElem) {
+                qElem.classList.add('active');
+            } else {
+                console.error('No question element for q' + questionNumber + '. Showing result instead.');
+                showResult();
+            }
+        }
+        
+        // Handle option selection
+        function selectOption(questionNumber, option) {
+            console.log('selectOption called:', questionNumber, option);
+            // Save the answer
+            answers[questionNumber] = option;
+            console.log('Current answers:', answers);
+            // Auto-advance on mobile with a short delay
+            if (window.matchMedia && window.matchMedia('(max-width: 768px)').matches) {
+                setTimeout(function() {
+                    if (questionNumber < totalQuestions) {
+                        currentQuestion++;
+                        showQuestion(currentQuestion);
+                    } else {
+                        // Before showing result, check if all questions are answered
+                        let missing = [];
+                        for (let i = 1; i <= totalQuestions; i++) {
+                            if (!answers[i]) missing.push(i);
+                        }
+                        if (missing.length > 0) {
+                            alert('Please answer all questions before seeing your result.');
+                            currentQuestion = missing[0];
+                            showQuestion(currentQuestion);
+                            return;
+                        }
+                        showResult();
+                    }
+                    updateProgressBar();
+                }, 350);
+            } else {
+                // Desktop: advance immediately
+                if (questionNumber < totalQuestions) {
+                    currentQuestion++;
+                    showQuestion(currentQuestion);
+                } else {
+                    // Before showing result, check if all questions are answered
+                    let missing = [];
+                    for (let i = 1; i <= totalQuestions; i++) {
+                        if (!answers[i]) missing.push(i);
+                    }
+                    if (missing.length > 0) {
+                        alert('Please answer all questions before seeing your result.');
+                        currentQuestion = missing[0];
+                        showQuestion(currentQuestion);
+                        return;
+                    }
+                    showResult();
+                }
+                updateProgressBar();
+            }
+        }
+        
+        // Update the progress bar
+        function updateProgressBar() {
+            const progressPercentage = ((currentQuestion - 1) / totalQuestions) * 100;
+            document.getElementById('progress').style.width = progressPercentage + '%';
+            
+            // Make sure progress bar shows 100% when showing results
+            if (document.querySelector('.result').style.display === 'block') {
+                document.getElementById('progress').style.width = '100%';
+            }
+        }
+        
+        // Show the quiz result
+        function showResult() {
+            console.log('Showing result...');
+            console.log('Answers:', answers);
+            // Hide all questions
+            document.querySelectorAll('.question').forEach(q => {
+                q.classList.remove('active');
+            });
+            // Check if all questions are answered
+            let missing = [];
+            for (let i = 1; i <= 5; i++) {
+                if (!answers[i]) missing.push(i);
+            }
+            const debugDiv = document.getElementById('debug-info');
+            if (debugDiv) debugDiv.style.display = 'none';
+            if (missing.length > 0) {
+                document.getElementById('hotel-name').textContent = 'Please answer all questions.';
+                document.getElementById('result-img').src = '';
+                document.getElementById('result-description').textContent = 'You must answer all questions to get a hotel recommendation.';
+                document.getElementById('hotel-link').href = '#';
+                document.getElementById('book-now-link').href = '#';
+                document.querySelector('.result').style.display = 'block';
+                document.getElementById('progress').style.width = '100%';
+                return;
+            }
+            // Determine the result based on answers
+            const debugResult = determineResultWithDebug();
+            const result = debugResult.result;
+            const matchingHotels = debugResult.matchingHotels;
+            const scoredHotels = debugResult.scoredHotels;
+            const fallbackUsed = debugResult.fallbackUsed;
+            if (!hotels[result]) {
+                // Robust fallback: pick the first hotel in matchingHotels that exists in hotels
+                const validHotel = matchingHotels.find(h => hotels[h]);
+                if (validHotel) {
+                    document.getElementById('hotel-name').textContent = validHotel;
+                    document.getElementById('result-img').src = hotels[validHotel].image;
+                    document.getElementById('result-description').textContent = hotels[validHotel].description;
+                    document.getElementById('hotel-link').href = hotels[validHotel].link;
+                    document.getElementById('book-now-link').href = hotels[validHotel].link;
+                } else {
+                    document.getElementById('hotel-name').textContent = 'No hotel match found.';
+                    document.getElementById('result-img').src = '';
+                    document.getElementById('result-description').textContent = 'Sorry, we could not find a hotel match for your answers. Please try again or contact support.';
+                    document.getElementById('hotel-link').href = '#';
+                    document.getElementById('book-now-link').href = '#';
+                }
+            } else {
+                // Update the result section
+                document.getElementById('hotel-name').textContent = result;
+                document.getElementById('result-img').src = hotels[result].image;
+                document.getElementById('result-description').textContent = hotels[result].description;
+                document.getElementById('hotel-link').href = hotels[result].link;
+                document.getElementById('book-now-link').href = hotels[result].link;
+            }
+            // Show the result section
+            document.querySelector('.result').style.display = 'block';
+            // Set progress bar to 100%
+            document.getElementById('progress').style.width = '100%';
+            // Set up social sharing
+            setupSocialSharing(result);
+            console.log('Result section should be visible now');
+        }
+        
+        // Set up social media sharing links
+        function setupSocialSharing(hotelName) {
+            const pageUrl = encodeURIComponent(window.location.href);
+            const text = encodeURIComponent(`I got ${hotelName} as my perfect Las Vegas hotel match! Take the quiz to find yours!`);
+            // Use absolute image URL if possible
+            let imageUrl = hotels[hotelName].image;
+            if (!/^https?:/.test(imageUrl)) {
+                imageUrl = window.location.origin + '/' + imageUrl;
+            }
+            imageUrl = encodeURIComponent(imageUrl);
+
+            // Facebook share (thumbnail will only appear when hosted online with proper Open Graph tags)
+            document.getElementById('share-facebook').onclick = function(e) {
+                e.preventDefault();
+                const fbUrl = `https://www.facebook.com/sharer/sharer.php?u=${pageUrl}&quote=${text}%0A%0AQuiz result image: ${imageUrl}`;
+                window.open(fbUrl, '_blank');
+            };
+            // Twitter share (include image URL in text)
+            document.getElementById('share-twitter').href = `https://twitter.com/intent/tweet?text=${text}%0AQuiz result image: ${imageUrl}&url=${pageUrl}`;
+            // Copy results button (include image URL)
+            document.getElementById('copy-results').onclick = function() {
+                const quizUrl = window.location.href.split('?')[0];
+                const resultText = `My perfect Las Vegas hotel match is ${hotelName}! 🎰✨\n\n${hotels[hotelName].description.substring(0, 150)}...\n\nSee my hotel match and find yours at: ${quizUrl}\nQuiz result image: ${decodeURIComponent(imageUrl)}\n\n#LasVegas #VegasHotels #TravelQuiz`;
+                navigator.clipboard.writeText(resultText).then(function() {
+                    const button = document.getElementById('copy-results');
+                    const originalTitle = button.title;
+                    button.title = 'Copied!';
+                    button.style.backgroundColor = 'var(--buzzfeed-green)';
+                    setTimeout(function() {
+                        button.title = originalTitle;
+                        button.style.backgroundColor = '';
+                    }, 2000);
+                });
+            };
+        }
+        
+        // Determine the result based on answers using decision tree
+        function determineResultWithDebug() {
+            console.log('determineResultWithDebug called. Answers:', answers);
+            const budget = answers[1] || 'B';  // Budget is first question
+            const vibe = answers[2] || 'A';    // Vibe is second question
+            const travelGroup = answers[3] || 'B';
+            const priority = answers[4] || 'A';
+            const location = answers[5] || 'A';
+
+            // Map answers to their text values
+            const budgetMap = {
+                'A': 'bargain',
+                'B': 'value',
+                'C': 'treat',
+                'D': 'luxury'
+            };
+            const vibeMap = {
+                'A': 'classy',
+                'B': 'wild',
+                'C': 'chill',
+                'D': 'explorer'
+            };
+            const travelGroupMap = {
+                'A': 'partner',
+                'B': 'friends',
+                'C': 'family',
+                'D': 'solo'
+            };
+            const priorityMap = {
+                'A': 'nightlife',
+                'B': 'food',
+                'C': 'comfort',
+                'D': 'convenience'
+            };
+            const locationMap = {
+                'A': 'center',
+                'B': 'north',
+                'C': 'south',
+                'D': 'any'
+            };
+            // Define budget categories with strict hierarchy
+            const budgetCategories = {
+                'bargain': [
+                    'Flamingo Las Vegas Hotel & Casino',
+                    'Harrah\'s Las Vegas Hotel & Casino',
+                    'The STRAT Hotel, Casino & Tower',
+                    'Circus Circus Las Vegas',
+                    'Luxor Las Vegas',
+                    'Best Western Plus Casino Royale - Center Strip',
+                    'Nirvana Hotel'
+                ],
+                'value': [
+                    'The LINQ Hotel + Experience',
+                    'Paris Las Vegas',
+                    'Planet Hollywood Resort & Casino',
+                    'SAHARA Las Vegas',
+                    'New York-New York Hotel and Casino',
+                    'Treasure Island Hotel and Casino',
+                    'The Cromwell Las Vegas',
+                    'Excalibur Hotel and Casino'
+                ],
+                'treat': [
+                    'The Venetian Resort Las Vegas',
+                    'ARIA Resort and Casino',
+                    'Caesars Palace',
+                    'MGM Grand Hotel & Casino',
+                    'Mandalay Bay Resort and Casino',
+                    'Park MGM Las Vegas',
+                    'Resorts World Las Vegas',
+                    'The Palazzo at The Venetian Resort Las Vegas'
+                ],
+                'luxury': [
+                    'Bellagio Resort & Casino',
+                    'Wynn Las Vegas',
+                    'The Cosmopolitan of Las Vegas',
+                    'Encore at Wynn Las Vegas',
+                    'Four Seasons Hotel Las Vegas',
+                    'Waldorf Astoria Las Vegas',
+                    'Nobu Hotel at Caesars Palace',
+                    'Fontainebleau Las Vegas'
+                ]
+            };
+            const selectedBudget = budgetMap[budget];
+            let matchingHotels = budgetCategories[selectedBudget];
+            // Define perfect matches for each preference
+            const perfectMatches = {
+                'classy': ['Bellagio Resort & Casino', 'Waldorf Astoria Las Vegas', 'Four Seasons Hotel Las Vegas', 'The Cosmopolitan of Las Vegas', 'Wynn Las Vegas', 'Encore at Wynn Las Vegas', 'Nobu Hotel at Caesars Palace', 'The Venetian Resort Las Vegas', 'ARIA Resort and Casino', 'Caesars Palace'],
+                'wild': ['The LINQ Hotel + Experience', 'MGM Grand Hotel & Casino', 'Planet Hollywood Resort & Casino', 'The Cromwell Las Vegas', 'SAHARA Las Vegas', 'Resorts World Las Vegas'],
+                'chill': ['Mandalay Bay Resort and Casino', 'Park MGM Las Vegas', 'The Venetian Resort Las Vegas', 'Four Seasons Hotel Las Vegas', 'Waldorf Astoria Las Vegas', 'The Palazzo at The Venetian Resort Las Vegas'],
+                'explorer': ['Caesars Palace', 'Flamingo Las Vegas Hotel & Casino', 'Harrah\'s Las Vegas Hotel & Casino', 'The STRAT Hotel, Casino & Tower', 'Circus Circus Las Vegas', 'Paris Las Vegas']
+            };
+            const travelGroupMatches = {
+                'partner': ['The Venetian Resort Las Vegas', 'Bellagio Resort & Casino', 'The Cosmopolitan of Las Vegas', 'Wynn Las Vegas', 'Encore at Wynn Las Vegas', 'The Palazzo at The Venetian Resort Las Vegas'],
+                'friends': ['The LINQ Hotel + Experience', 'MGM Grand Hotel & Casino', 'Planet Hollywood Resort & Casino', 'The Cromwell Las Vegas', 'SAHARA Las Vegas', 'Resorts World Las Vegas'],
+                'family': ['Mandalay Bay Resort and Casino', 'Excalibur Hotel and Casino', 'Circus Circus Las Vegas', 'New York-New York Hotel and Casino', 'Luxor Las Vegas', 'The STRAT Hotel, Casino & Tower'],
+                'solo': ['The Cromwell Las Vegas', 'SAHARA Las Vegas', 'Park MGM Las Vegas', 'The STRAT Hotel, Casino & Tower', 'Best Western Plus Casino Royale - Center Strip', 'Nirvana Hotel']
+            };
+            const priorityMatches = {
+                'A': [ // Gambling
+                    // Best (3 points)
+                    'Wynn Las Vegas', 'Encore at Wynn Las Vegas', 'Bellagio Resort & Casino', 'ARIA Resort and Casino', 'The Venetian Resort Las Vegas', 'Palazzo at The Venetian Resort Las Vegas', 'Caesars Palace', 'MGM Grand Hotel & Casino', 'Resorts World Las Vegas', 'The Cosmopolitan of Las Vegas',
+                    // Very Good (2 points)
+                    'Paris Las Vegas', 'Planet Hollywood Resort & Casino', 'Mandalay Bay Resort and Casino', 'New York-New York Hotel and Casino', 'Horseshoe Las Vegas', 'The Cromwell Las Vegas', 'Treasure Island Hotel and Casino', 'SAHARA Las Vegas', 'Flamingo Las Vegas Hotel & Casino', 'Luxor Las Vegas', 'Excalibur Hotel and Casino', 'Park MGM Las Vegas', 'Harrah\'s Las Vegas Hotel & Casino',
+                    // Good (1 point)
+                    'Circus Circus Las Vegas', 'The STRAT Hotel, Casino & Tower', 'The LINQ Hotel + Experience', 'Tropicana Las Vegas', 'NoMad Las Vegas'
+                ],
+                'B': [ // Shows
+                    // Best (3 points)
+                    'Bellagio Resort & Casino', 'Wynn Las Vegas', 'Encore at Wynn Las Vegas', 'The Venetian Resort Las Vegas', 'Palazzo at The Venetian Resort Las Vegas', 'Caesars Palace', 'MGM Grand Hotel & Casino', 'Resorts World Las Vegas', 'Mandalay Bay Resort and Casino', 'Paris Las Vegas', 'Planet Hollywood Resort & Casino',
+                    // Very Good (2 points)
+                    'Luxor Las Vegas', 'Excalibur Hotel and Casino', 'New York-New York Hotel and Casino', 'Flamingo Las Vegas Hotel & Casino', 'Horseshoe Las Vegas', 'The Cromwell Las Vegas', 'SAHARA Las Vegas', 'Park MGM Las Vegas', 'ARIA Resort and Casino', 'The Cosmopolitan of Las Vegas', 'Treasure Island Hotel and Casino',
+                    // Good (1 point)
+                    'Harrah\'s Las Vegas Hotel & Casino', 'The STRAT Hotel, Casino & Tower', 'Circus Circus Las Vegas', 'The LINQ Hotel + Experience', 'NoMad Las Vegas'
+                ],
+                'C': [ // Pool or waterpark fun
+                    'Mandalay Bay Resort and Casino', 'Flamingo Las Vegas Hotel & Casino', 'Bellagio Resort & Casino', 'Circus Circus Las Vegas', 'Luxor Las Vegas', 'ARIA Resort and Casino', 'MGM Grand Hotel & Casino'
+                ],
+                'D': [ // Unique theme or experience
+                    'The STRAT Hotel, Casino & Tower', 'Circus Circus Las Vegas', 'Excalibur Hotel and Casino', 'Luxor Las Vegas', 'The Venetian Resort Las Vegas', 'Treasure Island Hotel and Casino', 'The Cosmopolitan of Las Vegas', 'Fontainebleau Las Vegas', 'The Palazzo at The Venetian Resort Las Vegas', 'Resorts World Las Vegas', 'Encore at Wynn Las Vegas', 'NoMad Las Vegas', 'W Las Vegas'
+                ]
+            };
+            const locationMatches = {
+                'center': ['Bellagio Resort & Casino', 'The Cosmopolitan of Las Vegas', 'Caesars Palace', 'The Venetian Resort Las Vegas', 'Paris Las Vegas', 'Planet Hollywood Resort & Casino', 'The LINQ Hotel + Experience', 'Harrah\'s Las Vegas Hotel & Casino', 'Flamingo Las Vegas Hotel & Casino', 'The Cromwell Las Vegas', 'Best Western Plus Casino Royale - Center Strip'],
+                'north': ['Wynn Las Vegas', 'Encore at Wynn Las Vegas', 'Resorts World Las Vegas', 'SAHARA Las Vegas', 'The STRAT Hotel, Casino & Tower', 'Circus Circus Las Vegas', 'Treasure Island Hotel and Casino'],
+                'south': ['Mandalay Bay Resort and Casino', 'MGM Grand Hotel & Casino', 'New York-New York Hotel and Casino', 'Excalibur Hotel and Casino', 'Luxor Las Vegas', 'Tropicana Las Vegas', 'Four Seasons Hotel Las Vegas']
+            };
+            // Filter by location if there are any hotels in the selected location
+            const selectedLocation = locationMap[location];
+            if (selectedLocation !== 'any') {
+                const locationFiltered = matchingHotels.filter(hotel => locationMatches[selectedLocation] && locationMatches[selectedLocation].includes(hotel));
+                if (locationFiltered.length > 0) {
+                    matchingHotels = locationFiltered;
+                }
+            }
+            // Score each hotel based on how well it matches ALL preferences
+            const scoredHotels = matchingHotels.map(hotel => {
+                let score = 0;
+                if (perfectMatches[vibeMap[vibe]] && perfectMatches[vibeMap[vibe]].includes(hotel)) score += 3;
+                if (travelGroupMatches[travelGroupMap[travelGroup]] && travelGroupMatches[travelGroupMap[travelGroup]].includes(hotel)) score += 3;
+                if (priorityMatches[priorityMap[priority]] && priorityMatches[priorityMap[priority]].includes(hotel)) score += 3;
+                if (selectedLocation === 'any' || (locationMatches[selectedLocation] && locationMatches[selectedLocation].includes(hotel))) score += 3;
+                return { hotel, score };
+            });
+            scoredHotels.sort((a, b) => b.score - a.score);
+            const topScore = scoredHotels[0].score;
+            const topHotels = scoredHotels.filter(h => h.score === topScore);
+            const bestMatch = topHotels[Math.floor(Math.random() * topHotels.length)];
+            let fallbackUsed = false;
+            let result = '';
+            if (!bestMatch || bestMatch.score < 3) {
+                const defaultHotels = {
+                    'bargain': 'Flamingo Las Vegas Hotel & Casino',
+                    'value': 'The LINQ Hotel + Experience',
+                    'treat': 'The Venetian Resort Las Vegas',
+                    'luxury': 'Bellagio Resort & Casino'
+                };
+                result = defaultHotels[selectedBudget];
+                fallbackUsed = true;
+            } else {
+                result = bestMatch.hotel;
+                fallbackUsed = false;
+            }
+            return { result, matchingHotels, scoredHotels, fallbackUsed };
+        }
+        
+        // Restart the quiz
+        function restartQuiz() {
+            // Reset state
+            currentQuestion = 0;
+            answers = {};
+            
+            // Hide result
+            document.querySelector('.result').style.display = 'none';
+            
+            // Show intro
+            document.querySelector('.intro').style.display = 'block';
+            
+            // Reset progress bar
+            document.getElementById('progress').style.width = '0%';
+        }
+    </script>
+</body>
+</html>
