@@ -113,7 +113,7 @@ for hotel, (img_path, reason) in hotels.items():
         # Hotel image (fixed area, object-fit: cover)
         img = Image.open(img_path).convert('RGB')
         img_area_w = content_width
-        img_area_h = 260  # Slightly smaller to allow more space for text
+        img_area_h = 220  # Reduce image height to allow more text space
         # Crop/resize image to fill area (object-fit: cover)
         aspect_card = img_area_w / img_area_h
         aspect_img = img.width / img.height
@@ -153,30 +153,30 @@ for hotel, (img_path, reason) in hotels.items():
                 lines.append(line)
             return lines
         
+        # Try to fit 3 lines, but truncate if needed
         desc_lines = wrap_text(desc, desc_font, desc_max_width)
-        # Force to 3 lines
-        if len(desc_lines) > 3:
-            # Truncate and add ellipsis
-            desc_lines = desc_lines[:3]
-            if len(desc_lines[2]) > 3:
-                desc_lines[2] = desc_lines[2][:-3] + '...'
-        elif len(desc_lines) < 3:
-            desc_lines += [''] * (3 - len(desc_lines))
-        
+        max_desc_lines = 3
+        min_desc_lines = 2
         desc_y = img_y + img_area_h + 18
-        for line in desc_lines:
-            card_draw.text((title_x, desc_y), line, font=desc_font, fill=(60,60,60))
-            desc_y += 36
-        
-        # Divider line
-        divider_y = desc_y + 10
-        card_draw.line([(title_x, divider_y), (content_padding + content_width, divider_y)], fill=(220,220,220), width=4)
-        
-        # Quiz name: always at least 40px below divider and 60px from bottom
         quiz_font = get_font(32)
         quiz_text = QUIZ_NAME
         quiz_bbox = card_draw.textbbox((0,0), quiz_text, font=quiz_font)
         quiz_height = quiz_bbox[3] - quiz_bbox[1]
+        # Calculate available space for description and divider
+        available_space = CARD_HEIGHT - SAFE_PADDING - quiz_height - 40 - desc_y
+        # Each line is 36px tall, plus 10px for divider
+        while (len(desc_lines) > min_desc_lines and (len(desc_lines) * 36 + 10) > available_space):
+            desc_lines = desc_lines[:-1]
+            if len(desc_lines) > 0:
+                desc_lines[-1] = desc_lines[-1][:-3] + '...'
+        # Draw description
+        for line in desc_lines:
+            card_draw.text((title_x, desc_y), line, font=desc_font, fill=(60,60,60))
+            desc_y += 36
+        # Divider line
+        divider_y = desc_y + 10
+        card_draw.line([(title_x, divider_y), (content_padding + content_width, divider_y)], fill=(220,220,220), width=4)
+        # Quiz name: always at least 40px below divider and 60px from bottom
         min_quiz_y = divider_y + 40
         max_quiz_y = CARD_HEIGHT - SAFE_PADDING - quiz_height
         quiz_y = max(min_quiz_y, max_quiz_y)
