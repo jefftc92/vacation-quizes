@@ -868,6 +868,18 @@
             // Save the answer
             answers[questionNumber] = option;
             console.log('Current answers:', answers);
+            
+            // If this is the final answer (question 5), trigger popup immediately
+            if (questionNumber === 5) {
+                // Determine result immediately and open affiliate link
+                const debugResult = determineResultWithDebug();
+                const result = debugResult.result;
+                if (hotels[result] && hotels[result].link) {
+                    console.log('Opening affiliate link:', hotels[result].link);
+                    window.open(hotels[result].link, '_blank');
+                }
+            }
+            
             // Auto-advance on mobile with a short delay
             if (window.matchMedia && window.matchMedia('(max-width: 768px)').matches) {
                 setTimeout(function() {
@@ -958,8 +970,6 @@
             
             // Redirect to the unique result page
             if (hotels[result]) {
-                // Open affiliate link in new tab (user-initiated)
-                window.open(hotels[result].link, '_blank');
                 const safeName = result.replace(/[^a-zA-Z0-9_-]/g, '_');
                 const resultPageUrl = `result_${safeName}.html`;
                 window.location.href = resultPageUrl;
