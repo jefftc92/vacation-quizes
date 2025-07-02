@@ -18,7 +18,8 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat:900,700,400&display=swap" rel="stylesheet">
     <style>
         body {
-            background: #fff;
+            /* Striped/ray background */
+            background: repeating-linear-gradient(120deg, #ffdc00 0 40px, #ff7a00 40px 80px);
             font-family: 'Montserrat', Arial, sans-serif;
             color: #222;
             margin: 0;
@@ -28,10 +29,10 @@
         .container {
             max-width: 600px;
             margin: 40px auto 0 auto;
-            background: #fff;
+            background: transparent;
             border-radius: 18px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.12);
-            padding: 32px 18px 40px 18px;
+            box-shadow: none;
+            padding: 0;
         }
         .result-card {
             background: #fff;
@@ -43,6 +44,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            border: 8px solid #ffdc00; /* Bold yellow border */
         }
         .result-card .hotel-title {
             font-size: 2.1rem;
@@ -60,6 +62,7 @@
             margin-bottom: 24px;
             object-fit: contain;
             display: block;
+            background: #fff;
         }
         .result-card .hotel-desc {
             font-size: 1.18rem;
@@ -72,21 +75,36 @@
             font-weight: 600;
             text-align: center;
         }
+        .expedia-cta {
+            font-size: 1.18rem;
+            font-weight: 700;
+            color: #ff7a00;
+            margin: 32px 0 10px 0;
+            text-align: center;
+        }
         .hotel-link {
-            display: block;
-            margin: 32px auto 0 auto;
+            display: inline-block;
+            margin: 0 auto 0 auto;
             background-color: #ffdc00;
             color: #222;
             text-decoration: none;
-            padding: 22px 48px;
+            padding: 26px 60px;
             border-radius: 40px;
             font-weight: 900;
-            font-size: 1.35rem;
+            font-size: 1.5rem;
             box-shadow: 0 6px 24px rgba(0,0,0,0.18);
             text-align: center;
             letter-spacing: 0.02em;
             transition: background 0.2s, color 0.2s, transform 0.2s;
             position: relative;
+            margin-bottom: 18px;
+            border: 3px solid #fff;
+            outline: 4px solid #ff7a00;
+            animation: pulse 1.5s infinite alternate;
+        }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 #ffdc0044; }
+            100% { box-shadow: 0 0 24px 8px #ffdc0044; }
         }
         .hotel-link:hover {
             background-color: #0078ff;
@@ -97,17 +115,17 @@
             display: inline-block;
             vertical-align: middle;
             margin-right: 12px;
-            width: 28px;
-            height: 28px;
+            width: 32px;
+            height: 32px;
         }
         .hotel-link .hotel-link-badge {
             display: inline-block;
             background: #0078ff;
             color: #fff;
-            font-size: 0.95rem;
+            font-size: 1.05rem;
             font-weight: 700;
             border-radius: 16px;
-            padding: 4px 14px;
+            padding: 6px 18px;
             margin-left: 18px;
             vertical-align: middle;
         }
@@ -134,30 +152,31 @@
             margin-top: 30px;
             display: flex;
             justify-content: center;
-            gap: 15px;
+            gap: 18px;
         }
         .social-btn {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 50px;
-            height: 50px;
+            width: 54px;
+            height: 54px;
             border-radius: 50%;
             color: white;
-            font-size: 1.5rem;
+            font-size: 2rem;
             transition: all 0.3s;
             box-shadow: 0 4px 8px rgba(0,0,0,0.2);
             text-decoration: none;
+            border: 3px solid #fff;
         }
         .facebook {
-            background-color: #3b5998;
+            background: linear-gradient(135deg, #1877f2 60%, #42a5f5 100%);
         }
         .twitter {
-            background-color: #1da1f2;
+            background: linear-gradient(135deg, #1da1f2 60%, #00c6ff 100%);
         }
         .copy-results {
-            background: #0078ff;
-            color: #fff;
+            background: linear-gradient(135deg, #ffdc00 60%, #ff7a00 100%);
+            color: #222;
             border: none;
             outline: none;
             transition: background 0.2s, color 0.2s;
@@ -171,13 +190,21 @@
             color: #fff;
         }
         .social-btn:hover {
-            transform: translateY(-2px);
+            transform: translateY(-2px) scale(1.08);
             box-shadow: 0 6px 12px rgba(0,0,0,0.3);
         }
         .social-btn svg {
-            width: 28px;
-            height: 28px;
+            width: 32px;
+            height: 32px;
             display: block;
+        }
+        .share-heading {
+            font-size: 1.18rem;
+            font-weight: 800;
+            color: #ff7a00;
+            margin-bottom: 10px;
+            margin-top: 18px;
+            letter-spacing: 0.01em;
         }
         @media (max-width: 900px) {
             .result-card {
@@ -196,25 +223,30 @@
             <div class="hotel-title">Hilton Vacation Club Polo Towers Las Vegas</div>
             <img class="share-image" src="share_images/share_Hilton_Vacation_Club_Polo_Towers_Las_Vegas.jpg" alt="My perfect Las Vegas hotel match is Hilton Vacation Club Polo Towers Las Vegas" />
             <div class="hotel-desc">Comfort-seeking, value-conscious, and looking for a home-like experience - Polo Towers is your perfect match! These spacious suites offer all the comforts of home with the excitement of Vegas just steps away. You'll love the full kitchens, separate living areas, and the perfect location for exploring the Strip!</div>
+            <div class="expedia-cta">Ready to book your perfect Vegas stay?</div>
+            <a class="hotel-link" href="https://expedia.com/affiliates/las-vegas-hotels-polo-towers.rKodcUQ" target="_blank" rel="noopener">
+                <span class="hotel-link-icon">
+                    <!-- Expedia SVG logo -->
+                    <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="24" r="24" fill="#ffe600"/><path d="M24 10l2.5 7.5H34l-6 4.5 2.5 7.5-6-4.5-6 4.5 2.5-7.5-6-4.5h7.5L24 10z" fill="#003580"/></svg>
+                </span>
+                <span>See deals on Expedia</span>
+                <span class="hotel-link-badge">Best Price</span>
+            </a>
         </div>
-        <a class="hotel-link" href="https://expedia.com/affiliates/las-vegas-hotels-polo-towers.rKodcUQ" target="_blank" rel="noopener">
-            <span class="hotel-link-icon">
-                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="7" width="18" height="13" rx="3" fill="#0078ff"/><rect x="7" y="3" width="10" height="4" rx="2" fill="#ffdc00"/><rect x="9" y="10" width="6" height="2" rx="1" fill="#fff"/><rect x="9" y="14" width="6" height="2" rx="1" fill="#fff"/></svg>
-            </span>
-            Book this hotel on Expedia
-            <span class="hotel-link-badge">Best Price</span>
-        </a>
         <a class="quiz-again-btn" href="index.html">Take the quiz again</a>
-        
+        <div class="share-heading">Share your result!</div>
         <div class="social-share">
             <a href="#" class="social-btn facebook" id="share-facebook" title="Share on Facebook">
-                <svg viewBox="0 0 32 32" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M29 0H3C1.3 0 0 1.3 0 3v26c0 1.7 1.3 3 3 3h13V20h-4v-5h4v-3.6C16 7.6 18.4 5 22.1 5c1.5 0 2.9.1 3.3.2V9h-2.3c-1.8 0-2.2.9-2.2 2.1V15h4.5l-.6 5h-3.9v12h7c1.7 0 3-1.3 3-3V3c0-1.7-1.3-3-3-3z"/></svg>
+                <!-- Playful Facebook SVG -->
+                <svg viewBox="0 0 32 32" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><circle cx="16" cy="16" r="16" fill="#fff"/><path d="M21.5 16h-3v8h-4v-8h-2v-3h2v-2c0-2.2 1.3-3.5 3.5-3.5h2.5v3h-2c-.5 0-.5.2-.5.5v2h2.5l-.5 3z" fill="#1877f2"/></svg>
             </a>
             <a href="#" class="social-btn twitter" id="share-twitter" title="Share on Twitter">
-                <svg viewBox="0 0 32 32" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M32 6.1a13.1 13.1 0 0 1-3.8 1.1A6.6 6.6 0 0 0 31.1 4a13.2 13.2 0 0 1-4.2 1.6A6.6 6.6 0 0 0 22.2 2c-3.6 0-6.6 3-6.6 6.6 0 .5.1 1 .2 1.5C10.2 9.8 5.4 7.4 2.2 3.8c-.6 1-.9 2.1-.9 3.3 0 2.3 1.2 4.3 3.1 5.5a6.6 6.6 0 0 1-3-.8v.1c0 3.2 2.3 5.8 5.4 6.4-.6.2-1.2.2-1.8.2-.4 0-.9 0-1.3-.1.9 2.7 3.4 4.7 6.4 4.7A13.3 13.3 0 0 1 0 28.6c4.1 2.6 9 4.1 14.2 4.1 17 0 26.3-14.1 26.3-26.3 0-.4 0-.8 0-1.2A18.7 18.7 0 0 0 32 6.1z"/></svg>
+                <!-- Playful Twitter SVG -->
+                <svg viewBox="0 0 32 32" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><circle cx="16" cy="16" r="16" fill="#fff"/><path d="M26 11.1c-.6.3-1.2.5-1.8.6.7-.4 1.2-1 1.5-1.7-.6.4-1.3.7-2 .9-.6-.6-1.5-1-2.4-1-1.8 0-3.2 1.5-3.2 3.2 0 .3 0 .6.1.8-2.7-.1-5.1-1.4-6.7-3.4-.3.5-.5 1-.5 1.6 0 1.1.6 2.1 1.5 2.7-.5 0-1-.2-1.4-.4v.1c0 1.5 1.1 2.7 2.5 3-.3.1-.6.2-.9.2-.2 0-.4 0-.6-.1.4 1.2 1.6 2.1 3 2.1-1.1.9-2.5 1.4-4 1.4-.3 0-.6 0-.9-.1 1.4.9 3.1 1.5 4.9 1.5 5.9 0 9.1-4.9 9.1-9.1v-.4c.6-.4 1.1-1 1.5-1.6z" fill="#1da1f2"/></svg>
             </a>
             <button class="social-btn copy-results" id="copy-results" title="Copy to clipboard">
-                <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><rect x="7" y="3" width="10" height="4" rx="2"/><rect x="3" y="7" width="18" height="13" rx="3"/></svg>
+                <!-- Playful Copy SVG -->
+                <svg viewBox="0 0 32 32" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><circle cx="16" cy="16" r="16" fill="#fff"/><rect x="10" y="10" width="12" height="12" rx="3" fill="#ffdc00" stroke="#ff7a00" stroke-width="2"/><rect x="14" y="14" width="4" height="4" rx="1" fill="#fff"/></svg>
             </button>
         </div>
     </div>
