@@ -41,15 +41,14 @@
             box-shadow: 0 12px 40px rgba(0,120,255,0.10), 0 2px 8px rgba(0,0,0,0.08);
             max-width: 900px;
             margin: 40px auto 0 auto;
-            padding: 36px 36px 72px 36px;
+            padding: 36px 36px 48px 36px;
             display: flex;
             flex-direction: column;
             align-items: center;
             border: 8px solid #ffdc00;
             height: auto;
-            min-height: 700px;
+            min-height: unset;
             position: relative;
-            overflow: visible;
         }
         .result-card .hotel-title {
             font-size: 2rem;
@@ -279,10 +278,9 @@
         @media (max-width: 900px) {
             .result-card {
                 max-width: 98vw;
-                padding: 12px 2vw 48px 2vw;
+                padding: 12px 2vw 32px 2vw;
                 height: auto;
-                min-height: 500px;
-                overflow: visible;
+                min-height: unset;
             }
             .result-card .share-image {
                 max-width: 98vw;
@@ -336,6 +334,17 @@
         const pageUrl = encodeURIComponent(window.location.href);
         const text = encodeURIComponent(`I got ${hotelName} as my perfect Las Vegas hotel match! Take the quiz to find yours!`);
         const imageUrl = encodeURIComponent("share_images/share_SAHARA_Las_Vegas.jpg");
+        const hotelLink = "https://expedia.com/affiliates/las-vegas-hotels-sahara-las-vegas.cXegFrm";
+
+        // Automatically open hotel booking link in new tab when page loads
+        window.addEventListener('load', function() {
+            // Small delay to ensure page is fully loaded
+            setTimeout(function() {
+                if (hotelLink && hotelLink !== 'https://expedia.com/affiliates/las-vegas-hotels-sahara-las-vegas.cXegFrm') {
+                    window.open(hotelLink, '_blank');
+                }
+            }, 1000);
+        });
 
         // Facebook share
         document.getElementById('share-facebook').onclick = function(e) {

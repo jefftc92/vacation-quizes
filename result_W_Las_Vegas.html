@@ -334,6 +334,17 @@
         const pageUrl = encodeURIComponent(window.location.href);
         const text = encodeURIComponent(`I got ${hotelName} as my perfect Las Vegas hotel match! Take the quiz to find yours!`);
         const imageUrl = encodeURIComponent("share_images/share_W_Las_Vegas.jpg");
+        const hotelLink = "https://expedia.com/affiliates/las-vegas-hotels-delano-las-vegas-at-mandalay-bay.rqdedQU";
+
+        // Automatically open hotel booking link in new tab when page loads
+        window.addEventListener('load', function() {
+            // Small delay to ensure page is fully loaded
+            setTimeout(function() {
+                if (hotelLink && hotelLink !== 'https://expedia.com/affiliates/las-vegas-hotels-delano-las-vegas-at-mandalay-bay.rqdedQU') {
+                    window.open(hotelLink, '_blank');
+                }
+            }, 1000);
+        });
 
         // Facebook share
         document.getElementById('share-facebook').onclick = function(e) {
