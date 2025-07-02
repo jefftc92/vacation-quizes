@@ -40,7 +40,7 @@
             box-shadow: 0 8px 32px rgba(0,0,0,0.12);
             max-width: 700px;
             margin: 40px auto 0 auto;
-            padding: 36px 36px 60px 36px;
+            padding: 36px 36px 48px 36px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -85,7 +85,7 @@
             font-size: 1.18rem;
             font-weight: 700;
             color: #ff7a00;
-            margin: 32px 0 18px 0;
+            margin: 24px 0 18px 0;
             text-align: center;
         }
         .hotel-link {
@@ -93,50 +93,58 @@
             align-items: center;
             justify-content: center;
             margin: 0 auto 0 auto;
-            background: #fff;
+            background: linear-gradient(90deg, #ffdc00 60%, #ffe066 100%);
             color: #222;
             text-decoration: none;
-            padding: 22px 36px;
-            border-radius: 40px;
+            padding: 20px 32px;
+            border-radius: 32px;
             font-weight: 900;
-            font-size: 1.35rem;
-            box-shadow: 0 6px 24px rgba(0,0,0,0.18);
+            font-size: 1.18rem;
+            box-shadow: 0 6px 24px rgba(0,0,0,0.10);
             text-align: center;
-            letter-spacing: 0.02em;
+            letter-spacing: 0.01em;
             transition: background 0.2s, color 0.2s, transform 0.2s;
             position: relative;
             margin-bottom: 32px;
-            border: 3px solid #ffdc00;
-            outline: 4px solid #fffbe6;
+            border: none;
+            outline: none;
             animation: pulse 1.5s infinite alternate;
+            gap: 12px;
         }
         @keyframes pulse {
             0% { box-shadow: 0 0 0 0 #ffdc0044; }
             100% { box-shadow: 0 0 24px 8px #ffdc0044; }
         }
         .hotel-link:hover {
-            background-color: #0078ff;
-            color: #fff;
+            background: linear-gradient(90deg, #ffe066 60%, #ffdc00 100%);
+            color: #0078ff;
             transform: translateY(-2px) scale(1.04);
         }
         .hotel-link .hotel-link-icon {
             display: inline-block;
             vertical-align: middle;
-            margin-right: 16px;
-            width: 36px;
-            height: 36px;
+            margin-right: 0;
+            width: 32px;
+            height: 32px;
+        }
+        .hotel-link .hotel-link-arrow {
+            display: inline-block;
+            margin-left: 10px;
+            width: 22px;
+            height: 22px;
+            vertical-align: middle;
         }
         .hotel-link .hotel-link-badge {
             display: inline-block;
-            background: #ffdc00;
-            color: #0078ff;
-            font-size: 1.1rem;
+            background: #0078ff;
+            color: #fff;
+            font-size: 1.05rem;
             font-weight: 700;
             border-radius: 16px;
-            padding: 7px 20px;
-            margin-left: 18px;
+            padding: 6px 18px;
+            margin-left: 12px;
             vertical-align: middle;
-            border: 2px solid #0078ff;
+            border: none;
         }
         .quiz-again-btn {
             display: inline-block;
@@ -219,7 +227,7 @@
         @media (max-width: 900px) {
             .result-card {
                 max-width: 98vw;
-                padding: 18px 4vw 60px 4vw;
+                padding: 18px 4vw 48px 4vw;
                 height: auto;
                 min-height: unset;
             }
@@ -237,15 +245,18 @@
         <div class="result-card">
             <div class="hotel-title">The LINQ Hotel + Experience</div>
             <img class="share-image" src="share_images/share_The_LINQ_Hotel___Experience.jpg" alt="My perfect Las Vegas hotel match is The LINQ Hotel + Experience" />
-            <div class="hotel-desc">Social, fun-loving, and looking for a vibrant Vegas experience - The LINQ is your perfect match! You'll love the energetic atmosphere, the famous LINQ Promenade, and the High Roller observation wheel. This hotel offers a modern, social experience perfect for those who want to be in the middle of the action!</div>
             <div class="expedia-cta">Ready to book your perfect Vegas stay?</div>
             <a class="hotel-link" href="https://expedia.com/affiliates/las-vegas-hotels-the-linq-hotel-experience.ONDqGs1" target="_blank" rel="noopener">
                 <span class="hotel-link-icon">
                     <!-- Expedia SVG logo -->
                     <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="24" r="24" fill="#ffe600"/><path d="M24 10l2.5 7.5H34l-6 4.5 2.5 7.5-6-4.5-6 4.5 2.5-7.5-6-4.5h7.5L24 10z" fill="#003580"/></svg>
                 </span>
-                <span>See deals on Expedia</span>
+                <span>See the best deals for The LINQ Hotel + Experience on Expedia</span>
                 <span class="hotel-link-badge">Best Price</span>
+                <span class="hotel-link-arrow">
+                    <!-- Right arrow SVG -->
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 5l8 7-8 7" stroke="#0078ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
             </a>
         </div>
         <a class="quiz-again-btn" href="index.html">Take the quiz again</a>
