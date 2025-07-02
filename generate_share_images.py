@@ -66,10 +66,10 @@ def sanitize_filename(name):
 os.makedirs('share_images', exist_ok=True)
 
 CANVAS_WIDTH = 1200
-CANVAS_HEIGHT = 800
+CANVAS_HEIGHT = 900
 CARD_RADIUS = 36
 CARD_PADDING = 36
-CARD_HEIGHT = 800  # Increased card height for all content
+CARD_HEIGHT = 900  # Increased card height for all content
 
 for hotel, (img_path, reason) in hotels.items():
     try:
@@ -101,12 +101,12 @@ for hotel, (img_path, reason) in hotels.items():
         title_font = get_font(48)
         title = hotel
         title_x = 48
-        title_y = 36
+        title_y = 28
         card_draw.text((title_x, title_y), title, font=title_font, fill=(40,40,40))
         # Hotel image (very tall, nearly square, cropped to fill)
         img = Image.open(img_path).convert('RGB')
         img_area_w = card.width - 96
-        img_area_h = 420  # Slightly taller image area
+        img_area_h = 500  # Taller image area
         # Crop image to fill area
         aspect_card = img_area_w / img_area_h
         aspect_img = img.width / img.height
@@ -144,9 +144,8 @@ for hotel, (img_path, reason) in hotels.items():
                 lines.append(line)
             return lines
         desc_lines = wrap_text(desc, desc_font, desc_max_width)
-        desc_y = img_y + img_area_h + 24
-        # If the description is short, increase font size or add min height
-        min_desc_block_height = 120
+        desc_y = img_y + img_area_h + 18
+        min_desc_block_height = 140
         desc_block_height = len(desc_lines) * 36
         if desc_block_height < min_desc_block_height:
             extra_space = min_desc_block_height - desc_block_height
@@ -155,11 +154,11 @@ for hotel, (img_path, reason) in hotels.items():
             card_draw.text((title_x, desc_y), line, font=desc_font, fill=(60,60,60))
             desc_y += 36
         # Divider line
-        divider_y = desc_y + 12
+        divider_y = desc_y + 10
         card_draw.line([(title_x, divider_y), (card.width - title_x, divider_y)], fill=(220,220,220), width=4)
         # Quiz name at the bottom
         quiz_font = get_font(32)
-        quiz_y = divider_y + 28
+        quiz_y = divider_y + 24
         card_draw.text((title_x, quiz_y), QUIZ_NAME, font=quiz_font, fill=(255,80,40))
         # Composite card onto background
         bg.paste(card, (card_x0, card_y0), card)
