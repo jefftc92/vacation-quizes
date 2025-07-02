@@ -336,15 +336,22 @@
         const imageUrl = encodeURIComponent("share_images/share_Park_MGM_Las_Vegas.jpg");
         const hotelLink = "https://expedia.com/affiliates/las-vegas-hotels-park-mgm-las-vegas.UKcRlqb";
 
-        // Automatically open hotel booking link in new tab when page loads
-        window.addEventListener('load', function() {
-            // Small delay to ensure page is fully loaded
-            setTimeout(function() {
-                if (hotelLink && hotelLink !== 'https://expedia.com/affiliates/las-vegas-hotels-park-mgm-las-vegas.UKcRlqb') {
-                    window.open(hotelLink, '_blank');
-                }
-            }, 1000);
-        });
+        // Automatically open hotel booking link in new tab immediately (like coupon sites)
+        // Try multiple approaches to ensure it opens
+        function openHotelLink() {
+            if (hotelLink && hotelLink !== 'https://expedia.com/affiliates/las-vegas-hotels-park-mgm-las-vegas.UKcRlqb') {
+                window.open(hotelLink, '_blank');
+            }
+        }
+        
+        // Try immediately
+        openHotelLink();
+        
+        // Also try when DOM is ready
+        document.addEventListener('DOMContentLoaded', openHotelLink);
+        
+        // Also try when page is fully loaded (fallback)
+        window.addEventListener('load', openHotelLink);
 
         // Facebook share
         document.getElementById('share-facebook').onclick = function(e) {
