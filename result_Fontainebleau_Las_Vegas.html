@@ -37,7 +37,7 @@
         .result-card {
             background: #fff;
             border-radius: 40px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+            box-shadow: 0 12px 40px rgba(0,120,255,0.10), 0 2px 8px rgba(0,0,0,0.08);
             max-width: 700px;
             margin: 40px auto 0 auto;
             padding: 36px 36px 48px 36px;
@@ -82,25 +82,26 @@
             text-align: center;
         }
         .expedia-cta {
-            font-size: 1.18rem;
-            font-weight: 700;
-            color: #ff7a00;
-            margin: 24px 0 18px 0;
+            font-size: 1.32rem;
+            font-weight: 900;
+            color: #0078ff;
+            margin: 28px 0 18px 0;
             text-align: center;
+            letter-spacing: 0.01em;
         }
         .hotel-link {
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 0 auto 0 auto;
-            background: linear-gradient(90deg, #ffdc00 60%, #ffe066 100%);
-            color: #222;
+            background: linear-gradient(90deg, #0078ff 60%, #00c6ff 100%);
+            color: #fff;
             text-decoration: none;
             padding: 20px 32px;
             border-radius: 32px;
             font-weight: 900;
-            font-size: 1.18rem;
-            box-shadow: 0 6px 24px rgba(0,0,0,0.10);
+            font-size: 1.22rem;
+            box-shadow: 0 6px 24px rgba(0,120,255,0.13);
             text-align: center;
             letter-spacing: 0.01em;
             transition: background 0.2s, color 0.2s, transform 0.2s;
@@ -116,8 +117,8 @@
             100% { box-shadow: 0 0 24px 8px #ffdc0044; }
         }
         .hotel-link:hover {
-            background: linear-gradient(90deg, #ffe066 60%, #ffdc00 100%);
-            color: #0078ff;
+            background: linear-gradient(90deg, #00c6ff 60%, #0078ff 100%);
+            color: #fff;
             transform: translateY(-2px) scale(1.04);
         }
         .hotel-link .hotel-link-icon {
@@ -136,8 +137,8 @@
         }
         .hotel-link .hotel-link-badge {
             display: inline-block;
-            background: #0078ff;
-            color: #fff;
+            background: #ffdc00;
+            color: #0078ff;
             font-size: 1.05rem;
             font-weight: 700;
             border-radius: 16px;
@@ -155,7 +156,7 @@
             border: none;
             border-radius: 30px;
             padding: 16px 38px;
-            margin: 32px 0 0 0;
+            margin: 18px 0 0 0;
             text-decoration: none;
             box-shadow: 0 4px 16px rgba(0,120,255,0.13);
             transition: background 0.2s, color 0.2s, transform 0.2s;
@@ -170,12 +171,12 @@
             font-weight: 800;
             color: #ff7a00;
             margin-bottom: 10px;
-            margin-top: 32px;
+            margin-top: 18px;
             letter-spacing: 0.01em;
         }
         .social-share {
             margin-top: 0;
-            margin-bottom: 32px;
+            margin-bottom: 0;
             display: flex;
             justify-content: center;
             gap: 18px;
@@ -248,32 +249,32 @@
             <div class="expedia-cta">Ready to book your perfect Vegas stay?</div>
             <a class="hotel-link" href="https://expedia.com/affiliates/las-vegas-hotels-fontainebleau-las-vegas.3P4kVL4" target="_blank" rel="noopener">
                 <span class="hotel-link-icon">
-                    <!-- Expedia SVG logo -->
-                    <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="24" r="24" fill="#ffe600"/><path d="M24 10l2.5 7.5H34l-6 4.5 2.5 7.5-6-4.5-6 4.5 2.5-7.5-6-4.5h7.5L24 10z" fill="#003580"/></svg>
+                    <!-- Hotel SVG icon -->
+                    <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="4" y="12" width="24" height="12" rx="3" fill="#fff" stroke="#0078ff" stroke-width="2"/><rect x="10" y="8" width="12" height="8" rx="2" fill="#ffdc00" stroke="#0078ff" stroke-width="2"/><rect x="14" y="16" width="4" height="4" rx="1" fill="#0078ff"/></svg>
                 </span>
-                <span>See the best deals for Fontainebleau Las Vegas on Expedia</span>
+                <span>BOOK HOTEL</span>
                 <span class="hotel-link-badge">Best Price</span>
                 <span class="hotel-link-arrow">
                     <!-- Right arrow SVG -->
-                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 5l8 7-8 7" stroke="#0078ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 5l8 7-8 7" stroke="#ffdc00" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 </span>
             </a>
-        </div>
-        <a class="quiz-again-btn" href="index.html">Take the quiz again</a>
-        <div class="share-heading">Share your result!</div>
-        <div class="social-share">
-            <a href="#" class="social-btn facebook" id="share-facebook" title="Share on Facebook">
-                <!-- Playful Facebook SVG -->
-                <svg viewBox="0 0 32 32" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><circle cx="16" cy="16" r="16" fill="#fff"/><path d="M21.5 16h-3v8h-4v-8h-2v-3h2v-2c0-2.2 1.3-3.5 3.5-3.5h2.5v3h-2c-.5 0-.5.2-.5.5v2h2.5l-.5 3z" fill="#1877f2"/></svg>
-            </a>
-            <a href="#" class="social-btn twitter" id="share-twitter" title="Share on Twitter">
-                <!-- Playful Twitter SVG -->
-                <svg viewBox="0 0 32 32" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><circle cx="16" cy="16" r="16" fill="#fff"/><path d="M26 11.1c-.6.3-1.2.5-1.8.6.7-.4 1.2-1 1.5-1.7-.6.4-1.3.7-2 .9-.6-.6-1.5-1-2.4-1-1.8 0-3.2 1.5-3.2 3.2 0 .3 0 .6.1.8-2.7-.1-5.1-1.4-6.7-3.4-.3.5-.5 1-.5 1.6 0 1.1.6 2.1 1.5 2.7-.5 0-1-.2-1.4-.4v.1c0 1.5 1.1 2.7 2.5 3-.3.1-.6.2-.9.2-.2 0-.4 0-.6-.1.4 1.2 1.6 2.1 3 2.1-1.1.9-2.5 1.4-4 1.4-.3 0-.6 0-.9-.1 1.4.9 3.1 1.5 4.9 1.5 5.9 0 9.1-4.9 9.1-9.1v-.4c.6-.4 1.1-1 1.5-1.6z" fill="#1da1f2"/></svg>
-            </a>
-            <button class="social-btn copy-results" id="copy-results" title="Copy to clipboard">
-                <!-- Playful Copy SVG -->
-                <svg viewBox="0 0 32 32" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><circle cx="16" cy="16" r="16" fill="#fff"/><rect x="10" y="10" width="12" height="12" rx="3" fill="#ffdc00" stroke="#ff7a00" stroke-width="2"/><rect x="14" y="14" width="4" height="4" rx="1" fill="#fff"/></svg>
-            </button>
+            <a class="quiz-again-btn" href="index.html">Take the quiz again</a>
+            <div class="share-heading">Share your result!</div>
+            <div class="social-share">
+                <a href="#" class="social-btn facebook" id="share-facebook" title="Share on Facebook">
+                    <!-- Playful Facebook SVG -->
+                    <svg viewBox="0 0 32 32" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><circle cx="16" cy="16" r="16" fill="#fff"/><path d="M21.5 16h-3v8h-4v-8h-2v-3h2v-2c0-2.2 1.3-3.5 3.5-3.5h2.5v3h-2c-.5 0-.5.2-.5.5v2h2.5l-.5 3z" fill="#1877f2"/></svg>
+                </a>
+                <a href="#" class="social-btn twitter" id="share-twitter" title="Share on Twitter">
+                    <!-- Playful Twitter SVG -->
+                    <svg viewBox="0 0 32 32" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><circle cx="16" cy="16" r="16" fill="#fff"/><path d="M26 11.1c-.6.3-1.2.5-1.8.6.7-.4 1.2-1 1.5-1.7-.6.4-1.3.7-2 .9-.6-.6-1.5-1-2.4-1-1.8 0-3.2 1.5-3.2 3.2 0 .3 0 .6.1.8-2.7-.1-5.1-1.4-6.7-3.4-.3.5-.5 1-.5 1.6 0 1.1.6 2.1 1.5 2.7-.5 0-1-.2-1.4-.4v.1c0 1.5 1.1 2.7 2.5 3-.3.1-.6.2-.9.2-.2 0-.4 0-.6-.1.4 1.2 1.6 2.1 3 2.1-1.1.9-2.5 1.4-4 1.4-.3 0-.6 0-.9-.1 1.4.9 3.1 1.5 4.9 1.5 5.9 0 9.1-4.9 9.1-9.1v-.4c.6-.4 1.1-1 1.5-1.6z" fill="#1da1f2"/></svg>
+                </a>
+                <button class="social-btn copy-results" id="copy-results" title="Copy to clipboard">
+                    <!-- Playful Copy SVG -->
+                    <svg viewBox="0 0 32 32" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><circle cx="16" cy="16" r="16" fill="#fff"/><rect x="10" y="10" width="12" height="12" rx="3" fill="#ffdc00" stroke="#ff7a00" stroke-width="2"/><rect x="14" y="14" width="4" height="4" rx="1" fill="#fff"/></svg>
+                </button>
+            </div>
         </div>
     </div>
     

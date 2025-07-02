@@ -66,10 +66,10 @@ def sanitize_filename(name):
 os.makedirs('share_images', exist_ok=True)
 
 CANVAS_WIDTH = 1200
-CANVAS_HEIGHT = 630
+CANVAS_HEIGHT = 800
 CARD_RADIUS = 36
 CARD_PADDING = 36
-CARD_HEIGHT = 700  # Increased card height for all content
+CARD_HEIGHT = 800  # Increased card height for all content
 
 for hotel, (img_path, reason) in hotels.items():
     try:
@@ -98,7 +98,7 @@ for hotel, (img_path, reason) in hotels.items():
         card_draw = ImageDraw.Draw(card)
         card_draw.rounded_rectangle([(0,0),(card_x1-card_x0,CARD_HEIGHT)], radius=CARD_RADIUS, fill=(255,255,255,255))
         # Hotel name (top, bold, left-aligned)
-        title_font = get_font(54)
+        title_font = get_font(48)
         title = hotel
         title_x = 48
         title_y = 36
@@ -106,7 +106,7 @@ for hotel, (img_path, reason) in hotels.items():
         # Hotel image (very tall, nearly square, cropped to fill)
         img = Image.open(img_path).convert('RGB')
         img_area_w = card.width - 96
-        img_area_h = 400  # much taller area for the image
+        img_area_h = 420  # Slightly taller image area
         # Crop image to fill area
         aspect_card = img_area_w / img_area_h
         aspect_img = img.width / img.height
@@ -125,7 +125,7 @@ for hotel, (img_path, reason) in hotels.items():
         img_y = title_y + 70
         card.paste(img, (img_x, img_y))
         # Description (below image)
-        desc_font = get_font(32)
+        desc_font = get_font(28)
         desc = f"The best Las Vegas hotel for you is {hotel}. {reason}"
         desc_max_width = card.width - 96
         def wrap_text(text, font, max_width):
@@ -144,16 +144,16 @@ for hotel, (img_path, reason) in hotels.items():
                 lines.append(line)
             return lines
         desc_lines = wrap_text(desc, desc_font, desc_max_width)
-        desc_y = img_y + img_area_h + 32
+        desc_y = img_y + img_area_h + 24
         for line in desc_lines:
             card_draw.text((title_x, desc_y), line, font=desc_font, fill=(60,60,60))
-            desc_y += 40
+            desc_y += 36
         # Divider line
-        divider_y = desc_y + 16
+        divider_y = desc_y + 12
         card_draw.line([(title_x, divider_y), (card.width - title_x, divider_y)], fill=(220,220,220), width=4)
         # Quiz name at the bottom
-        quiz_font = get_font(28)
-        quiz_y = divider_y + 28
+        quiz_font = get_font(24)
+        quiz_y = divider_y + 22
         card_draw.text((title_x, quiz_y), QUIZ_NAME, font=quiz_font, fill=(255,80,40))
         # Composite card onto background
         bg.paste(card, (card_x0, card_y0), card)
