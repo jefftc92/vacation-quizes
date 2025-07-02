@@ -66,10 +66,11 @@ def sanitize_filename(name):
 os.makedirs('share_images', exist_ok=True)
 
 CANVAS_WIDTH = 1200
-CANVAS_HEIGHT = 1000  # Increased canvas height for more ray background
+CANVAS_HEIGHT = 630
 CARD_RADIUS = 36
 CARD_PADDING = 36
-CARD_HEIGHT = 900  # Increased card height for all content
+CARD_WIDTH = CANVAS_WIDTH - 160  # 80px padding on each side
+CARD_HEIGHT = CANVAS_HEIGHT - 80  # 40px padding on top and bottom
 
 for hotel, (img_path, reason) in hotels.items():
     try:
@@ -89,25 +90,30 @@ for hotel, (img_path, reason) in hotels.items():
             y2 = center[1] + r * math.sin(angle2)
             color = (255, 120, 60) if i % 2 == 0 else (255, 80, 40)
             draw.polygon([center, (x1, y1), (x2, y2)], fill=color)
-        # Center the card vertically on the ray background
+        
+        # White card - positioned exactly in the center with proper padding
         card_x0 = 80
-        card_y0 = (CANVAS_HEIGHT - CARD_HEIGHT) // 2
-        card_x1 = CANVAS_WIDTH - 80
-        card_y1 = card_y0 + CARD_HEIGHT
-        card = Image.new('RGBA', (card_x1-card_x0, CARD_HEIGHT), (255,255,255,255))
+        card_y0 = 40
+        card = Image.new('RGBA', (CARD_WIDTH, CARD_HEIGHT), (255,255,255,255))
         card_draw = ImageDraw.Draw(card)
-        card_draw.rounded_rectangle([(0,0),(card_x1-card_x0,CARD_HEIGHT)], radius=CARD_RADIUS, fill=(255,255,255,255))
+        card_draw.rounded_rectangle([(0,0),(CARD_WIDTH,CARD_HEIGHT)], radius=CARD_RADIUS, fill=(255,255,255,255))
+        
+        # Calculate content areas to fit within card
+        content_padding = 48
+        content_width = CARD_WIDTH - (content_padding * 2)
+        
         # Hotel name (top, bold, left-aligned)
-        title_font = get_font(48)
+        title_font = get_font(44)
         title = hotel
-        title_x = 48
+        title_x = content_padding
         title_y = 28
         card_draw.text((title_x, title_y), title, font=title_font, fill=(40,40,40))
-        # Hotel image (very tall, nearly square, cropped to fill)
+        
+        # Hotel image (fixed area)
         img = Image.open(img_path).convert('RGB')
-        img_area_w = card.width - 96
-        img_area_h = 500  # Taller image area
-        # Crop image to fill area
+        img_area_w = content_width
+        img_area_h = 280  # Fixed hotel image area - reduced to fit better
+        # Crop/resize image to fill area
         aspect_card = img_area_w / img_area_h
         aspect_img = img.width / img.height
         if aspect_img > aspect_card:
@@ -121,13 +127,15 @@ for hotel, (img_path, reason) in hotels.items():
             top = (img.height - new_h) // 2
             img = img.crop((0, top, img.width, top + new_h))
         img = img.resize((img_area_w, img_area_h))
-        img_x = (card.width - img_area_w) // 2
-        img_y = title_y + 70
+        img_x = content_padding
+        img_y = title_y + 60
         card.paste(img, (img_x, img_y))
-        # Description (below image)
+        
+        # Description (fixed 3 lines)
         desc_font = get_font(28)
         desc = f"The best Las Vegas hotel for you is {hotel}. {reason}"
-        desc_max_width = card.width - 96
+        desc_max_width = content_width
+        
         def wrap_text(text, font, max_width):
             words = text.split()
             lines = []
@@ -143,25 +151,34 @@ for hotel, (img_path, reason) in hotels.items():
             if line:
                 lines.append(line)
             return lines
+        
         desc_lines = wrap_text(desc, desc_font, desc_max_width)
+        # Force to 3 lines
+        if len(desc_lines) > 3:
+            # Truncate and add ellipsis
+            desc_lines = desc_lines[:3]
+            if len(desc_lines[2]) > 3:
+                desc_lines[2] = desc_lines[2][:-3] + '...'
+        elif len(desc_lines) < 3:
+            desc_lines += [''] * (3 - len(desc_lines))
+        
         desc_y = img_y + img_area_h + 18
-        min_desc_block_height = 140
-        desc_block_height = len(desc_lines) * 36
-        if desc_block_height < min_desc_block_height:
-            extra_space = min_desc_block_height - desc_block_height
-            desc_y += extra_space // 2
         for line in desc_lines:
             card_draw.text((title_x, desc_y), line, font=desc_font, fill=(60,60,60))
             desc_y += 36
+        
         # Divider line
         divider_y = desc_y + 10
-        card_draw.line([(title_x, divider_y), (card.width - title_x, divider_y)], fill=(220,220,220), width=4)
+        card_draw.line([(title_x, divider_y), (content_padding + content_width, divider_y)], fill=(220,220,220), width=4)
+        
         # Quiz name at the bottom
         quiz_font = get_font(32)
         quiz_y = divider_y + 24
         card_draw.text((title_x, quiz_y), QUIZ_NAME, font=quiz_font, fill=(255,80,40))
+        
         # Composite card onto background
         bg.paste(card, (card_x0, card_y0), card)
+        
         # Save
         out_name = f"share_images/share_{sanitize_filename(hotel)}.jpg"
         bg.save(out_name, quality=95)
