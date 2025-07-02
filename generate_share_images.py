@@ -110,11 +110,11 @@ for hotel, (img_path, reason) in hotels.items():
         title_y = 28
         card_draw.text((title_x, title_y), title, font=title_font, fill=(40,40,40))
         
-        # Hotel image (fixed area, object-fit: cover)
+        # Hotel image (fixed area, object-fit: cover, simple center crop)
         img = Image.open(img_path).convert('RGB')
         img_area_w = content_width
-        img_area_h = 220  # Reduce image height to allow more text space
-        # Crop/resize image to fill area (object-fit: cover)
+        img_area_h = 220  # Keep as previously adjusted
+        # Center crop to target aspect ratio
         aspect_card = img_area_w / img_area_h
         aspect_img = img.width / img.height
         if aspect_img > aspect_card:
@@ -127,10 +127,10 @@ for hotel, (img_path, reason) in hotels.items():
             new_h = int(img.width / aspect_card)
             top = (img.height - new_h) // 2
             img = img.crop((0, top, img.width, top + new_h))
-        img = img.resize((img_area_w, img_area_h), Image.LANCZOS)
+        img_cropped = img.resize((img_area_w, img_area_h), Image.LANCZOS)
         img_x = content_padding
         img_y = title_y + 60
-        card.paste(img, (img_x, img_y))
+        card.paste(img_cropped, (img_x, img_y))
         
         # Description (fixed 3 lines)
         desc_font = get_font(28)
