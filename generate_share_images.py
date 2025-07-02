@@ -172,12 +172,14 @@ for hotel, (img_path, reason) in hotels.items():
         divider_y = desc_y + 10
         card_draw.line([(title_x, divider_y), (content_padding + content_width, divider_y)], fill=(220,220,220), width=4)
         
-        # Quiz name at the bottom, but at least 60px from the bottom of the card
+        # Quiz name: always at least 40px below divider and 60px from bottom
         quiz_font = get_font(32)
         quiz_text = QUIZ_NAME
         quiz_bbox = card_draw.textbbox((0,0), quiz_text, font=quiz_font)
         quiz_height = quiz_bbox[3] - quiz_bbox[1]
-        quiz_y = CARD_HEIGHT - SAFE_PADDING - quiz_height  # 60px from bottom
+        min_quiz_y = divider_y + 40
+        max_quiz_y = CARD_HEIGHT - SAFE_PADDING - quiz_height
+        quiz_y = max(min_quiz_y, max_quiz_y)
         card_draw.text((title_x, quiz_y), quiz_text, font=quiz_font, fill=(255,80,40))
         
         # Composite card onto background
