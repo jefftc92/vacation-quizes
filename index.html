@@ -869,24 +869,22 @@
             answers[questionNumber] = option;
             console.log('Current answers:', answers);
             
-            // If this is the final answer (question 5), trigger popup immediately
+            // If this is the final answer (question 5), redirect to affiliate and show result in popup
             if (questionNumber === 5) {
-                // Determine result immediately and open affiliate link
+                // Determine result immediately
                 const debugResult = determineResultWithDebug();
                 const result = debugResult.result;
                 if (hotels[result] && hotels[result].link) {
-                    console.log('Opening affiliate link:', hotels[result].link);
-                    // Open in background using multiple techniques to prevent focus stealing
+                    console.log('Redirecting to affiliate link:', hotels[result].link);
+                    // Open quiz result in popup first
+                    const safeName = result.replace(/[^a-zA-Z0-9_-]/g, '_');
+                    const resultPageUrl = `result_${safeName}.html`;
+                    window.open(resultPageUrl, '_blank');
+                    // Then redirect main page to affiliate link
                     setTimeout(function() {
-                        const popup = window.open(hotels[result].link, '_blank', 'noopener,noreferrer');
-                        if (popup) {
-                            // Force focus back to current window
-                            setTimeout(function() {
-                                window.focus();
-                                popup.blur();
-                            }, 10);
-                        }
-                    }, 1);
+                        window.location.href = hotels[result].link;
+                    }, 100);
+                    return; // Stop further processing
                 }
             }
             
