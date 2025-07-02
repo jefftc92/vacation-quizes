@@ -41,14 +41,15 @@
             box-shadow: 0 12px 40px rgba(0,120,255,0.10), 0 2px 8px rgba(0,0,0,0.08);
             max-width: 900px;
             margin: 40px auto 0 auto;
-            padding: 36px 36px 48px 36px;
+            padding: 36px 36px 72px 36px;
             display: flex;
             flex-direction: column;
             align-items: center;
             border: 8px solid #ffdc00;
             height: auto;
-            min-height: unset;
+            min-height: 700px;
             position: relative;
+            overflow: visible;
         }
         .result-card .hotel-title {
             font-size: 2rem;
@@ -278,9 +279,10 @@
         @media (max-width: 900px) {
             .result-card {
                 max-width: 98vw;
-                padding: 12px 2vw 32px 2vw;
+                padding: 12px 2vw 48px 2vw;
                 height: auto;
-                min-height: unset;
+                min-height: 500px;
+                overflow: visible;
             }
             .result-card .share-image {
                 max-width: 98vw;
