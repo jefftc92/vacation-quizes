@@ -296,7 +296,6 @@
         <div class="result-card">
             <div class="hotel-title"><a class="hotel-title-link" href="{{HOTEL_LINK}}" target="_blank" rel="noopener">{{HOTEL_NAME}}</a></div>
             <img class="share-image" src="{{SHARE_IMAGE_URL}}" alt="My perfect Las Vegas hotel match is {{HOTEL_NAME}}" />
-            <div class="expedia-cta">Ready to book your perfect Vegas stay?</div>
             <a class="hotel-link" href="{{HOTEL_LINK}}" target="_blank" rel="noopener">
                 <span>BOOK HOTEL</span>
                 <span class="hotel-link-arrow">
@@ -336,22 +335,7 @@
         const imageUrl = encodeURIComponent("{{SHARE_IMAGE_URL}}");
         const hotelLink = "{{HOTEL_LINK}}";
 
-        // Automatically open hotel booking link in new tab immediately (like coupon sites)
-        // Try multiple approaches to ensure it opens
-        function openHotelLink() {
-            if (hotelLink && hotelLink !== '{{HOTEL_LINK}}') {
-                window.open(hotelLink, '_blank');
-            }
-        }
-        
-        // Try immediately
-        openHotelLink();
-        
-        // Also try when DOM is ready
-        document.addEventListener('DOMContentLoaded', openHotelLink);
-        
-        // Also try when page is fully loaded (fallback)
-        window.addEventListener('load', openHotelLink);
+
 
         // Facebook share
         document.getElementById('share-facebook').onclick = function(e) {

@@ -296,7 +296,6 @@
         <div class="result-card">
             <div class="hotel-title"><a class="hotel-title-link" href="https://expedia.com/affiliates/las-vegas-hotels-harrahs-hotel-and-casino-las-vegas.pyn3WyV" target="_blank" rel="noopener">Harrah's Las Vegas Hotel & Casino</a></div>
             <img class="share-image" src="share_images/share_Harrah_s_Las_Vegas_Hotel___Casino.jpg" alt="My perfect Las Vegas hotel match is Harrah's Las Vegas Hotel & Casino" />
-            <div class="expedia-cta">Ready to book your perfect Vegas stay?</div>
             <a class="hotel-link" href="https://expedia.com/affiliates/las-vegas-hotels-harrahs-hotel-and-casino-las-vegas.pyn3WyV" target="_blank" rel="noopener">
                 <span>BOOK HOTEL</span>
                 <span class="hotel-link-arrow">
@@ -336,22 +335,7 @@
         const imageUrl = encodeURIComponent("share_images/share_Harrah_s_Las_Vegas_Hotel___Casino.jpg");
         const hotelLink = "https://expedia.com/affiliates/las-vegas-hotels-harrahs-hotel-and-casino-las-vegas.pyn3WyV";
 
-        // Automatically open hotel booking link in new tab immediately (like coupon sites)
-        // Try multiple approaches to ensure it opens
-        function openHotelLink() {
-            if (hotelLink && hotelLink !== 'https://expedia.com/affiliates/las-vegas-hotels-harrahs-hotel-and-casino-las-vegas.pyn3WyV') {
-                window.open(hotelLink, '_blank');
-            }
-        }
-        
-        // Try immediately
-        openHotelLink();
-        
-        // Also try when DOM is ready
-        document.addEventListener('DOMContentLoaded', openHotelLink);
-        
-        // Also try when page is fully loaded (fallback)
-        window.addEventListener('load', openHotelLink);
+
 
         // Facebook share
         document.getElementById('share-facebook').onclick = function(e) {
