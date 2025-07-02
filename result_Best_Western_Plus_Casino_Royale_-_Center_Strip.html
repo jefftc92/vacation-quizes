@@ -54,36 +54,18 @@
             font-size: 2rem;
             font-weight: 900;
             color: #0078ff;
-            margin-bottom: 8px;
+            margin-bottom: 18px;
             text-align: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
+            display: block;
         }
         .result-card .hotel-title-link {
             color: #0078ff;
             text-decoration: underline;
             cursor: pointer;
-            transition: color 0.2s, text-decoration-thickness 0.2s;
-            text-underline-offset: 4px;
-            text-decoration-thickness: 3px;
-            font-size: 2rem;
-            font-weight: 900;
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
+            transition: color 0.2s;
         }
         .result-card .hotel-title-link:hover {
             color: #00c6ff;
-            text-decoration: underline;
-            text-decoration-thickness: 4px;
-        }
-        .result-card .hotel-title-link .external-link-icon {
-            width: 1.2em;
-            height: 1.2em;
-            margin-left: 2px;
-            vertical-align: middle;
         }
         .result-card .hotel-title-btn {
             display: inline-block;
@@ -116,7 +98,7 @@
             display: block;
             border-radius: 16px;
             box-shadow: 0 6px 24px rgba(0,120,255,0.13);
-            margin-bottom: 4px;
+            margin-bottom: 12px;
             background: #fff;
             min-height: unset;
             max-height: unset;
@@ -146,12 +128,12 @@
         .hotel-link {
             display: flex;
             align-items: center;
-            justify-content: flex-end;
-            margin: 0 0 16px 0;
+            justify-content: center;
+            margin: 0 auto 0 auto;
             background: linear-gradient(90deg, #0078ff 60%, #00c6ff 100%);
             color: #fff;
             text-decoration: none;
-            padding: 18px 32px;
+            padding: 20px 32px;
             border-radius: 32px;
             font-weight: 900;
             font-size: 1.22rem;
@@ -160,12 +142,11 @@
             letter-spacing: 0.01em;
             transition: background 0.2s, color 0.2s, transform 0.2s;
             position: relative;
+            margin-bottom: 24px;
             border: none;
             outline: none;
             animation: pulse 1.5s infinite alternate;
             gap: 0;
-            width: 100%;
-            max-width: 350px;
         }
         @keyframes pulse {
             0% { box-shadow: 0 0 0 0 #ffdc0044; }
@@ -307,22 +288,13 @@
                 height: auto;
             }
             .result-card .hotel-title {
-                font-size: 1.3rem;
-                gap: 4px;
-            }
-            .result-card .hotel-title-link {
-                font-size: 1.3rem;
-            }
-            .result-card .share-image {
-                margin-bottom: 2px;
+                font-size: 1.6rem;
+                margin-bottom: 12px;
             }
             .hotel-link {
                 font-size: 1.1rem;
-                padding: 14px 16px;
-                margin: 0 0 12px 0;
-                max-width: 100%;
-                width: 100%;
-                justify-content: center;
+                padding: 16px 24px;
+                margin-bottom: 20px;
             }
             .social-btn {
                 width: 44px;
@@ -338,7 +310,7 @@
 <body>
     <div class="container">
         <div class="result-card">
-            <div class="hotel-title"><a class="hotel-title-link" href="https://expedia.com/affiliates/las-vegas-hotels-best-western-plus-casino-royale-center-strip.7OVjc4U" target="_blank" rel="noopener">Best Western Plus Casino Royale - Center Strip<span class="external-link-icon"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none"><path d="M14 3h7v7" stroke="#0078ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 14L21 3" stroke="#0078ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 12v7a2 2 0 0 0 2 2h7" stroke="#0078ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a></div>
+            <div class="hotel-title"><a class="hotel-title-link" href="https://expedia.com/affiliates/las-vegas-hotels-best-western-plus-casino-royale-center-strip.7OVjc4U" target="_blank" rel="noopener">Best Western Plus Casino Royale - Center Strip</a></div>
             <img class="share-image" src="share_images/share_Best_Western_Plus_Casino_Royale_-_Center_Strip.jpg" alt="My perfect Las Vegas hotel match is Best Western Plus Casino Royale - Center Strip" />
             <a class="hotel-link" href="https://expedia.com/affiliates/las-vegas-hotels-best-western-plus-casino-royale-center-strip.7OVjc4U" target="_blank" rel="noopener">
                 <span>BOOK HOTEL</span>
@@ -358,8 +330,11 @@
                     <svg viewBox="0 0 32 32" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><circle cx="16" cy="16" r="16" fill="#fff"/><path d="M26 11.1c-.6.3-1.2.5-1.8.6.7-.4 1.2-1 1.5-1.7-.6.4-1.3.7-2 .9-.6-.6-1.5-1-2.4-1-1.8 0-3.2 1.5-3.2 3.2 0 .3 0 .6.1.8-2.7-.1-5.1-1.4-6.7-3.4-.3.5-.5 1-.5 1.6 0 1.1.6 2.1 1.5 2.7-.5 0-1-.2-1.4-.4v.1c0 1.5 1.1 2.7 2.5 3-.3.1-.6.2-.9.2-.2 0-.4 0-.6-.1.4 1.2 1.6 2.1 3 2.1-1.1.9-2.5 1.4-4 1.4-.3 0-.6 0-.9-.1 1.4.9 3.1 1.5 4.9 1.5 5.9 0 9.1-4.9 9.1-9.1v-.4c.6-.4 1.1-1 1.5-1.6z" fill="#1da1f2"/></svg>
                 </a>
                 <button class="social-btn copy-results" id="copy-results" title="Copy link to result">
-                    <!-- Unicode clipboard icon for mobile compatibility -->
-                    <span style="font-size:1.5em;line-height:1;">📋</span>
+                    <!-- Simple clipboard icon -->
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" stroke="#ff7a00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <rect x="8" y="2" width="8" height="4" rx="1" ry="1" fill="#ffdc00" stroke="#ff7a00" stroke-width="2"/>
+                    </svg>
                 </button>
             </div>
             <a class="quiz-again-btn" href="index.html">Take the quiz again</a>
