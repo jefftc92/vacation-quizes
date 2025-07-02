@@ -109,24 +109,24 @@ for hotel, (img_path, reason) in hotels.items():
         title_y = 28
         card_draw.text((title_x, title_y), title, font=title_font, fill=(40,40,40))
         
-        # Hotel image (fixed area)
+        # Hotel image (fixed area, object-fit: cover)
         img = Image.open(img_path).convert('RGB')
         img_area_w = content_width
-        img_area_h = 280  # Fixed hotel image area - reduced to fit better
-        # Crop/resize image to fill area
+        img_area_h = 280  # Fixed hotel image area
+        # Crop/resize image to fill area (object-fit: cover)
         aspect_card = img_area_w / img_area_h
         aspect_img = img.width / img.height
         if aspect_img > aspect_card:
-            # Crop width
+            # Image is wider than area: crop width
             new_w = int(img.height * aspect_card)
             left = (img.width - new_w) // 2
             img = img.crop((left, 0, left + new_w, img.height))
         else:
-            # Crop height
+            # Image is taller than area: crop height
             new_h = int(img.width / aspect_card)
             top = (img.height - new_h) // 2
             img = img.crop((0, top, img.width, top + new_h))
-        img = img.resize((img_area_w, img_area_h))
+        img = img.resize((img_area_w, img_area_h), Image.LANCZOS)
         img_x = content_padding
         img_y = title_y + 60
         card.paste(img, (img_x, img_y))
