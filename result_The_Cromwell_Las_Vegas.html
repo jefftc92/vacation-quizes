@@ -45,7 +45,8 @@
             flex-direction: column;
             align-items: center;
             border: 8px solid #ffdc00;
-            min-height: 900px; /* taller card */
+            min-height: unset;
+            height: auto;
             position: relative;
         }
         .result-card .hotel-title {
@@ -59,13 +60,16 @@
         .result-card .share-image {
             width: 100%;
             max-width: 700px;
+            height: 370px;
             border-radius: 16px;
             box-shadow: 0 6px 24px rgba(0,120,255,0.13);
             margin-bottom: 24px;
-            object-fit: contain;
+            object-fit: cover;
             display: block;
             background: #fff;
-            min-height: 420px;
+            min-height: 370px;
+            max-height: 370px;
+            overflow: visible;
         }
         .result-card .hotel-desc {
             font-size: 1.18rem;
@@ -217,11 +221,14 @@
             .result-card {
                 max-width: 98vw;
                 padding: 18px 4vw 60px 4vw;
-                min-height: 110vw;
+                min-height: unset;
+                height: auto;
             }
             .result-card .share-image {
                 max-width: 98vw;
+                height: 38vw;
                 min-height: 38vw;
+                max-height: 38vw;
             }
         }
     </style>
