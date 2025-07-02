@@ -145,6 +145,12 @@ for hotel, (img_path, reason) in hotels.items():
             return lines
         desc_lines = wrap_text(desc, desc_font, desc_max_width)
         desc_y = img_y + img_area_h + 24
+        # If the description is short, increase font size or add min height
+        min_desc_block_height = 120
+        desc_block_height = len(desc_lines) * 36
+        if desc_block_height < min_desc_block_height:
+            extra_space = min_desc_block_height - desc_block_height
+            desc_y += extra_space // 2
         for line in desc_lines:
             card_draw.text((title_x, desc_y), line, font=desc_font, fill=(60,60,60))
             desc_y += 36
@@ -152,8 +158,8 @@ for hotel, (img_path, reason) in hotels.items():
         divider_y = desc_y + 12
         card_draw.line([(title_x, divider_y), (card.width - title_x, divider_y)], fill=(220,220,220), width=4)
         # Quiz name at the bottom
-        quiz_font = get_font(24)
-        quiz_y = divider_y + 22
+        quiz_font = get_font(32)
+        quiz_y = divider_y + 28
         card_draw.text((title_x, quiz_y), QUIZ_NAME, font=quiz_font, fill=(255,80,40))
         # Composite card onto background
         bg.paste(card, (card_x0, card_y0), card)
