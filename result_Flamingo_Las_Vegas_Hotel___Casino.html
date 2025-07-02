@@ -33,27 +33,62 @@
             box-shadow: 0 8px 32px rgba(0,0,0,0.12);
             padding: 32px 18px 40px 18px;
         }
-        .hotel-title {
-            font-size: 2.2rem;
+        .result-card {
+            background: #fff;
+            border-radius: 40px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+            max-width: 1100px;
+            margin: 40px auto 0 auto;
+            padding: 36px 36px 36px 36px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .result-card .hotel-title {
+            font-size: 2.1rem;
             font-weight: 900;
             color: #0078ff;
             margin-bottom: 18px;
             text-shadow: 1px 2px 0 #fff, 2px 4px 8px #0078ff33;
+            text-align: center;
         }
-        .share-image {
+        .result-card .share-image {
             width: 100%;
-            max-width: 520px;
+            max-width: 700px;
             border-radius: 16px;
             box-shadow: 0 6px 24px rgba(0,120,255,0.13);
             margin-bottom: 24px;
+            object-fit: contain;
+            display: block;
         }
-        .hotel-desc {
+        .result-card .hotel-desc {
             font-size: 1.18rem;
-            margin-bottom: 32px;
-            background: #f7f7ff;
+            margin-bottom: 0;
+            background: #fff;
             border-radius: 12px;
             padding: 18px 12px;
-            box-shadow: 0 2px 8px rgba(0,120,255,0.07);
+            box-shadow: none;
+            color: #333;
+            font-weight: 600;
+            text-align: center;
+        }
+        .hotel-link {
+            display: inline-block;
+            margin-top: 18px;
+            background-color: #0078ff;
+            color: white;
+            text-decoration: none;
+            padding: 14px 32px;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 1.15rem;
+            transition: all 0.3s;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.13);
+        }
+        .hotel-link:hover {
+            background-color: #ffdc00;
+            color: #222;
+            transform: translateY(-2px) scale(1.04);
         }
         .quiz-again-btn {
             display: inline-block;
@@ -118,13 +153,25 @@
             transform: translateY(-2px);
             box-shadow: 0 6px 12px rgba(0,0,0,0.3);
         }
+        @media (max-width: 900px) {
+            .result-card {
+                max-width: 98vw;
+                padding: 18px 4vw;
+            }
+            .result-card .share-image {
+                max-width: 98vw;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="hotel-title">My perfect Las Vegas hotel match is <span>Flamingo Las Vegas Hotel & Casino</span></div>
-        <img class="share-image" src="share_images/share_Flamingo_Las_Vegas_Hotel___Casino.jpg" alt="My perfect Las Vegas hotel match is Flamingo Las Vegas Hotel & Casino" />
-        <div class="hotel-desc">Retro-loving, drawn to Vegas history, and looking for a lively atmosphere - the Flamingo is your ideal match! As the oldest resort still operating on the Strip, it offers that classic Vegas vibe with modern amenities. You'll love the lush wildlife habitat, vibrant casino, and the perfect center-Strip location at a value-conscious price point!</div>
+        <div class="result-card">
+            <div class="hotel-title">Flamingo Las Vegas Hotel & Casino</div>
+            <img class="share-image" src="share_images/share_Flamingo_Las_Vegas_Hotel___Casino.jpg" alt="My perfect Las Vegas hotel match is Flamingo Las Vegas Hotel & Casino" />
+            <div class="hotel-desc">Retro-loving, drawn to Vegas history, and looking for a lively atmosphere - the Flamingo is your ideal match! As the oldest resort still operating on the Strip, it offers that classic Vegas vibe with modern amenities. You'll love the lush wildlife habitat, vibrant casino, and the perfect center-Strip location at a value-conscious price point!</div>
+        </div>
+        <a class="hotel-link" href="https://expedia.com/affiliates/las-vegas-hotels-flamingo-las-vegas-hotel-casino.ItYrKT6" target="_blank" rel="noopener">Book this hotel on Expedia</a>
         <a class="quiz-again-btn" href="index.html">Take the quiz again</a>
         
         <div class="social-share">
@@ -150,7 +197,7 @@
         // Facebook share
         document.getElementById('share-facebook').onclick = function(e) {
             e.preventDefault();
-            const fbUrl = `https://www.facebook.com/sharer/sharer.php?u=${pageUrl}&quote=${text}`;
+            const fbUrl = `https://www.facebook.com/sharer/sharer.php?u=${pageUrl}`;
             window.open(fbUrl, '_blank');
         };
         

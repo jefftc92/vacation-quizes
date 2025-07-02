@@ -72,6 +72,24 @@
             font-weight: 600;
             text-align: center;
         }
+        .hotel-link {
+            display: inline-block;
+            margin-top: 18px;
+            background-color: #0078ff;
+            color: white;
+            text-decoration: none;
+            padding: 14px 32px;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 1.15rem;
+            transition: all 0.3s;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.13);
+        }
+        .hotel-link:hover {
+            background-color: #ffdc00;
+            color: #222;
+            transform: translateY(-2px) scale(1.04);
+        }
         .quiz-again-btn {
             display: inline-block;
             background: #ffdc00;
@@ -153,6 +171,7 @@
             <img class="share-image" src="{{SHARE_IMAGE_URL}}" alt="My perfect Las Vegas hotel match is {{HOTEL_NAME}}" />
             <div class="hotel-desc">{{HOTEL_DESC}}</div>
         </div>
+        <a class="hotel-link" href="{{HOTEL_LINK}}" target="_blank" rel="noopener">Book this hotel on Expedia</a>
         <a class="quiz-again-btn" href="index.html">Take the quiz again</a>
         
         <div class="social-share">
@@ -178,7 +197,7 @@
         // Facebook share
         document.getElementById('share-facebook').onclick = function(e) {
             e.preventDefault();
-            const fbUrl = `https://www.facebook.com/sharer/sharer.php?u=${pageUrl}&quote=${text}`;
+            const fbUrl = `https://www.facebook.com/sharer/sharer.php?u=${pageUrl}`;
             window.open(fbUrl, '_blank');
         };
         
