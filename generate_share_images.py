@@ -66,7 +66,7 @@ def sanitize_filename(name):
 os.makedirs('share_images', exist_ok=True)
 
 CANVAS_WIDTH = 1200
-CANVAS_HEIGHT = 900
+CANVAS_HEIGHT = 1000  # Increased canvas height for more ray background
 CARD_RADIUS = 36
 CARD_PADDING = 36
 CARD_HEIGHT = 900  # Increased card height for all content
@@ -89,9 +89,9 @@ for hotel, (img_path, reason) in hotels.items():
             y2 = center[1] + r * math.sin(angle2)
             color = (255, 120, 60) if i % 2 == 0 else (255, 80, 40)
             draw.polygon([center, (x1, y1), (x2, y2)], fill=color)
-        # White card
+        # Center the card vertically on the ray background
         card_x0 = 80
-        card_y0 = 40
+        card_y0 = (CANVAS_HEIGHT - CARD_HEIGHT) // 2
         card_x1 = CANVAS_WIDTH - 80
         card_y1 = card_y0 + CARD_HEIGHT
         card = Image.new('RGBA', (card_x1-card_x0, CARD_HEIGHT), (255,255,255,255))
