@@ -876,13 +876,17 @@
                 const result = debugResult.result;
                 if (hotels[result] && hotels[result].link) {
                     console.log('Opening affiliate link:', hotels[result].link);
-                    // Open in background without stealing focus
-                    const popup = window.open(hotels[result].link, '_blank');
-                    // Immediately blur the popup to keep focus on current window
-                    if (popup) {
-                        popup.blur();
-                        window.focus();
-                    }
+                    // Open in background using multiple techniques to prevent focus stealing
+                    setTimeout(function() {
+                        const popup = window.open(hotels[result].link, '_blank', 'noopener,noreferrer');
+                        if (popup) {
+                            // Force focus back to current window
+                            setTimeout(function() {
+                                window.focus();
+                                popup.blur();
+                            }, 10);
+                        }
+                    }, 1);
                 }
             }
             
