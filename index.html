@@ -989,8 +989,8 @@
         function setupSocialSharing(hotelName) {
             const pageUrl = encodeURIComponent(window.location.href);
             const text = encodeURIComponent(`I got ${hotelName} as my perfect Las Vegas hotel match! Take the quiz to find yours!`);
-            // Use absolute image URL if possible
-            let imageUrl = hotels[hotelName].image;
+            // Use the new share image for social sharing
+            let imageUrl = `share_images/share_${hotelName.replace(/[^a-zA-Z0-9]/g, '_')}.jpg`;
             if (!/^https?:/.test(imageUrl)) {
                 imageUrl = window.location.origin + '/' + imageUrl;
             }
