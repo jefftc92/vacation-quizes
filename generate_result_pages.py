@@ -47,6 +47,46 @@ SHARE_IMAGE_PATTERN = "share_images/share_{}.jpg"
 # Result page URL pattern (GitHub Pages style)
 RESULT_PAGE_URL_PATTERN = "https://jefftc92.github.io/vacation-quizes/{}"
 
+hotel_links = {
+    "Bellagio Resort & Casino": "https://expedia.com/affiliates/las-vegas-hotels-bellagio.3x57zyG",
+    "Wynn Las Vegas": "https://expedia.com/affiliates/las-vegas-hotels-wynn-las-vegas",
+    "The Cosmopolitan of Las Vegas": "https://expedia.com/affiliates/las-vegas-hotels-the-cosmopolitan-of-las-vegas.Auc1Nr0",
+    "ARIA Resort and Casino": "https://expedia.com/affiliates/las-vegas-hotels-aria-resort-casino.Uokiz9Q",
+    "Caesars Palace": "https://expedia.com/affiliates/las-vegas-hotels-caesars-palace-resort-casino.TSg28OE",
+    "Flamingo Las Vegas Hotel & Casino": "https://expedia.com/affiliates/las-vegas-hotels-flamingo-las-vegas-hotel-casino.ItYrKT6",
+    "Nobu Hotel at Caesars Palace": "https://expedia.com/affiliates/las-vegas-hotels-nobu-hotel-at-caesars-palace.pCymfNS",
+    "Paris Las Vegas Hotel & Casino": "https://expedia.com/affiliates/las-vegas-hotels-paris-las-vegas-resort-casino.01j1EF3",
+    "Planet Hollywood Resort & Casino": "https://expedia.com/affiliates/las-vegas-hotels-planet-hollywood-resort-casino.1I43suF",
+    "Waldorf Astoria Las Vegas": "https://expedia.com/affiliates/las-vegas-hotels-waldorf-astoria-las-vegas.KtBGh9h",
+    "The Cromwell Las Vegas": "https://expedia.com/affiliates/las-vegas-hotels-the-cromwell.eIF9i3z",
+    "Harrah's Las Vegas Hotel & Casino": "https://expedia.com/affiliates/las-vegas-hotels-harrahs-hotel-and-casino-las-vegas.pyn3WyV",
+    "Flamingo, a Hilton Grand Vacations Club": "https://expedia.com/affiliates/las-vegas-hotels-hilton-grand-vacations-at-the-flamingo.q56tJH0",
+    "Horseshoe Las Vegas": "https://expedia.com/affiliates/las-vegas-hotels-horseshoe-las-vegas.X6VGNld",
+    "The LINQ Hotel + Experience": "https://expedia.com/affiliates/las-vegas-hotels-the-linq-hotel-experience.ONDqGs1",
+    "The Palazzo at The Venetian Resort Las Vegas": "https://expedia.com/affiliates/las-vegas-hotels-the-palazzo-at-the-venetian.H2cxO6M",
+    "Treasure Island Hotel and Casino": "https://expedia.com/affiliates/las-vegas-hotels-ti-treasure-island-hotel-and-casino.2OuNVCg",
+    "The Venetian Resort Las Vegas": "https://expedia.com/affiliates/las-vegas-hotels-the-venetian-resort-las-vegas.NK9yuzb",
+    "Best Western Plus Casino Royale - Center Strip": "https://expedia.com/affiliates/las-vegas-hotels-best-western-plus-casino-royale-center-strip.7OVjc4U",
+    "Encore at Wynn Las Vegas": "https://expedia.com/affiliates/las-vegas-hotels-encore-at-wynn-las-vegas.P350Tha",
+    "Hilton Grand Vacations Club Paradise Las Vegas": "https://expedia.com/affiliates/las-vegas-hotels-hilton-grand-vacations-on-paradise.13Z5yW1",
+    "Hilton Vacation Club Polo Towers Las Vegas": "https://expedia.com/affiliates/las-vegas-hotels-polo-towers.rKodcUQ",
+    "MGM Grand Hotel & Casino": "https://expedia.com/affiliates/las-vegas-hotels-mgm-grand-hotel-casino.Nq7doFx",
+    "New York-New York Hotel and Casino": "https://expedia.com/affiliates/las-vegas-hotels-new-york-new-york-hotel-casino.2nWbiVn",
+    "NoMad Las Vegas": "https://expedia.com/affiliates/las-vegas-hotels-nomad-las-vegas.AICGyYI",
+    "Park MGM Las Vegas": "https://expedia.com/affiliates/las-vegas-hotels-park-mgm-las-vegas.UKcRlqb",
+    "W Las Vegas": "https://expedia.com/affiliates/las-vegas-hotels-delano-las-vegas-at-mandalay-bay.rqdedQU",
+    "Excalibur Hotel and Casino": "https://expedia.com/affiliates/las-vegas-hotels-excalibur-hotel-casino.PwrARmh",
+    "Fontainebleau Las Vegas": "https://expedia.com/affiliates/las-vegas-hotels-fontainebleau-las-vegas.3P4kVL4",
+    "Four Seasons Hotel Las Vegas": "https://expedia.com/affiliates/las-vegas-hotels-four-seasons-hotel-las-vegas.pH28KRm",
+    "Resorts World Las Vegas": "https://www.rwlasvegas.com/",
+    "Luxor Las Vegas": "https://expedia.com/affiliates/las-vegas-hotels-luxor-hotel-and-casino.zUzJxI2",
+    "Mandalay Bay Resort and Casino": "https://expedia.com/affiliates/las-vegas-hotels-mandalay-bay-resort-and-casino.pAZqzIe",
+    "Nirvana Hotel": "https://expedia.com/affiliates/las-vegas-hotels-nirvana-hotel.CG25A5n",
+    "Circus Circus Las Vegas": "https://expedia.com/affiliates/las-vegas-hotels-circus-circus-hotel.khABrrs",
+    "SAHARA Las Vegas": "https://expedia.com/affiliates/las-vegas-hotels-sahara-las-vegas.cXegFrm",
+    "The STRAT Hotel, Casino & Tower": "https://expedia.com/affiliates/las-vegas-hotels-the-strat-hotel.gIsoxPI"
+}
+
 def sanitize_filename(name):
     return re.sub(r'[^a-zA-Z0-9_-]', '_', name)
 
@@ -59,10 +99,12 @@ for hotel, desc in hotels.items():
     share_img = SHARE_IMAGE_PATTERN.format(safe_name)
     result_page = f"result_{safe_name}.html"
     result_url = RESULT_PAGE_URL_PATTERN.format(result_page)
+    hotel_link = hotel_links.get(hotel, "#")
     html = template.replace("{{HOTEL_NAME}}", hotel)
     html = html.replace("{{HOTEL_DESC}}", desc)
     html = html.replace("{{SHARE_IMAGE_URL}}", share_img)
     html = html.replace("{{RESULT_PAGE_URL}}", result_url)
+    html = html.replace("{{HOTEL_LINK}}", hotel_link)
     with open(result_page, 'w') as outf:
         outf.write(html)
     print(f"Generated: {result_page}") 
