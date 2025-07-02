@@ -7,14 +7,14 @@
     <!-- Open Graph Meta Tags -->
     <meta property="og:title" content="My perfect Las Vegas hotel match is {{HOTEL_NAME}}!" />
     <meta property="og:description" content="{{HOTEL_DESC}}" />
-    <meta property="og:image" content="{{SHARE_IMAGE_URL}}" />
+    <meta property="og:image" content="{{SHARE_IMAGE_ABS_URL}}" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="{{RESULT_PAGE_URL}}" />
     <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="My perfect Las Vegas hotel match is {{HOTEL_NAME}}!" />
     <meta name="twitter:description" content="{{HOTEL_DESC}}" />
-    <meta name="twitter:image" content="{{SHARE_IMAGE_URL}}" />
+    <meta name="twitter:image" content="{{SHARE_IMAGE_ABS_URL}}" />
     <link href="https://fonts.googleapis.com/css?family=Montserrat:900,700,400&display=swap" rel="stylesheet">
     <style>
         body {
@@ -367,7 +367,7 @@
         
         // Copy results button
         document.getElementById('copy-results').onclick = function() {
-            const resultText = `My perfect Las Vegas hotel match is ${hotelName}! 🎰✨\n\nTake the quiz to find yours at: ${decodeURIComponent(pageUrl)}\n\n#LasVegas #VegasHotels #TravelQuiz`;
+            const resultText = `My perfect Las Vegas hotel match is ${hotelName}! 🎰✨\n\nTake the quiz to find yours at: ${decodeURIComponent(pageUrl)}\n\nImage: {{SHARE_IMAGE_ABS_URL}}\n\n#LasVegas #VegasHotels #TravelQuiz`;
             navigator.clipboard.writeText(resultText).then(function() {
                 const button = document.getElementById('copy-results');
                 const originalTitle = button.title;

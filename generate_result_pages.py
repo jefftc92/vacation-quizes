@@ -46,6 +46,7 @@ hotels = {
 SHARE_IMAGE_PATTERN = "share_images/share_{}.jpg"
 # Result page URL pattern (GitHub Pages style)
 RESULT_PAGE_URL_PATTERN = "https://jefftc92.github.io/vacation-quizes/{}"
+SHARE_IMAGE_ABS_URL_PATTERN = "https://jefftc92.github.io/vacation-quizes/{}"
 
 hotel_links = {
     "Bellagio Resort & Casino": "https://expedia.com/affiliates/las-vegas-hotels-bellagio.3x57zyG",
@@ -97,12 +98,14 @@ with open('result_template.html', 'r') as f:
 for hotel, desc in hotels.items():
     safe_name = sanitize_filename(hotel)
     share_img = SHARE_IMAGE_PATTERN.format(safe_name)
+    share_img_abs = SHARE_IMAGE_ABS_URL_PATTERN.format(share_img)
     result_page = f"result_{safe_name}.html"
     result_url = RESULT_PAGE_URL_PATTERN.format(result_page)
     hotel_link = hotel_links.get(hotel, "#")
     html = template.replace("{{HOTEL_NAME}}", hotel)
     html = html.replace("{{HOTEL_DESC}}", desc)
     html = html.replace("{{SHARE_IMAGE_URL}}", share_img)
+    html = html.replace("{{SHARE_IMAGE_ABS_URL}}", share_img_abs)
     html = html.replace("{{RESULT_PAGE_URL}}", result_url)
     html = html.replace("{{HOTEL_LINK}}", hotel_link)
     with open(result_page, 'w') as outf:
