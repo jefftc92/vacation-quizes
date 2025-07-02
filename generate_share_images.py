@@ -67,10 +67,11 @@ os.makedirs('share_images', exist_ok=True)
 
 CANVAS_WIDTH = 1200
 CANVAS_HEIGHT = 630
+SAFE_PADDING = 60  # Safe area from all edges for text/branding
 CARD_RADIUS = 36
 CARD_PADDING = 36
-CARD_WIDTH = CANVAS_WIDTH - 160  # 80px padding on each side
-CARD_HEIGHT = CANVAS_HEIGHT - 80  # 40px padding on top and bottom
+CARD_WIDTH = CANVAS_WIDTH - (SAFE_PADDING * 2)
+CARD_HEIGHT = CANVAS_HEIGHT - (SAFE_PADDING * 2)
 
 for hotel, (img_path, reason) in hotels.items():
     try:
@@ -91,15 +92,15 @@ for hotel, (img_path, reason) in hotels.items():
             color = (255, 120, 60) if i % 2 == 0 else (255, 80, 40)
             draw.polygon([center, (x1, y1), (x2, y2)], fill=color)
         
-        # White card - positioned exactly in the center with proper padding
-        card_x0 = 80
-        card_y0 = 40
+        # White card - positioned in the safe area
+        card_x0 = SAFE_PADDING
+        card_y0 = SAFE_PADDING
         card = Image.new('RGBA', (CARD_WIDTH, CARD_HEIGHT), (255,255,255,255))
         card_draw = ImageDraw.Draw(card)
         card_draw.rounded_rectangle([(0,0),(CARD_WIDTH,CARD_HEIGHT)], radius=CARD_RADIUS, fill=(255,255,255,255))
         
         # Calculate content areas to fit within card
-        content_padding = 48
+        content_padding = 36
         content_width = CARD_WIDTH - (content_padding * 2)
         
         # Hotel name (top, bold, left-aligned)
@@ -112,7 +113,7 @@ for hotel, (img_path, reason) in hotels.items():
         # Hotel image (fixed area, object-fit: cover)
         img = Image.open(img_path).convert('RGB')
         img_area_w = content_width
-        img_area_h = 280  # Fixed hotel image area
+        img_area_h = 260  # Slightly smaller to allow more space for text
         # Crop/resize image to fill area (object-fit: cover)
         aspect_card = img_area_w / img_area_h
         aspect_img = img.width / img.height
@@ -171,10 +172,13 @@ for hotel, (img_path, reason) in hotels.items():
         divider_y = desc_y + 10
         card_draw.line([(title_x, divider_y), (content_padding + content_width, divider_y)], fill=(220,220,220), width=4)
         
-        # Quiz name at the bottom
+        # Quiz name at the bottom, but at least 60px from the bottom of the card
         quiz_font = get_font(32)
-        quiz_y = divider_y + 24
-        card_draw.text((title_x, quiz_y), QUIZ_NAME, font=quiz_font, fill=(255,80,40))
+        quiz_text = QUIZ_NAME
+        quiz_bbox = card_draw.textbbox((0,0), quiz_text, font=quiz_font)
+        quiz_height = quiz_bbox[3] - quiz_bbox[1]
+        quiz_y = CARD_HEIGHT - SAFE_PADDING - quiz_height  # 60px from bottom
+        card_draw.text((title_x, quiz_y), quiz_text, font=quiz_font, fill=(255,80,40))
         
         # Composite card onto background
         bg.paste(card, (card_x0, card_y0), card)
