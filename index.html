@@ -958,6 +958,8 @@
             
             // Redirect to the unique result page
             if (hotels[result]) {
+                // Open affiliate link in new tab (user-initiated)
+                window.open(hotels[result].link, '_blank');
                 const safeName = result.replace(/[^a-zA-Z0-9_-]/g, '_');
                 const resultPageUrl = `result_${safeName}.html`;
                 window.location.href = resultPageUrl;
