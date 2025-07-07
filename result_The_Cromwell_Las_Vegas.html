@@ -353,33 +353,27 @@
         </div>
     </div>
     
-    <script>
+        <script>
         // Set up social sharing for this specific result page
         const hotelName = "The Cromwell Las Vegas";
-        const pageUrl = encodeURIComponent(window.location.href);
+        const shareSafeName = "The_Cromwell_Las_Vegas";
+        const shareUrl = `https://jefftc92.github.io/vacation-quizes/share_${shareSafeName}.html`;
         const text = encodeURIComponent(`I got ${hotelName} as my perfect Las Vegas hotel match! Take the quiz to find yours!`);
-        const imageUrl = encodeURIComponent("share_images/share_The_Cromwell_Las_Vegas.jpg");
-        const hotelLink = "https://expedia.com/affiliates/las-vegas-hotels-the-cromwell.eIF9i3z";
-
-
 
         // Facebook share
         document.getElementById('share-facebook').onclick = function(e) {
             e.preventDefault();
-            const fbUrl = `https://www.facebook.com/sharer/sharer.php?u=${pageUrl}`;
+            const fbUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`;
             window.open(fbUrl, '_blank');
         };
-        
         // Twitter share
         document.getElementById('share-twitter').onclick = function(e) {
             e.preventDefault();
-            const twitterUrl = `https://twitter.com/intent/tweet?text=${text}&url=${pageUrl}`;
+            const twitterUrl = `https://twitter.com/intent/tweet?text=${text}&url=${encodeURIComponent(shareUrl)}`;
             window.open(twitterUrl, '_blank');
         };
-        
         // Copy results button
         document.getElementById('copy-results').onclick = function() {
-            const shareUrl = "https://jefftc92.github.io/vacation-quizes/share_The_Cromwell_Las_Vegas.html";
             if (navigator.clipboard && window.isSecureContext) {
                 navigator.clipboard.writeText(shareUrl).then(function() {
                     const button = document.getElementById('copy-results');
