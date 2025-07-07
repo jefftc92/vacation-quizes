@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Perfect Las Vegas Hotel Match: W Las Vegas</title>
+    <title>My Perfect Las Vegas Hotel Match: {{HOTEL_NAME}}</title>
     <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="My perfect Las Vegas hotel match is W Las Vegas!" />
-    <meta property="og:description" content="Trendy, stylish, and looking for a unique Vegas experience - W Las Vegas is your perfect match! This boutique hotel offers a more personal, sophisticated take on Vegas. You'll love the stylish rooms, celebrity chef restaurants, and the perfect location for exploring the Strip's best attractions!" />
-    <meta property="og:image" content="https://jefftc92.github.io/vacation-quizes/share_images/share_W_Las_Vegas.jpg" />
+    <meta property="og:title" content="My perfect Las Vegas hotel match is {{HOTEL_NAME}}!" />
+    <meta property="og:description" content="{{HOTEL_DESC}}" />
+    <meta property="og:image" content="{{SHARE_IMAGE_ABS_URL}}" />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://jefftc92.github.io/vacation-quizes/result_W_Las_Vegas.html" />
+    <meta property="og:url" content="{{RESULT_PAGE_URL}}" />
     <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="My perfect Las Vegas hotel match is W Las Vegas!" />
-    <meta name="twitter:description" content="Trendy, stylish, and looking for a unique Vegas experience - W Las Vegas is your perfect match! This boutique hotel offers a more personal, sophisticated take on Vegas. You'll love the stylish rooms, celebrity chef restaurants, and the perfect location for exploring the Strip's best attractions!" />
-    <meta name="twitter:image" content="https://jefftc92.github.io/vacation-quizes/share_images/share_W_Las_Vegas.jpg" />
+    <meta name="twitter:title" content="My perfect Las Vegas hotel match is {{HOTEL_NAME}}!" />
+    <meta name="twitter:description" content="{{HOTEL_DESC}}" />
+    <meta name="twitter:image" content="{{SHARE_IMAGE_ABS_URL}}" />
     <link href="https://fonts.googleapis.com/css?family=Montserrat:900,700,400&display=swap" rel="stylesheet">
     <style>
         body {
@@ -219,39 +219,32 @@
             background: linear-gradient(135deg, #1da1f2 60%, #00c6ff 100%);
         }
         .copy-results {
-            background: linear-gradient(135deg, #ffdc00 60%, #ff7a00 100%);
-            color: #222;
-            position: relative;
-            border-radius: 50%;
-            border: none;
-            width: 50px;
-            height: 50px;
-            min-width: 0;
-            min-height: 0;
-            display: flex;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ffdc00 60%, #ff7a00 100%);
             box-shadow: 0 2px 8px rgba(255,208,0,0.10);
             cursor: pointer;
+            border: none;
             transition: background 0.2s, color 0.2s, transform 0.2s;
+            margin: 0;
+        }
+        .copy-results svg {
+            width: 28px;
+            height: 28px;
+            display: block;
         }
         .copy-results:active,
         .copy-results:focus {
             background: #00c851;
             color: #fff;
         }
-        .copy-results i {
+        .copy-results.copied {
+            background: #00c851;
             color: #fff;
-        }
-        .social-btn:hover {
-            transform: translateY(-2px) scale(1.08);
-            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
-        }
-        .social-btn svg {
-            width: 28px;
-            height: 28px;
-            display: block;
         }
         .copy-results[title]:hover:after {
             content: attr(title);
@@ -269,10 +262,6 @@
         }
         .copy-results .copy-label {
             display: none;
-        }
-        .copy-results.copied {
-            background: #00c851;
-            color: #fff;
         }
         @media (max-width: 900px) {
             .result-card {
@@ -310,9 +299,9 @@
 <body>
     <div class="container">
         <div class="result-card">
-            <div class="hotel-title"><a class="hotel-title-link" href="https://expedia.com/affiliates/las-vegas-hotels-delano-las-vegas-at-mandalay-bay.rqdedQU" target="_blank" rel="noopener">W Las Vegas</a></div>
-            <img class="share-image" src="share_images/share_W_Las_Vegas.jpg" alt="My perfect Las Vegas hotel match is W Las Vegas" />
-            <a class="hotel-link" href="https://expedia.com/affiliates/las-vegas-hotels-delano-las-vegas-at-mandalay-bay.rqdedQU" target="_blank" rel="noopener">
+            <div class="hotel-title"><a class="hotel-title-link" href="{{HOTEL_LINK}}" target="_blank" rel="noopener">{{HOTEL_NAME}}</a></div>
+            <img class="share-image" src="{{SHARE_IMAGE_URL}}" alt="My perfect Las Vegas hotel match is {{HOTEL_NAME}}" />
+            <a class="hotel-link" href="{{HOTEL_LINK}}" target="_blank" rel="noopener">
                 <span>BOOK HOTEL</span>
                 <span class="hotel-link-arrow">
                     <!-- Right arrow SVG -->
@@ -330,7 +319,7 @@
                     <svg viewBox="0 0 32 32" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><circle cx="16" cy="16" r="16" fill="#fff"/><path d="M26 11.1c-.6.3-1.2.5-1.8.6.7-.4 1.2-1 1.5-1.7-.6.4-1.3.7-2 .9-.6-.6-1.5-1-2.4-1-1.8 0-3.2 1.5-3.2 3.2 0 .3 0 .6.1.8-2.7-.1-5.1-1.4-6.7-3.4-.3.5-.5 1-.5 1.6 0 1.1.6 2.1 1.5 2.7-.5 0-1-.2-1.4-.4v.1c0 1.5 1.1 2.7 2.5 3-.3.1-.6.2-.9.2-.2 0-.4 0-.6-.1.4 1.2 1.6 2.1 3 2.1-1.1.9-2.5 1.4-4 1.4-.3 0-.6 0-.9-.1 1.4.9 3.1 1.5 4.9 1.5 5.9 0 9.1-4.9 9.1-9.1v-.4c.6-.4 1.1-1 1.5-1.6z" fill="#1da1f2"/></svg>
                 </a>
                 <button class="social-btn copy-results" id="copy-results" title="Copy share link">
-                    <!-- Simple clipboard icon -->
+                    <!-- Clipboard SVG icon -->
                     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" stroke="#ff7a00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         <rect x="8" y="2" width="8" height="4" rx="1" ry="1" fill="#ffdc00" stroke="#ff7a00" stroke-width="2"/>
@@ -341,46 +330,34 @@
         </div>
     </div>
     
-                <script>
+    <script>
         // Set up social sharing for this specific result page
-        const hotelName = "W Las Vegas";
-        const shareSafeName = "W_Las_Vegas";
-        const shareUrl = `https://jefftc92.github.io/vacation-quizes/share_${shareSafeName}.html`;
+        const hotelName = "{{HOTEL_NAME}}";
+        const pageUrl = encodeURIComponent(window.location.href);
         const text = encodeURIComponent(`I got ${hotelName} as my perfect Las Vegas hotel match! Take the quiz to find yours!`);
+        const imageUrl = encodeURIComponent("{{SHARE_IMAGE_URL}}");
+        const hotelLink = "{{HOTEL_LINK}}";
+
+
 
         // Facebook share
         document.getElementById('share-facebook').onclick = function(e) {
             e.preventDefault();
-            const fbUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`;
+            const fbUrl = `https://www.facebook.com/sharer/sharer.php?u=${pageUrl}`;
             window.open(fbUrl, '_blank');
         };
+        
         // Twitter share
         document.getElementById('share-twitter').onclick = function(e) {
             e.preventDefault();
-            const twitterUrl = `https://twitter.com/intent/tweet?text=${text}&url=${encodeURIComponent(shareUrl)}`;
+            const twitterUrl = `https://twitter.com/intent/tweet?text=${text}&url=${pageUrl}`;
             window.open(twitterUrl, '_blank');
         };
+        
         // Copy results button
         document.getElementById('copy-results').onclick = function() {
-            if (navigator.clipboard && window.isSecureContext) {
-                navigator.clipboard.writeText(shareUrl).then(function() {
-                    const button = document.getElementById('copy-results');
-                    const originalTitle = button.title;
-                    button.title = 'Copied!';
-                    button.classList.add('copied');
-                    setTimeout(function() {
-                        button.title = originalTitle;
-                        button.classList.remove('copied');
-                    }, 2000);
-                });
-            } else {
-                // Fallback for older browsers
-                const tempInput = document.createElement('input');
-                tempInput.value = shareUrl;
-                document.body.appendChild(tempInput);
-                tempInput.select();
-                document.execCommand('copy');
-                document.body.removeChild(tempInput);
+            const resultText = `My perfect Las Vegas hotel match is ${hotelName}! 🎰✨\n\nTake the quiz to find yours at: ${decodeURIComponent(pageUrl)}\n\nImage: {{SHARE_IMAGE_ABS_URL}}\n\n#LasVegas #VegasHotels #TravelQuiz`;
+            navigator.clipboard.writeText(resultText).then(function() {
                 const button = document.getElementById('copy-results');
                 const originalTitle = button.title;
                 button.title = 'Copied!';
@@ -389,7 +366,7 @@
                     button.title = originalTitle;
                     button.classList.remove('copied');
                 }, 2000);
-            }
+            });
         };
     </script>
 </body>

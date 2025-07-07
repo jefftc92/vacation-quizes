@@ -219,23 +219,22 @@
             background: linear-gradient(135deg, #1da1f2 60%, #00c6ff 100%);
         }
         .copy-results {
-            display: flex;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 60px;
-            height: 60px;
-            padding: 0;
-            margin: 12px;
+            width: 48px;
+            height: 48px;
             border-radius: 50%;
             background: linear-gradient(135deg, #ffdc00 60%, #ff7a00 100%);
             box-shadow: 0 2px 8px rgba(255,208,0,0.10);
             cursor: pointer;
             border: none;
             transition: background 0.2s, color 0.2s, transform 0.2s;
+            margin: 0;
         }
         .copy-results svg {
-            width: 36px;
-            height: 36px;
+            width: 28px;
+            height: 28px;
             display: block;
         }
         .copy-results:active,
@@ -246,25 +245,6 @@
         .copy-results.copied {
             background: #00c851;
             color: #fff;
-        }
-        @media (max-width: 600px) {
-            .copy-results {
-                width: 70px;
-                height: 70px;
-            }
-            .copy-results svg {
-                width: 44px;
-                height: 44px;
-            }
-        }
-        .social-btn:hover {
-            transform: translateY(-2px) scale(1.08);
-            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
-        }
-        .social-btn svg {
-            width: 28px;
-            height: 28px;
-            display: block;
         }
         .copy-results[title]:hover:after {
             content: attr(title);
