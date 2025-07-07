@@ -293,6 +293,14 @@
                 width: 24px;
                 height: 24px;
             }
+            .copy-results {
+                width: 44px;
+                height: 44px;
+            }
+            .copy-results svg {
+                width: 24px;
+                height: 24px;
+            }
         }
     </style>
 </head>
@@ -356,8 +364,8 @@
         
         // Copy results button
         document.getElementById('copy-results').onclick = function() {
-            const resultText = `My perfect Las Vegas hotel match is ${hotelName}! 🎰✨\n\nTake the quiz to find yours at: ${decodeURIComponent(pageUrl)}\n\nImage: {{SHARE_IMAGE_ABS_URL}}\n\n#LasVegas #VegasHotels #TravelQuiz`;
-            navigator.clipboard.writeText(resultText).then(function() {
+            const shareUrl = `https://jefftc92.github.io/vacation-quizes/share_SAHARA_Las_Vegas.html`;
+            navigator.clipboard.writeText(shareUrl).then(function() {
                 const button = document.getElementById('copy-results');
                 const originalTitle = button.title;
                 button.title = 'Copied!';
