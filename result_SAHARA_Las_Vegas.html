@@ -234,14 +234,28 @@
             transition: background 0.2s, color 0.2s, transform 0.2s;
         }
         .copy-results svg {
-            width: 36px !important;
-            height: 36px !important;
-            display: block !important;
+            width: 36px;
+            height: 36px;
+            display: block;
         }
         .copy-results:active,
         .copy-results:focus {
             background: #00c851;
             color: #fff;
+        }
+        .copy-results.copied {
+            background: #00c851;
+            color: #fff;
+        }
+        @media (max-width: 600px) {
+            .copy-results {
+                width: 70px;
+                height: 70px;
+            }
+            .copy-results svg {
+                width: 44px;
+                height: 44px;
+            }
         }
         .copy-results i {
             color: #fff;
@@ -271,10 +285,6 @@
         }
         .copy-results .copy-label {
             display: none;
-        }
-        .copy-results.copied {
-            background: #00c851;
-            color: #fff;
         }
         @media (max-width: 900px) {
             .result-card {
@@ -307,16 +317,6 @@
                 height: 24px;
             }
         }
-        @media (max-width: 600px) {
-            .copy-results {
-                width: 70px;
-                height: 70px;
-            }
-            .copy-results svg {
-                width: 44px !important;
-                height: 44px !important;
-            }
-        }
     </style>
 </head>
 <body>
@@ -343,7 +343,7 @@
                 </a>
                 <button class="social-btn copy-results" id="copy-results" title="Copy share link">
                     <!-- Clipboard SVG icon -->
-                    <svg viewBox="0 0 24 24" fill="none" width="36" height="36" xmlns="http://www.w3.org/2000/svg" style="display:block;">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" stroke="#ff7a00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         <rect x="8" y="2" width="8" height="4" rx="1" ry="1" fill="#ffdc00" stroke="#ff7a00" stroke-width="2"/>
                     </svg>

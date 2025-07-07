@@ -219,27 +219,43 @@
             background: linear-gradient(135deg, #1da1f2 60%, #00c6ff 100%);
         }
         .copy-results {
-            background: linear-gradient(135deg, #ffdc00 60%, #ff7a00 100%);
-            color: #222;
-            position: relative;
-            border-radius: 50%;
-            border: none;
-            width: 50px;
-            height: 50px;
-            min-width: 0;
-            min-height: 0;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
+            width: 60px;
+            height: 60px;
+            padding: 0;
+            margin: 12px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ffdc00 60%, #ff7a00 100%);
             box-shadow: 0 2px 8px rgba(255,208,0,0.10);
             cursor: pointer;
+            border: none;
             transition: background 0.2s, color 0.2s, transform 0.2s;
+        }
+        .copy-results svg {
+            width: 36px;
+            height: 36px;
+            display: block;
         }
         .copy-results:active,
         .copy-results:focus {
             background: #00c851;
             color: #fff;
+        }
+        .copy-results.copied {
+            background: #00c851;
+            color: #fff;
+        }
+        @media (max-width: 600px) {
+            .copy-results {
+                width: 70px;
+                height: 70px;
+            }
+            .copy-results svg {
+                width: 44px;
+                height: 44px;
+            }
         }
         .copy-results i {
             color: #fff;
@@ -269,10 +285,6 @@
         }
         .copy-results .copy-label {
             display: none;
-        }
-        .copy-results.copied {
-            background: #00c851;
-            color: #fff;
         }
         @media (max-width: 900px) {
             .result-card {
@@ -331,7 +343,7 @@
                 </a>
                 <button class="social-btn copy-results" id="copy-results" title="Copy share link">
                     <!-- Clipboard SVG icon -->
-                    <svg viewBox="0 0 24 24" fill="none" width="36" height="36" xmlns="http://www.w3.org/2000/svg">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" stroke="#ff7a00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         <rect x="8" y="2" width="8" height="4" rx="1" ry="1" fill="#ffdc00" stroke="#ff7a00" stroke-width="2"/>
                     </svg>
