@@ -71,13 +71,22 @@
 <body>
     <div class="container">
         <h1>🎰 Vegas Hotel Quiz</h1>
-        <p>A friend got <strong>Treasure Island Hotel and Casino</strong> as their perfect match!</p>
+        <div id="vegas-fact" style="font-size:1.2rem;font-weight:600;margin-bottom:18px;"></div>
         <p>Adventure-seeking, fun-loving, and looking for exciting experiences - Treasure Island Hotel and Casino is your perfect match! This themed resort offers pirate-themed entertainment, exciting shows, and a lively atmosphere. You'll love the themed rooms, exciting entertainment, and the perfect blend of adventure and fun!</p>
         <div class="spinner"></div>
         <div class="redirect-text">Redirecting to the quiz...</div>
     </div>
     
     <script>
+        // Fun Vegas facts
+        const facts = [
+            "The Las Vegas Strip is the brightest place on Earth when viewed from space!",
+            "More than 41 million people visit Las Vegas every year.",
+            "There are over 150,000 hotel rooms in Las Vegas.",
+            "The famous ‘Welcome to Fabulous Las Vegas’ sign was built in 1959.",
+            "Las Vegas has more than 300 weddings every day!"
+        ];
+        document.getElementById('vegas-fact').textContent = facts[Math.floor(Math.random() * facts.length)];
         // Delay redirect to allow social media platforms to read meta tags
         setTimeout(function() {
             window.location.href = "https://jefftc92.github.io/vacation-quizes/index.html";
