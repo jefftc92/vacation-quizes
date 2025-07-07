@@ -3,19 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My perfect Las Vegas hotel match is SAHARA Las Vegas!</title>
+    <title>Vegas Hotel Quiz Share</title>
     
     <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="My perfect Las Vegas hotel match is SAHARA Las Vegas!" />
-    <meta property="og:description" content="Style-conscious, appreciative of reinvention, and looking for a boutique experience - SAHARA Las Vegas is your ideal match! Recently reimagined with a sleek, modern design, this historic property offers an intimate yet luxurious atmosphere. You'll love the sophisticated rooms, curated dining options, and the more relaxed north Strip location!" />
+    <meta property="og:title" content="Vegas Hotel Quiz" />
+    <meta property="og:description" content="Take the Vegas Hotel Quiz and discover your perfect match!" />
     <meta property="og:image" content="https://jefftc92.github.io/vacation-quizes/share_images/share_SAHARA_Las_Vegas.jpg" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://jefftc92.github.io/vacation-quizes/share_SAHARA_Las_Vegas.html" />
     
     <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="My perfect Las Vegas hotel match is SAHARA Las Vegas!" />
-    <meta name="twitter:description" content="Style-conscious, appreciative of reinvention, and looking for a boutique experience - SAHARA Las Vegas is your ideal match! Recently reimagined with a sleek, modern design, this historic property offers an intimate yet luxurious atmosphere. You'll love the sophisticated rooms, curated dining options, and the more relaxed north Strip location!" />
+    <meta name="twitter:title" content="Vegas Hotel Quiz" />
+    <meta name="twitter:description" content="Take the Vegas Hotel Quiz and discover your perfect match!" />
     <meta name="twitter:image" content="https://jefftc92.github.io/vacation-quizes/share_images/share_SAHARA_Las_Vegas.jpg" />
     
     <style>
@@ -43,15 +43,15 @@
             margin-bottom: 20px;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         }
-        p {
-            font-size: 1.2rem;
-            line-height: 1.6;
-            margin-bottom: 30px;
+        .main-message {
+            font-size:1.2rem;
+            font-weight:600;
+            margin-bottom:18px;
         }
-        .redirect-text {
-            font-size: 1rem;
-            opacity: 0.8;
-            margin-top: 30px;
+        #vegas-fact {
+            font-size:1.1rem;
+            font-weight:500;
+            margin-bottom:18px;
         }
         .spinner {
             border: 4px solid rgba(255,255,255,0.3);
@@ -66,13 +66,18 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+        .redirect-text {
+            font-size: 1rem;
+            opacity: 0.8;
+            margin-top: 30px;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>🎰 Vegas Hotel Quiz</h1>
-        <div style="font-size:1.2rem;font-weight:600;margin-bottom:18px;">You’re being redirected to the Vegas Hotel Quiz...</div>
-        <div id="vegas-fact" style="font-size:1.1rem;font-weight:500;margin-bottom:18px;"></div>
+        <div class="main-message">You’re being redirected to the Vegas Hotel Quiz...</div>
+        <div id="vegas-fact"></div>
         <div class="spinner"></div>
         <div class="redirect-text">Redirecting to the quiz...</div>
     </div>
@@ -93,4 +98,4 @@
         }, 3000); // 3 second delay
     </script>
 </body>
-</html> 
+</html>
