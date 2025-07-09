@@ -366,7 +366,7 @@
         // Twitter share
         document.getElementById('share-twitter').onclick = function(e) {
             e.preventDefault();
-            const twitterUrl = `https://twitter.com/intent/tweet?text=${text}&url=${encodeURIComponent(shareUrl)}`;
+            const twitterUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(shareUrl)}`;
             window.open(twitterUrl, '_blank');
         };
         // Copy results button
