@@ -30,9 +30,9 @@
         }
         
         .quiz-container {
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 25px;
+            max-width: 950px;
+            margin: 10px auto 0 auto;
+            padding: 40px 40px 48px 40px;
             background-color: white;
             box-shadow: 0 0 30px rgba(0,0,0,0.15);
             border-radius: 20px;
@@ -40,15 +40,24 @@
         }
         
         h1 {
-            font-size: clamp(1.3rem, 6vw, 2rem);
+            font-size: clamp(1.7rem, 5vw, 2.6rem);
             text-align: center;
             color: var(--buzzfeed-pink);
-            margin-bottom: 10px;
+            margin-bottom: 18px;
             text-transform: uppercase;
             font-weight: 800;
             letter-spacing: -1px;
             line-height: 1.1;
             text-shadow: 2px 2px 0px var(--buzzfeed-yellow);
+        }
+        
+        .title-accent {
+            display: block;
+            width: 60%;
+            height: 3px;
+            background: linear-gradient(90deg, #ffdc00 40%, #ff7a00 100%);
+            border-radius: 2px;
+            margin: 8px auto 14px auto;
         }
         
         h2 {
@@ -60,9 +69,10 @@
         
         .intro {
             text-align: center;
-            margin-bottom: 30px;
-            font-size: 1.3rem;
+            margin-bottom: 36px;
+            font-size: 1.45rem;
             color: #444;
+            line-height: 1.5;
         }
         
         .question {
@@ -167,9 +177,9 @@
         
         /* Soften progress bar container */
         .progress-container {
-            margin: 30px auto;
-            width: 85%;
-            height: 25px;
+            margin: 36px auto 24px auto;
+            width: 92%;
+            height: 32px;
             background-color: #f7f7fa;
             border-radius: 30px;
             overflow: hidden;
@@ -195,6 +205,16 @@
             0% {background-position: 0% 50%}
             50% {background-position: 100% 50%}
             100% {background-position: 0% 50%}
+        }
+        
+        .progress-bar.intro-fade {
+            background: linear-gradient(90deg, #ffe066 60%, #ffdc00 100%) !important;
+            opacity: 0.25 !important;
+            animation: none !important;
+        }
+        
+        .progress-bar[style*="width: 0%"] {
+            opacity: 0.12 !important;
         }
         
         .result {
@@ -284,23 +304,24 @@
         }
         
         .restart-btn {
-            background-color: var(--buzzfeed-yellow);
-            color: #333;
+            width: 100%;
+            margin: 32px auto 0 auto;
+            display: block;
+            font-size: 1.35rem;
+            padding: 22px 0;
+            border-radius: 32px;
+            background: linear-gradient(90deg, #ffdc00 60%, #ff7a00 100%);
+            color: #222;
+            font-weight: 900;
+            box-shadow: 0 2px 12px rgba(255,208,0,0.13);
             border: none;
-            padding: 15px 35px;
-            font-size: 1.3rem;
-            font-weight: bold;
-            border-radius: 30px;
-            cursor: pointer;
-            transition: all 0.3s;
-            margin-top: 25px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+            transition: background 0.2s, color 0.2s, transform 0.15s;
         }
         
-        .restart-btn:hover {
-            background-color: var(--buzzfeed-green);
-            transform: scale(1.05) translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        .restart-btn:active {
+            background: linear-gradient(90deg, #ff7a00 60%, #ffdc00 100%);
+            color: #fff;
+            transform: scale(1.04);
         }
         
         .social-share {
@@ -363,14 +384,15 @@
         
         /* Add two progress bars: one for desktop, one for mobile */
         .progress-container {
-            margin: 30px auto;
-            width: 85%;
-            height: 25px;
+            margin: 36px auto 24px auto;
+            width: 92%;
+            height: 32px;
             background-color: #f7f7fa;
             border-radius: 30px;
             overflow: hidden;
             box-shadow: 0 1px 6px rgba(0,0,0,0.07);
             border: 1.5px solid #e0e0e0;
+            box-sizing: border-box;
         }
         .progress-container.progress-desktop {
             display: block;
@@ -482,23 +504,24 @@
         }
         
         .restart-btn {
-            background-color: var(--buzzfeed-yellow);
-            color: #333;
+            width: 100%;
+            margin: 32px auto 0 auto;
+            display: block;
+            font-size: 1.35rem;
+            padding: 22px 0;
+            border-radius: 32px;
+            background: linear-gradient(90deg, #ffdc00 60%, #ff7a00 100%);
+            color: #222;
+            font-weight: 900;
+            box-shadow: 0 2px 12px rgba(255,208,0,0.13);
             border: none;
-            padding: 15px 35px;
-            font-size: 1.3rem;
-            font-weight: bold;
-            border-radius: 30px;
-            cursor: pointer;
-            transition: all 0.3s;
-            margin-top: 25px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+            transition: background 0.2s, color 0.2s, transform 0.15s;
         }
         
-        .restart-btn:hover {
-            background-color: var(--buzzfeed-green);
-            transform: scale(1.05) translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        .restart-btn:active {
+            background: linear-gradient(90deg, #ff7a00 60%, #ffdc00 100%);
+            color: #fff;
+            transform: scale(1.04);
         }
         
         .social-share {
@@ -559,140 +582,112 @@
             to { opacity: 1; transform: translateY(0); }
         }
         
-        @media (max-width: 768px) {
-            body {
-                background: linear-gradient(to bottom, #fff 0%, #f7faff 100%) !important;
-                background-image: none !important;
-            }
+        @media (max-width: 900px) {
             .quiz-container {
-                width: 100vw;
-                max-width: 100vw;
-                margin: 0;
-                padding: 60px 0 32px 0;
-                border: none;
-                box-shadow: none;
+                max-width: 98vw;
+                padding: 18px 2vw 32px 2vw;
+                margin: 8px auto 0 auto;
+            }
+            h1 {
+                font-size: 1.3rem;
+                margin-bottom: 12px;
+            }
+            .intro {
+                font-size: 1.08rem;
+                margin-bottom: 22px;
             }
             .progress-container {
-                /* Remove border-radius: 0; and ensure border-radius: 30px; */
-                border-radius: 30px;
-                position: static;
-                margin: 18px auto 18px auto;
-                width: 90%;
+                width: 98%;
+                height: 22px;
+                margin: 18px auto 14px auto;
             }
-            .progress-container.progress-desktop {
-                display: none;
-            }
-            .progress-container.progress-mobile {
-                display: block;
-            }
-            .question {
-                margin-bottom: 32px;
-            }
-            .options {
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                gap: 24px;
-                margin-bottom: 24px;
-                margin-top: 18px;
-                padding: 0 8px;
-                width: 100%;
-                box-sizing: border-box;
-            }
-            .option {
-                width: 100%;
-                min-height: 56px;
-                margin: 0;
-                border-radius: 12px;
-                overflow: hidden;
-                box-shadow: none;
-                border: none;
-                padding: 0;
-                background: #fff;
-                display: flex;
-                flex-direction: column;
-                align-items: stretch;
-                transition: transform 0.15s;
-            }
-            .option:active {
-                transform: scale(0.97);
+            .restart-btn {
+                font-size: 1.13rem;
+                padding: 16px 0;
+                border-radius: 24px;
+                margin: 18px auto 0 auto;
             }
             .option img {
                 width: 100%;
-                aspect-ratio: 4/3;
+                aspect-ratio: 3/4;
                 height: auto;
-                min-height: 140px;
-                max-height: 220px;
+                min-height: 160px;
+                max-height: 260px;
                 border-radius: 12px 12px 0 0;
                 display: block;
                 box-shadow: none;
+                background: #f7faff;
+                object-fit: cover;
             }
-            .option-label {
-                position: static;
-                background: none !important;
-                color: var(--buzzfeed-pink) !important;
-                font-size: 1.1rem !important;
-                font-weight: 800 !important;
-                text-align: center !important;
-                padding: 14px 6px 16px 6px !important;
-                margin: 0 !important;
-                border-radius: 0 0 12px 12px !important;
-                min-height: 0 !important;
-                text-shadow: none !important;
-                box-shadow: none !important;
-                letter-spacing: -0.5px !important;
-                transition: none !important;
+            .option::before {
+                display: none !important;
             }
-            .option.selected .option-label,
-            .option:active .option-label {
-                /* Prevent any style change on select/tap */
-                color: var(--buzzfeed-pink) !important;
-                font-size: 1.1rem !important;
-                font-weight: 800 !important;
-                background: none !important;
-                text-align: center !important;
-                box-shadow: none !important;
-                text-shadow: none !important;
-                border-radius: 0 0 12px 12px !important;
-                padding: 14px 6px 16px 6px !important;
-                margin: 0 !important;
-                letter-spacing: -0.5px !important;
-                transition: none !important;
-            }
-            .question-text {
-                font-size: clamp(1.1rem, 4vw, 1.4rem);
-                padding: 14px 8px 18px 8px;
-                margin-bottom: 28px;
+        }
+        /* --- MOBILE POLISH FOR INTRO PAGE --- */
+        @media (max-width: 600px) {
+            .quiz-container {
+                margin: 8px auto;
+                padding: 10px 0 18px 0;
+                border-radius: 28px;
+                box-shadow: 0 6px 32px rgba(0,0,0,0.13);
+                border-width: 2px;
             }
             h1 {
-                font-size: clamp(1.3rem, 6vw, 2rem);
+                font-size: 1.15rem;
+                margin-bottom: 6px;
+                padding: 0 6px;
+                letter-spacing: 0.5px;
+                text-shadow: 1px 1px 0px var(--buzzfeed-yellow);
+            }
+            .intro {
+                font-size: 1.05rem;
+                color: #555;
+                margin-bottom: 18px;
+                line-height: 1.45;
                 padding: 0 8px;
-                margin-bottom: 10px;
             }
-            .restart-btn, .hotel-link {
-                font-size: clamp(1.05rem, 4vw, 1.15rem);
-                padding: 18px 0;
-                width: 100%;
-                min-height: 48px;
-                border-radius: 0;
-                margin: 18px 0 0 0;
+            .progress-container {
+                margin: 16px auto 10px auto;
+                height: 16px;
+                border-radius: 16px;
+                box-shadow: 0 1px 4px rgba(0,0,0,0.07);
             }
-            .result {
-                margin-top: 32px;
+            .progress-bar {
+                border-radius: 16px;
+                min-width: 0;
+                background: linear-gradient(to right, var(--buzzfeed-pink), var(--buzzfeed-purple), var(--buzzfeed-blue));
+                background-size: 200% 100%;
+                background-position: 0% 50%;
+                transition: opacity 0.3s, width 0.3s;
+                opacity: 1 !important;
+                animation: gradient-shift 3s ease infinite !important;
             }
-            .result img {
-                max-width: 100vw;
-                border-radius: 0;
-                height: auto;
+            .progress-bar.intro-fade {
+                background: linear-gradient(90deg, #ffe066 60%, #ffdc00 100%) !important;
+                opacity: 0.25 !important;
+                animation: none !important;
+            }
+            .progress-bar[style*="width: 0%"] {
+                opacity: 0.12 !important;
+            }
+            .restart-btn {
+                width: 90%;
+                margin: 18px auto 0 auto;
                 display: block;
-                margin: 0 auto;
+                font-size: 1.13rem;
+                padding: 16px 0;
+                border-radius: 24px;
+                background: linear-gradient(90deg, #ffdc00 60%, #ff7a00 100%);
+                color: #222;
+                font-weight: 900;
+                box-shadow: 0 2px 12px rgba(255,208,0,0.13);
+                border: none;
+                transition: background 0.2s, color 0.2s, transform 0.15s;
             }
-            .social-share {
-                gap: 10px;
-            }
-            /* Remove overlay and badge styles for mobile */
-            .option::before,
-            .option-label[style*="position: absolute"] {
-                display: none !important;
+            .restart-btn:active {
+                background: linear-gradient(90deg, #ff7a00 60%, #ffdc00 100%);
+                color: #fff;
+                transform: scale(1.04);
             }
         }
     </style>
@@ -1051,8 +1046,9 @@
             document.querySelector('.intro').style.display = 'none';
             currentQuestion = 1;
             showQuestion(currentQuestion);
-            showProgressBarFill(true);
             updateProgressBar();
+            document.getElementById('progress-desktop').classList.remove('intro-fade');
+            document.getElementById('progress-mobile').classList.remove('intro-fade');
         }
         
         // Show a specific question
@@ -1437,19 +1433,22 @@
             document.getElementById('progress-desktop').style.width = '0%';
             document.getElementById('progress-mobile').style.width = '0%';
             showProgressBarFill(false);
+            document.getElementById('progress-desktop').classList.add('intro-fade');
+            document.getElementById('progress-mobile').classList.add('intro-fade');
         }
         
-        // In JS, only show the .progress-bar fill after quiz starts
+        // In JS, only use opacity for intro fade, never set display: none on progress bars
         function showProgressBarFill(show) {
-            var desktopBar = document.getElementById('progress-desktop');
-            var mobileBar = document.getElementById('progress-mobile');
-            if (desktopBar) desktopBar.style.display = show ? '' : 'none';
-            if (mobileBar) mobileBar.style.display = show ? '' : 'none';
+            // No-op: progress bars are always visible, only opacity changes
         }
-        
-        // On page load, hide progress bar fill
+        // On page load, set intro-fade class for opacity
         window.addEventListener('DOMContentLoaded', function() {
-            showProgressBarFill(false);
+            document.getElementById('progress-desktop').classList.add('intro-fade');
+            document.getElementById('progress-mobile').classList.add('intro-fade');
+            setTimeout(function() {
+                document.getElementById('progress-desktop').style.width = '0%';
+                document.getElementById('progress-mobile').style.width = '0%';
+            }, 10);
         });
     </script>
 </body>
