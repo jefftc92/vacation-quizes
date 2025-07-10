@@ -28,7 +28,7 @@ def fix_copy_button_logic(filepath):
         // Set up social sharing for this specific result page
         const hotelName = "{hotel_name}";
         const shareSafeName = "{hotel_safe_name}";
-        const shareUrl = `https://jefftc92.github.io/vacation-quizes/share_${{shareSafeName}}.html`;
+        const shareUrl = `https://travelhen.com/share_${{shareSafeName}}.html`;
         const text = encodeURIComponent(`I got ${{hotelName}} as my perfect Las Vegas hotel match! Take the quiz to find yours!`);
 
         // Facebook share
