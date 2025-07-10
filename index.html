@@ -165,15 +165,218 @@
             box-shadow: 0 2px 8px rgba(0,0,0,0.10);
         }
         
+        /* Soften progress bar container */
         .progress-container {
             margin: 30px auto;
             width: 85%;
             height: 25px;
-            background-color: #f0f0f0;
+            background-color: #f7f7fa;
             border-radius: 30px;
             overflow: hidden;
-            box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
-            border: 2px solid #ddd;
+            box-shadow: 0 1px 6px rgba(0,0,0,0.07);
+            border: 1.5px solid #e0e0e0;
+            box-sizing: border-box;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(to right, var(--buzzfeed-pink), var(--buzzfeed-purple), var(--buzzfeed-blue));
+            transition: width 0.3s ease;
+            border-radius: 30px;
+            background-size: 200% 100%;
+            animation: gradient-shift 3s ease infinite;
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        @keyframes gradient-shift {
+            0% {background-position: 0% 50%}
+            50% {background-position: 100% 50%}
+            100% {background-position: 0% 50%}
+        }
+        
+        .result {
+            display: none;
+            text-align: center;
+            animation: fadeIn 1s;
+        }
+        
+        .result h2 {
+            color: var(--buzzfeed-pink);
+            font-size: 2.4rem;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 0px var(--buzzfeed-yellow);
+        }
+        
+        .result img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+            border: 4px solid white;
+        }
+        
+        .result-description {
+            font-size: 1.3rem;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+        }
+        
+        .hotel-match {
+            font-size: 2.2rem;
+            font-weight: bold;
+            color: var(--buzzfeed-blue);
+            margin: 20px 0;
+            padding: 20px;
+            background-color: #f0f9ff;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border: 3px solid var(--buzzfeed-blue);
+        }
+        
+        .hotel-match-link {
+            text-decoration: none;
+            display: block;
+            transition: all 0.3s;
+        }
+        
+        .hotel-match-link:hover .hotel-match {
+            background-color: var(--buzzfeed-blue);
+            color: white;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+        
+        .hotel-match-link::after {
+            content: "👆 Click to visit hotel website";
+            display: block;
+            text-align: center;
+            color: var(--buzzfeed-pink);
+            font-weight: bold;
+            margin-top: 5px;
+            font-size: 1rem;
+        }
+        
+        .hotel-link {
+            display: inline-block;
+            margin-top: 15px;
+            background-color: var(--buzzfeed-blue);
+            color: white;
+            text-decoration: none;
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-weight: bold;
+            transition: all 0.3s;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        
+        .hotel-link:hover {
+            background-color: var(--buzzfeed-purple);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.25);
+        }
+        
+        .restart-btn {
+            background-color: var(--buzzfeed-yellow);
+            color: #333;
+            border: none;
+            padding: 15px 35px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+        }
+        
+        .restart-btn:hover {
+            background-color: var(--buzzfeed-green);
+            transform: scale(1.05) translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+        
+        .social-share {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .social-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            color: white;
+            font-size: 1.5rem;
+            transition: all 0.3s;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        .facebook {
+            background-color: #3b5998;
+        }
+        
+        .twitter {
+            background-color: #1da1f2;
+        }
+        
+        .pinterest {
+            background-color: #bd081c;
+        }
+        
+        .social-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.3);
+        }
+        
+        .social-btn.copy-results {
+            background: var(--buzzfeed-blue);
+            color: #fff;
+            border: none;
+            outline: none;
+            transition: background 0.2s, color 0.2s;
+        }
+        .social-btn.copy-results:active,
+        .social-btn.copy-results:focus {
+            background: var(--buzzfeed-green);
+            color: #fff;
+        }
+        .social-btn.copy-results i {
+            color: #fff;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Add two progress bars: one for desktop, one for mobile */
+        .progress-container {
+            margin: 30px auto;
+            width: 85%;
+            height: 25px;
+            background-color: #f7f7fa;
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: 0 1px 6px rgba(0,0,0,0.07);
+            border: 1.5px solid #e0e0e0;
+        }
+        .progress-container.progress-desktop {
+            display: block;
+        }
+        .progress-container.progress-mobile {
+            display: none;
         }
         
         .progress-bar {
@@ -370,13 +573,17 @@
                 box-shadow: none;
             }
             .progress-container {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100vw;
-                z-index: 100;
-                border-radius: 0;
-                margin: 0 0 18px 0;
+                /* Remove border-radius: 0; and ensure border-radius: 30px; */
+                border-radius: 30px;
+                position: static;
+                margin: 18px auto 18px auto;
+                width: 90%;
+            }
+            .progress-container.progress-desktop {
+                display: none;
+            }
+            .progress-container.progress-mobile {
+                display: block;
             }
             .question {
                 margin-bottom: 32px;
@@ -495,13 +702,15 @@
 <body>
     <div class="quiz-container">
         <h1>WHICH LAS VEGAS HOTEL IS RIGHT FOR YOU?</h1>
+        <div class="progress-container progress-desktop">
+            <div class="progress-bar" id="progress-desktop"></div>
+        </div>
+        <div class="progress-container progress-mobile">
+            <div class="progress-bar" id="progress-mobile"></div>
+        </div>
         <div class="intro">
             <p>Take this quiz to discover your PERFECT Las Vegas hotel match! Answer these quick questions and we'll reveal the one hotel that's absolutely made for you!</p>
             <button class="restart-btn" onclick="startQuiz()">START QUIZ!</button>
-        </div>
-        
-        <div class="progress-container">
-            <div class="progress-bar" id="progress"></div>
         </div>
         
         <!-- Question 1 (Budget) -->
@@ -842,6 +1051,7 @@
             document.querySelector('.intro').style.display = 'none';
             currentQuestion = 1;
             showQuestion(currentQuestion);
+            showProgressBarFill(true);
             updateProgressBar();
         }
         
@@ -935,12 +1145,15 @@
         
         // Update the progress bar
         function updateProgressBar() {
-            const progressPercentage = ((currentQuestion - 1) / totalQuestions) * 100;
-            document.getElementById('progress').style.width = progressPercentage + '%';
-            
+            const progressPercentage = (currentQuestion / totalQuestions) * 100;
+            var desktopBar = document.getElementById('progress-desktop');
+            var mobileBar = document.getElementById('progress-mobile');
+            if (desktopBar) desktopBar.style.width = progressPercentage + '%';
+            if (mobileBar) mobileBar.style.width = progressPercentage + '%';
             // Make sure progress bar shows 100% when showing results
             if (document.querySelector('.result').style.display === 'block') {
-                document.getElementById('progress').style.width = '100%';
+                if (desktopBar) desktopBar.style.width = '100%';
+                if (mobileBar) mobileBar.style.width = '100%';
             }
         }
         
@@ -966,7 +1179,8 @@
                 document.getElementById('hotel-link').href = '#';
                 document.getElementById('book-now-link').href = '#';
                 document.querySelector('.result').style.display = 'block';
-                document.getElementById('progress').style.width = '100%';
+                document.getElementById('progress-desktop').style.width = '100%';
+                document.getElementById('progress-mobile').style.width = '100%';
                 return;
             }
             // Determine the result based on answers
@@ -1001,7 +1215,8 @@
             // Show the result section (fallback only)
             document.querySelector('.result').style.display = 'block';
             // Set progress bar to 100%
-            document.getElementById('progress').style.width = '100%';
+            document.getElementById('progress-desktop').style.width = '100%';
+            document.getElementById('progress-mobile').style.width = '100%';
             console.log('Result section should be visible now');
         }
         
@@ -1219,8 +1434,23 @@
             document.querySelector('.intro').style.display = 'block';
             
             // Reset progress bar
-            document.getElementById('progress').style.width = '0%';
+            document.getElementById('progress-desktop').style.width = '0%';
+            document.getElementById('progress-mobile').style.width = '0%';
+            showProgressBarFill(false);
         }
+        
+        // In JS, only show the .progress-bar fill after quiz starts
+        function showProgressBarFill(show) {
+            var desktopBar = document.getElementById('progress-desktop');
+            var mobileBar = document.getElementById('progress-mobile');
+            if (desktopBar) desktopBar.style.display = show ? '' : 'none';
+            if (mobileBar) mobileBar.style.display = show ? '' : 'none';
+        }
+        
+        // On page load, hide progress bar fill
+        window.addEventListener('DOMContentLoaded', function() {
+            showProgressBarFill(false);
+        });
     </script>
 </body>
 </html>
