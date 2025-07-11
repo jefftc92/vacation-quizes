@@ -703,13 +703,9 @@
         <div class="progress-container progress-mobile">
             <div class="progress-bar" id="progress-mobile"></div>
         </div>
-        <div class="intro-card">
-            <h1>Find Your Perfect Las Vegas Hotel</h1>
-            <p>Take this quick quiz to discover which Las Vegas hotel matches your style and preferences!</p>
-            <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin: 20px 0; font-size: 0.9rem; color: #666;">
-                <strong>💰 Free Service:</strong> This quiz is completely free. No fees, subscriptions, or payments required. Hotel booking links direct to Expedia where you'll see actual pricing and availability.
-            </div>
-            <button class="start-btn" onclick="startQuiz()">Start Quiz</button>
+        <div class="intro">
+            <p>Take this quiz to discover your PERFECT Las Vegas hotel match! Answer these quick questions and we'll reveal the one hotel that's absolutely made for you!</p>
+            <button class="restart-btn" onclick="startQuiz()">START QUIZ!</button>
         </div>
         
         <!-- Question 1 (Budget) -->
@@ -847,62 +843,6 @@
             </div>
             
             <button class="restart-btn" onclick="restartQuiz()">TAKE THE QUIZ AGAIN!</button>
-        </div>
-    </div>
-    
-    <!-- Privacy Policy Footer -->
-    <div style="text-align: center; margin-top: 40px; padding: 20px; font-size: 0.9rem; color: #666;">
-        <p>By taking this quiz, you agree to our <a href="#privacy-policy" style="color: #0078ff; text-decoration: underline;">Privacy Policy</a> and <a href="#terms-of-service" style="color: #0078ff; text-decoration: underline;">Terms of Service</a> and consent to the collection of quiz responses for personalized hotel recommendations. No personal information is stored or shared with third parties.</p>
-    </div>
-
-    <!-- Privacy Policy Modal -->
-    <div id="privacy-policy" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; overflow-y: auto;">
-        <div style="background: white; margin: 20px auto; max-width: 600px; padding: 30px; border-radius: 12px; position: relative;">
-            <button onclick="closePrivacyPolicy()" style="position: absolute; top: 15px; right: 20px; background: none; border: none; font-size: 24px; cursor: pointer; color: #666;">×</button>
-            <h2 style="color: #0078ff; margin-bottom: 20px;">Privacy Policy</h2>
-            <div style="text-align: left; line-height: 1.6;">
-                <h3>Data Collection</h3>
-                <p>This quiz collects your responses to provide personalized hotel recommendations. We do not collect, store, or share any personal information such as names, email addresses, or contact details.</p>
-                
-                <h3>Quiz Responses</h3>
-                <p>Your quiz answers are used solely to generate hotel recommendations and are not stored permanently. Responses are processed in real-time to provide immediate results.</p>
-                
-                <h3>Third-Party Services</h3>
-                <p>We use Google Fonts for typography. Our hotel booking links direct to Expedia, which has its own privacy policy. We do not receive any commission or payment for clicks or bookings.</p>
-                
-                <h3>Social Sharing</h3>
-                <p>Social sharing features use standard platform APIs. We do not track or store any sharing activity.</p>
-                
-                <h3>Contact</h3>
-                <p>For privacy questions, contact us at privacy@travelhen.com</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Terms of Service Modal -->
-    <div id="terms-of-service" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; overflow-y: auto;">
-        <div style="background: white; margin: 20px auto; max-width: 600px; padding: 30px; border-radius: 12px; position: relative;">
-            <button onclick="closeTermsOfService()" style="position: absolute; top: 15px; right: 20px; background: none; border: none; font-size: 24px; cursor: pointer; color: #666;">×</button>
-            <h2 style="color: #0078ff; margin-bottom: 20px;">Terms of Service</h2>
-            <div style="text-align: left; line-height: 1.6;">
-                <h3>Service Description</h3>
-                <p>This quiz provides personalized hotel recommendations based on your preferences. Results are for entertainment and informational purposes only.</p>
-                
-                <h3>No Guarantees</h3>
-                <p>Hotel recommendations are based on quiz responses and may not reflect actual availability, pricing, or suitability. Always verify details directly with hotels.</p>
-                
-                <h3>External Links</h3>
-                <p>Booking links direct to Expedia. We are not responsible for their services, pricing, or policies. Each booking site has its own terms and conditions.</p>
-                
-                <h3>Free Service</h3>
-                <p>This quiz is provided free of charge. No fees, subscriptions, or payments are required to use this service.</p>
-                
-                <h3>Limitation of Liability</h3>
-                <p>We are not liable for any decisions made based on quiz results or for any issues with third-party booking services.</p>
-                
-                <h3>Contact</h3>
-                <p>For questions about these terms, contact us at terms@travelhen.com</p>
-            </div>
         </div>
     </div>
 
@@ -1509,40 +1449,6 @@
                 document.getElementById('progress-desktop').style.width = '0%';
                 document.getElementById('progress-mobile').style.width = '0%';
             }, 10);
-        });
-
-        function closePrivacyPolicy() {
-            document.getElementById('privacy-policy').style.display = 'none';
-        }
-        
-        // Close modal when clicking outside
-        document.getElementById('privacy-policy').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closePrivacyPolicy();
-            }
-        });
-        
-        // Open privacy policy when link is clicked
-        document.querySelector('a[href="#privacy-policy"]').addEventListener('click', function(e) {
-            e.preventDefault();
-            document.getElementById('privacy-policy').style.display = 'block';
-        });
-
-        function closeTermsOfService() {
-            document.getElementById('terms-of-service').style.display = 'none';
-        }
-        
-        // Close modal when clicking outside
-        document.getElementById('terms-of-service').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeTermsOfService();
-            }
-        });
-        
-        // Open terms of service when link is clicked
-        document.querySelector('a[href="#terms-of-service"]').addEventListener('click', function(e) {
-            e.preventDefault();
-            document.getElementById('terms-of-service').style.display = 'block';
         });
     </script>
 </body>
