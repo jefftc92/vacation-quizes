@@ -351,10 +351,7 @@
             </div>
             <a class="quiz-again-btn" href="index.html">Take the quiz again</a>
             
-            <!-- Disclaimer -->
-            <div style="margin-top: 30px; padding: 15px; background: #f8f9fa; border-radius: 8px; font-size: 0.85rem; color: #666; text-align: left;">
-                <strong>Disclaimer:</strong> This quiz provides entertainment and informational purposes only. Hotel recommendations are based on quiz responses and may not reflect actual availability, pricing, or suitability. Always verify details directly with hotels before booking. This service is completely free with no hidden fees.
-            </div>
+            
         </div>
     </div>
     
@@ -397,5 +394,70 @@
             });
         };
     </script>
+<footer id="compliance-footer" style="width:100vw;max-width:none;position:fixed;left:0;bottom:0;text-align:center;font-size:0.78rem;color:#bbb;background:transparent;padding:4px 0 2px 0;box-shadow:none;border:none;z-index:100;letter-spacing:0.01em;">
+  <a href="#" id="privacy-link" style="color:#8ca0b3;text-decoration:none;margin:0 6px;cursor:pointer;transition:color 0.2s;">Privacy Policy</a>
+  <span style="color:#ddd;">|</span>
+  <a href="#" id="tos-link" style="color:#8ca0b3;text-decoration:none;margin:0 6px;cursor:pointer;transition:color 0.2s;">Terms of Service</a>
+  <span style="color:#ddd;">|</span>
+  <a href="#" id="affiliate-link" style="color:#8ca0b3;text-decoration:none;margin:0 6px;cursor:pointer;transition:color 0.2s;">Affiliate Disclosure</a>
+</footer>
+<style>
+#compliance-footer a:hover { color: #0078ff; text-decoration:underline; }
+</style>
+<!-- Modals for compliance info -->
+<div id="privacy-modal" class="compliance-modal" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.45);z-index:1000;align-items:center;justify-content:center;">
+  <div style="background:#fff;max-width:480px;margin:40px auto;padding:32px 28px 24px 28px;border-radius:14px;box-shadow:0 4px 24px rgba(0,0,0,0.13);position:relative;">
+    <button onclick="closeComplianceModal('privacy-modal')" style="position:absolute;top:12px;right:18px;background:none;border:none;font-size:1.7rem;cursor:pointer;color:#888;">×</button>
+    <h2 style="color:#0078ff;font-size:1.3rem;margin-bottom:12px;">Privacy Policy</h2>
+    <div style="text-align:left;font-size:1.01rem;color:#444;line-height:1.7;">
+      We do not collect or store any personal information. Quiz answers are used only to generate your hotel match and are not saved. No names, emails, or contact details are collected. We do not use cookies or tracking scripts for marketing purposes.<br><br>
+      <strong>Affiliate Links & Third-Party Sites:</strong> Some links on this site may redirect you to third-party websites (such as hotel booking partners) for booking or more information. We may earn a commission if you make a purchase, at no extra cost to you. We are not responsible for the privacy practices or content of these external sites.
+    </div>
+  </div>
+</div>
+<div id="tos-modal" class="compliance-modal" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.45);z-index:1000;align-items:center;justify-content:center;">
+  <div style="background:#fff;max-width:480px;margin:40px auto;padding:32px 28px 24px 28px;border-radius:14px;box-shadow:0 4px 24px rgba(0,0,0,0.13);position:relative;">
+    <button onclick="closeComplianceModal('tos-modal')" style="position:absolute;top:12px;right:18px;background:none;border:none;font-size:1.7rem;cursor:pointer;color:#888;">×</button>
+    <h2 style="color:#0078ff;font-size:1.3rem;margin-bottom:12px;">Terms of Service</h2>
+    <div style="text-align:left;font-size:1.01rem;color:#444;line-height:1.7;">
+      This quiz is for entertainment and informational purposes only. Hotel recommendations are based on your answers and may not reflect actual availability or pricing. Always verify details with the hotel or booking site before booking. Use of this site constitutes acceptance of these terms.<br><br>
+      <strong>Affiliate Links & Redirects:</strong> This site contains affiliate links. If you click a hotel booking link, you may be redirected to a third-party website (such as Expedia) to complete your booking. We may earn a commission if you make a purchase, at no extra cost to you. We are not responsible for the content or services of third-party sites.
+    </div>
+  </div>
+</div>
+<div id="affiliate-modal" class="compliance-modal" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.45);z-index:1000;align-items:center;justify-content:center;">
+  <div style="background:#fff;max-width:480px;margin:40px auto;padding:32px 28px 24px 28px;border-radius:14px;box-shadow:0 4px 24px rgba(0,0,0,0.13);position:relative;">
+    <button onclick="closeComplianceModal('affiliate-modal')" style="position:absolute;top:12px;right:18px;background:none;border:none;font-size:1.7rem;cursor:pointer;color:#888;">×</button>
+    <h2 style="color:#0078ff;font-size:1.3rem;margin-bottom:12px;">Affiliate Disclosure</h2>
+    <div style="text-align:left;font-size:1.01rem;color:#444;line-height:1.7;">
+      We may earn a small commission if you book through our links, at no extra cost to you. This helps support the site and keep the quiz free. We only recommend hotels based on your quiz answers, not on commission rates.
+    </div>
+  </div>
+</div>
+<script>
+// Compliance modal logic
+function closeComplianceModal(id) {
+  document.getElementById(id).style.display = 'none';
+}
+document.getElementById('privacy-link').onclick = function(e) {
+  e.preventDefault();
+  document.getElementById('privacy-modal').style.display = 'flex';
+};
+document.getElementById('tos-link').onclick = function(e) {
+  e.preventDefault();
+  document.getElementById('tos-modal').style.display = 'flex';
+};
+document.getElementById('affiliate-link').onclick = function(e) {
+  e.preventDefault();
+  document.getElementById('affiliate-modal').style.display = 'flex';
+};
+document.querySelectorAll('.compliance-modal').forEach(function(modal) {
+  modal.addEventListener('click', function(e) {
+    if (e.target === modal) {
+      modal.style.display = 'none';
+    }
+  });
+});
+</script>
 </body>
 </html> 
