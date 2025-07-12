@@ -314,7 +314,23 @@
                 height: 24px;
             }
         }
-    </style>
+    
+        @media (max-width: 480px) {
+          .compliance-modal > div {
+            max-width: 95vw !important;
+            margin: 10px auto !important;
+            padding: 20px 16px 16px 16px !important;
+          }
+          .compliance-modal h2 {
+            font-size: 1.1rem !important;
+            margin-bottom: 8px !important;
+          }
+          .compliance-modal div[style*="text-align:left"] {
+            font-size: 0.9rem !important;
+            line-height: 1.5 !important;
+          }
+        }
+</style>
 
     
     
@@ -394,37 +410,56 @@
             });
         };
     </script>
-<footer id="compliance-footer" style="width:100vw;max-width:none;position:fixed;left:0;bottom:0;text-align:center;font-size:0.92rem;color:#aaa;background:rgba(255,255,255,0.97);padding:10px 0 8px 0;box-shadow:0 -2px 10px rgba(0,0,0,0.04);border-top:1.5px solid #eee;z-index:100;">
-  <a href="#" id="privacy-link" style="color:#0078ff;text-decoration:underline;margin:0 8px 0 8px;cursor:pointer;">Privacy Policy</a>
-  <span style="color:#bbb;">|</span>
-  <a href="#" id="tos-link" style="color:#0078ff;text-decoration:underline;margin:0 8px 0 8px;cursor:pointer;">Terms of Service</a>
-  <span style="color:#bbb;">|</span>
-  <a href="#" id="affiliate-link" style="color:#0078ff;text-decoration:underline;margin:0 8px 0 8px;cursor:pointer;">Affiliate Disclosure</a>
+<footer id="compliance-footer" style="width:100vw;max-width:none;position:fixed;left:0;bottom:0;text-align:center;font-size:0.78rem;color:#bbb;background:transparent;padding:4px 0 2px 0;box-shadow:none;border:none;z-index:100;letter-spacing:0.01em;">
+  <a href="#" id="privacy-link" style="color:#8ca0b3;text-decoration:none;margin:0 6px;cursor:pointer;transition:color 0.2s;">Privacy Policy</a>
+  <span style="color:#ddd;">|</span>
+  <a href="#" id="tos-link" style="color:#8ca0b3;text-decoration:none;margin:0 6px;cursor:pointer;transition:color 0.2s;">Terms of Service</a>
+  <span style="color:#ddd;">|</span>
+  <a href="#" id="affiliate-link" style="color:#8ca0b3;text-decoration:none;margin:0 6px;cursor:pointer;transition:color 0.2s;">Affiliate Disclosure</a>
 </footer>
+<style>
+#compliance-footer a:hover { color: #0078ff; text-decoration:underline; }
+
+        @media (max-width: 480px) {
+          .compliance-modal > div {
+            max-width: 95vw !important;
+            margin: 10px auto !important;
+            padding: 20px 16px 16px 16px !important;
+          }
+          .compliance-modal h2 {
+            font-size: 1.1rem !important;
+            margin-bottom: 8px !important;
+          }
+          .compliance-modal div[style*="text-align:left"] {
+            font-size: 0.9rem !important;
+            line-height: 1.5 !important;
+          }
+        }
+</style>
 <!-- Modals for compliance info -->
 <div id="privacy-modal" class="compliance-modal" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.45);z-index:1000;align-items:center;justify-content:center;">
-  <div style="background:#fff;max-width:480px;margin:40px auto;padding:32px 28px 24px 28px;border-radius:14px;box-shadow:0 4px 24px rgba(0,0,0,0.13);position:relative;">
+  <div style="background:#fff;max-width:480px;margin:20px auto;padding:24px 20px 20px 20px;border-radius:14px;box-shadow:0 4px 24px rgba(0,0,0,0.13);position:relative;">
     <button onclick="closeComplianceModal('privacy-modal')" style="position:absolute;top:12px;right:18px;background:none;border:none;font-size:1.7rem;cursor:pointer;color:#888;">×</button>
-    <h2 style="color:#0078ff;font-size:1.3rem;margin-bottom:12px;">Privacy Policy</h2>
-    <div style="text-align:left;font-size:1.01rem;color:#444;line-height:1.7;">
+    <h2 style="color:#0078ff;font-size:1.2rem;margin-bottom:10px;">Privacy Policy</h2>
+    <div style="text-align:left;font-size:0.95rem;color:#444;line-height:1.6;">
       We do not collect or store any personal information. Quiz answers are used only to generate your hotel match and are not saved. No names, emails, or contact details are collected. We do not use cookies or tracking scripts for marketing purposes.<br><br>
       <strong>Affiliate Links & Third-Party Sites:</strong> Some links on this site may redirect you to third-party websites (such as hotel booking partners) for booking or more information. We may earn a commission if you make a purchase, at no extra cost to you. We are not responsible for the privacy practices or content of these external sites.
     </div>
   </div>
 </div>
 <div id="tos-modal" class="compliance-modal" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.45);z-index:1000;align-items:center;justify-content:center;">
-  <div style="background:#fff;max-width:480px;margin:40px auto;padding:32px 28px 24px 28px;border-radius:14px;box-shadow:0 4px 24px rgba(0,0,0,0.13);position:relative;">
+  <div style="background:#fff;max-width:480px;margin:20px auto;padding:24px 20px 20px 20px;border-radius:14px;box-shadow:0 4px 24px rgba(0,0,0,0.13);position:relative;">
     <button onclick="closeComplianceModal('tos-modal')" style="position:absolute;top:12px;right:18px;background:none;border:none;font-size:1.7rem;cursor:pointer;color:#888;">×</button>
-    <h2 style="color:#0078ff;font-size:1.3rem;margin-bottom:12px;">Terms of Service</h2>
-    <div style="text-align:left;font-size:1.01rem;color:#444;line-height:1.7;">This quiz is for entertainment and informational purposes only. Hotel recommendations are based on your answers and may not reflect actual availability, pricing, or suitability. Always verify details directly with hotels before booking. This service is completely free with no hidden fees.<br><br>
+    <h2 style="color:#0078ff;font-size:1.2rem;margin-bottom:10px;">Terms of Service</h2>
+    <div style="text-align:left;font-size:0.95rem;color:#444;line-height:1.6;">This quiz is for entertainment and informational purposes only. Hotel recommendations are based on your answers and may not reflect actual availability, pricing, or suitability. Always verify details directly with hotels before booking. This service is completely free with no hidden fees.<br><br>
 <strong>Affiliate Links & Redirects:</strong> This site contains affiliate links. If you click a hotel booking link, you may be redirected to a third-party website (such as Expedia) to complete your booking. We may earn a commission if you make a purchase, at no extra cost to you. We are not responsible for the content or services of third-party sites.</div>
   </div>
 </div>
 <div id="affiliate-modal" class="compliance-modal" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.45);z-index:1000;align-items:center;justify-content:center;">
-  <div style="background:#fff;max-width:480px;margin:40px auto;padding:32px 28px 24px 28px;border-radius:14px;box-shadow:0 4px 24px rgba(0,0,0,0.13);position:relative;">
+  <div style="background:#fff;max-width:480px;margin:20px auto;padding:24px 20px 20px 20px;border-radius:14px;box-shadow:0 4px 24px rgba(0,0,0,0.13);position:relative;">
     <button onclick="closeComplianceModal('affiliate-modal')" style="position:absolute;top:12px;right:18px;background:none;border:none;font-size:1.7rem;cursor:pointer;color:#888;">×</button>
-    <h2 style="color:#0078ff;font-size:1.3rem;margin-bottom:12px;">Affiliate Disclosure</h2>
-    <div style="text-align:left;font-size:1.01rem;color:#444;line-height:1.7;">
+    <h2 style="color:#0078ff;font-size:1.2rem;margin-bottom:10px;">Affiliate Disclosure</h2>
+    <div style="text-align:left;font-size:0.95rem;color:#444;line-height:1.6;">
       We may earn a small commission if you book through our links, at no extra cost to you. This helps support the site and keep the quiz free. We only recommend hotels based on your quiz answers, not on commission rates.
     </div>
   </div>
